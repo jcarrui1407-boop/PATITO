@@ -1,0 +1,435 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Para mi Patito | Con Amor</title>
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/css/bootstrap.min.css" rel="stylesheet">
+    <link href="https://fonts.googleapis.com/css2?family=Dancing+Script:wght@700&family=Playfair+Display:ital,wght@0,400;1,700&family=Montserrat:wght@300;400;600&display=swap" rel="stylesheet">
+    
+    <style>
+        :root {
+            --gold: #d4af37;
+            --love-red: #ff4d6d;
+            --glass: rgba(0, 0, 0, 0.75);
+        }
+
+        body {
+            background: linear-gradient(rgba(0,0,0,0.6), rgba(0,0,0,0.6)), 
+                        url("https://images.unsplash.com/photo-1518199266791-5375a83190b7");
+            background-size: cover;
+            background-position: center;
+            background-attachment: fixed;
+            color: #fff;
+            min-height: 100vh;
+            font-family: 'Montserrat', sans-serif;
+            margin: 0;
+            overflow-x: hidden;
+            cursor: pointer;
+        }
+
+        .container { max-width: 900px; padding: 40px 20px; text-align: center; }
+
+        h1 { font-family: 'Dancing Script', cursive; font-size: clamp(2.5rem, 8vw, 5rem); color: #ff85a1; margin-bottom: 2rem; text-shadow: 2px 2px 10px rgba(0,0,0,0.5); }
+
+        .main-nav {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(110px, 1fr));
+            gap: 10px;
+            margin-bottom: 30px;
+        }
+
+        .btn-custom {
+            background: rgba(255, 255, 255, 0.1);
+            backdrop-filter: blur(10px);
+            border: 1px solid rgba(255,255,255,0.2);
+            color: white;
+            padding: 12px;
+            border-radius: 10px;
+            transition: 0.3s;
+            font-size: 0.65rem;
+            letter-spacing: 1px;
+            text-transform: uppercase;
+            font-weight: 600;
+        }
+
+        .btn-custom:hover { background: var(--love-red); border-color: var(--love-red); transform: translateY(-3px); }
+
+        .content-section {
+            display: none;
+            background: var(--glass);
+            backdrop-filter: blur(15px);
+            padding: 35px;
+            border-radius: 25px;
+            border: 1px solid rgba(255,255,255,0.1);
+            animation: fadeIn 0.5s ease;
+        }
+
+        /* TRES EN RAYA */
+        .tic-tac-toe {
+            display: grid;
+            grid-template-columns: repeat(3, 85px);
+            grid-template-rows: repeat(3, 85px);
+            gap: 12px;
+            justify-content: center;
+            margin: 20px auto;
+        }
+
+        .cell {
+            background: rgba(255, 255, 255, 0.05);
+            border: 2px solid var(--love-red);
+            border-radius: 12px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 2.2rem;
+            cursor: pointer;
+            transition: 0.3s;
+        }
+
+        /* SOPA DE LETRAS */
+        .word-search-container {
+            margin-top: 50px;
+            padding-top: 30px;
+            border-top: 1px solid rgba(255,255,255,0.2);
+        }
+
+        .ws-grid {
+            display: grid;
+            grid-template-columns: repeat(10, 32px);
+            gap: 4px;
+            justify-content: center;
+            margin: 20px auto;
+        }
+
+        .ws-cell {
+            width: 32px;
+            height: 32px;
+            background: rgba(255,255,255,0.1);
+            border: 1px solid rgba(255,255,255,0.2);
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-weight: bold;
+            font-size: 0.9rem;
+            cursor: pointer;
+            border-radius: 4px;
+            transition: 0.2s;
+        }
+
+        .ws-cell.selected { background: var(--gold); color: black; border-color: white; }
+        .ws-cell.found { background: #28a745; color: white; border-color: #fff; pointer-events: none; }
+
+        #final-proposal {
+            display: none;
+            margin-top: 30px;
+            padding: 20px;
+            background: rgba(212, 175, 51, 0.15);
+            border: 2px dashed var(--gold);
+            border-radius: 15px;
+            animation: pulse 2s infinite;
+        }
+
+        @keyframes pulse {
+            0% { transform: scale(1); }
+            50% { transform: scale(1.05); }
+            100% { transform: scale(1); }
+        }
+
+        #game-message {
+            display: none;
+            background: rgba(0, 0, 0, 0.9);
+            padding: 30px;
+            border-radius: 20px;
+            border: 2px solid var(--gold);
+            margin-top: 25px;
+            box-shadow: 0 0 30px rgba(212, 175, 51, 0.4);
+            text-align: left;
+        }
+
+        .heart-particle {
+            position: fixed;
+            color: var(--love-red);
+            pointer-events: none;
+            z-index: 9999;
+            font-size: 1.2rem;
+            animation: heartExplode 1.5s ease-out forwards;
+        }
+
+        @keyframes heartExplode {
+            0% { transform: translate(0, 0) scale(0); opacity: 0; }
+            20% { opacity: 1; }
+            100% { transform: translate(var(--x), var(--y)) scale(1.2); opacity: 0; }
+        }
+
+        .table-container { max-height: 400px; overflow-y: auto; border-radius: 10px; border: 1px solid rgba(255,255,255,0.1); }
+        .table-love { color: #eee; font-size: 0.9rem; margin-bottom: 0; }
+        .table-love thead th { position: sticky; top: 0; background: #222; z-index: 10; color: var(--love-red); }
+
+        @keyframes fadeIn { from { opacity: 0; transform: translateY(20px); } to { opacity: 1; transform: translateY(0); } }
+    </style>
+</head>
+<body onclick="createHeartShape(event)">
+
+    <div class="container">
+        <h1>Para mi Patito 🦆❤️</h1>
+        
+        <nav class="main-nav">
+            <button class="btn-custom" onclick="showSection('sec-poemas')">📜 Poemas</button>
+            <button class="btn-custom" onclick="showSection('sec-juego')">🎮 Juego</button>
+            <button class="btn-custom" onclick="showSection('sec-idiomas')">🌍 Idiomas</button>
+            <button class="btn-custom" onclick="showSection('sec-rock')">🎸 Rock</button>
+            <button class="btn-custom" onclick="showSection('sec-carta')">🎁 Regalo</button>
+        </nav>
+
+        <div id="sec-juego" class="content-section">
+            <h2 style="font-family: 'Dancing Script'; color: #ff85a1;">1. Tres en Raya del Amor</h2>
+            <div class="tic-tac-toe" id="board">
+                <div class="cell" onclick="makeMove(this, 0)"></div>
+                <div class="cell" onclick="makeMove(this, 1)"></div>
+                <div class="cell" onclick="makeMove(this, 2)"></div>
+                <div class="cell" onclick="makeMove(this, 3)"></div>
+                <div class="cell" onclick="makeMove(this, 4)"></div>
+                <div class="cell" onclick="makeMove(this, 5)"></div>
+                <div class="cell" onclick="makeMove(this, 6)"></div>
+                <div class="cell" onclick="makeMove(this, 7)"></div>
+                <div class="cell" onclick="makeMove(this, 8)"></div>
+            </div>
+            <button class="btn btn-sm btn-outline-secondary mt-2" onclick="resetGame()">Reiniciar Tres en Raya</button>
+            
+            <div id="game-message">
+                <h4 style="color: var(--gold); font-family: 'Dancing Script'; font-size: 2.5rem; text-align: center;">¡Mi corazón es tuyo! 🏆❤️</h4>
+                <hr style="border-color: var(--gold); opacity: 0.5;">
+                <div class="mt-3" style="line-height: 1.8; font-weight: 300; font-style: italic; font-size: 1.05rem;">
+                    <p>Sabes, Patito... dicen que en el Tres en Raya siempre hay alguien que gana y alguien que pierde, pero desde que estás en mi vida, yo siento que gané el premio más grande que el destino me podía ofrecer.</p>
+                    <p>Al igual que en este tablero, donde cada movimiento ha sido pensado con cuidado, en nuestra historia cada paso que hemos dado, cada mirada compartida, cada risa que se nos escapa y cada reto que hemos superado juntos, ha ido construyendo este amor tan único y puro que nos une. No importa cuántas veces juguemos, mi elección siempre será la misma: ¡tú!</p>
+                    <p>Recuerda siempre esto: En este pequeño juego, hoy has ganado tú, pero en la vida real, el que gana soy yo cada vez que me regalas una sonrisa. Te amo con toda mi alma, mi preciosa Patito.</p>
+                </div>
+                <p class="text-end" style="font-family: 'Dancing Script'; font-size: 1.8rem; color: var(--gold);">— Con amor eterno, Javi</p>
+            </div>
+
+            <div class="word-search-container">
+                <h2 style="font-family: 'Dancing Script'; color: #ff85a1;">2. Sopa de Letras Especial</h2>
+                <p class="small opacity-75">Selecciona las letras para encontrar las palabras ocultas</p>
+                <div class="ws-grid" id="ws-grid"></div>
+                
+                <div id="word-list-display" class="d-flex justify-content-center gap-2 flex-wrap mt-2">
+                    </div>
+
+                <div id="final-proposal">
+                    <h3 style="font-family: 'Dancing Script'; color: var(--gold); font-size: 2.5rem;">¿Quieres seguir siendo mi novia? 💍❤️</h3>
+                    <p>Has encontrado todas las palabras de mi corazón.</p>
+                </div>
+
+                <button class="btn btn-sm btn-outline-secondary mt-4" onclick="initWordSearch()">Reiniciar Sopa</button>
+            </div>
+        </div>
+
+        <div id="sec-poemas" class="content-section">
+            <h2 style="font-family: 'Dancing Script'; color: #ff85a1;">Versos para ti</h2>
+            <div class="d-flex justify-content-center gap-2 mt-3">
+                <button class="btn btn-outline-light" onclick="showPoema(1)">I</button>
+                <button class="btn btn-outline-light" onclick="showPoema(2)">II</button>
+                <button class="btn btn-outline-light" onclick="showPoema(3)">III</button>
+            </div>
+            <div id="display-poema" class="mt-4 p-3 italic fs-5"></div>
+        </div>
+
+        <div id="sec-idiomas" class="content-section">
+            <h2 style="font-family: 'Dancing Script'; color: #ff85a1;">Te amo en el mundo</h2>
+            <div class="table-container mt-3">
+                <table class="table table-dark table-love table-hover">
+                    <thead><tr><th>Idioma</th><th>Traducción</th></tr></thead>
+                    <tbody id="lista-idiomas"></tbody>
+                </table>
+            </div>
+        </div>
+
+        <div id="sec-rock" class="content-section text-start">
+            <h2 class="text-center" style="font-family: 'Dancing Script'; color: #ff85a1;">Rocker Playlist</h2>
+            <div class="mt-4">
+                <p>🤘 <strong>Sweet Child O' Mine</strong> - Guns N' Roses</p>
+                <p>🔥 <strong>Still Loving You</strong> - Scorpions</p>
+                <p>✨ <strong>I Don't Want to Miss a Thing</strong> - Aerosmith</p>
+            </div>
+        </div>
+
+        <div id="sec-carta" class="content-section text-start">
+            <h2 class="text-center" style="font-family: 'Dancing Script'; color: var(--gold); font-size: 3rem;">Carta de Javi</h2>
+            <div class="mt-4" style="line-height: 1.8; border-left: 3px solid var(--gold); padding-left: 20px;">
+                <p>Mi querida Patito,</p>
+                <p>He creado este rincón digital para que nunca olvides lo mucho que significas para mí. Eres la melodía más increíble de mi canción de rock favorita, la fuerza que me empuja y la calma que necesito al final del día.</p>
+                <p>Decirte "te amo" en un solo idioma me parecía poco, por eso quería que lo vieras en todas sus formas posibles. Gracias por ser mi compañera de vida, por aguantar mis locuras y por hacerme el Javi más feliz del mundo cada vez que me sonríes.</p>
+                <p class="fs-4 text-center mt-4" style="font-family: 'Dancing Script';">Te amo infinitamente. ❤️</p>
+                <p class="text-end"><strong>— Javi</strong></p>
+            </div>
+        </div>
+    </div>
+
+    <script>
+        function showSection(id) {
+            document.querySelectorAll('.content-section').forEach(s => s.style.display = 'none');
+            document.getElementById(id).style.display = 'block';
+            if(id === 'sec-juego') setTimeout(initWordSearch, 100);
+        }
+
+        function createHeartShape(e) {
+            const centerX = e.clientX; const centerY = e.clientY; const totalParticles = 18;
+            for (let i = 0; i < totalParticles; i++) {
+                const h = document.createElement("div"); h.className = "heart-particle"; h.innerHTML = "❤";
+                h.style.left = centerX + "px"; h.style.top = centerY + "px";
+                const angle = (i / totalParticles) * Math.PI * 2;
+                const x = 16 * Math.pow(Math.sin(angle), 3);
+                const y = -(13 * Math.cos(angle) - 5 * Math.cos(2 * angle) - 2 * Math.cos(3 * angle) - Math.cos(4 * angle));
+                const scale = 7; h.style.setProperty('--x', `${x * scale}px`); h.style.setProperty('--y', `${y * scale}px`);
+                document.body.appendChild(h); setTimeout(() => h.remove(), 1500);
+            }
+        }
+
+        // SOPA DE LETRAS PERSONALIZADA
+        const words = ["QUIERES", "SEGUIR", "SIENDO", "MI", "NOVIA"];
+        let wordsFound = [];
+        const size = 10;
+
+        function initWordSearch() {
+            const grid = document.getElementById('ws-grid');
+            const wordListDiv = document.getElementById('word-list-display');
+            const proposal = document.getElementById('final-proposal');
+            if(!grid) return;
+            
+            grid.innerHTML = '';
+            wordListDiv.innerHTML = '';
+            proposal.style.display = 'none';
+            wordsFound = [];
+
+            // Mostrar lista de palabras a buscar
+            words.forEach(w => {
+                const span = document.createElement('span');
+                span.className = 'badge border border-secondary p-2 m-1';
+                span.id = 'word-' + w;
+                span.innerText = w;
+                wordListDiv.appendChild(span);
+            });
+
+            const matrix = Array(size).fill().map(() => Array(size).fill(''));
+            const cellStatus = Array(size).fill().map(() => Array(size).fill(false));
+
+            // Colocar palabras horizontalmente de forma aleatoria
+            words.forEach(w => {
+                let placed = false;
+                while(!placed) {
+                    let r = Math.floor(Math.random() * size);
+                    let c = Math.floor(Math.random() * (size - w.length));
+                    if(matrix[r].slice(c, c+w.length).every(cell => cell === '')) {
+                        for(let i=0; i<w.length; i++) {
+                            matrix[r][c+i] = w[i];
+                            cellStatus[r][c+i] = true; // Marcar como celda de palabra
+                        }
+                        placed = true;
+                    }
+                }
+            });
+
+            // Rellenar y crear elementos
+            for(let r=0; r<size; r++) {
+                for(let c=0; c<size; c++) {
+                    if(matrix[r][c] === '') matrix[r][c] = "ABCDEFGHIJKLMNOPQRSTUVWXYZ"[Math.floor(Math.random()*26)];
+                    const div = document.createElement('div');
+                    div.className = 'ws-cell';
+                    div.innerText = matrix[r][c];
+                    
+                    // Lógica de click
+                    div.onclick = function() {
+                        this.classList.toggle('selected');
+                        checkFoundWords();
+                    };
+                    
+                    div.dataset.isWord = cellStatus[r][c];
+                    div.dataset.letter = matrix[r][c];
+                    grid.appendChild(div);
+                }
+            }
+        }
+
+        function checkFoundWords() {
+            const selectedCells = document.querySelectorAll('.ws-cell.selected');
+            let selectedText = Array.from(selectedCells).map(c => c.innerText).join('');
+            
+            words.forEach(w => {
+                if(!wordsFound.includes(w)) {
+                    // Verificamos si la palabra está contenida en la selección (muy simplificado para que ella lo logre fácil)
+                    if(selectedText.includes(w)) {
+                        wordsFound.push(w);
+                        document.getElementById('word-' + w).classList.replace('border-secondary', 'bg-success');
+                        selectedCells.forEach(c => {
+                             if(w.includes(c.dataset.letter)) c.classList.add('found');
+                        });
+                    }
+                }
+            });
+
+            if(wordsFound.length === words.length) {
+                document.getElementById('final-proposal').style.display = 'block';
+                for(let i=0; i<3; i++) setTimeout(() => createHeartShape({clientX: window.innerWidth/2, clientY: window.innerHeight/2}), i*400);
+            }
+        }
+
+        // TRES EN RAYA
+        let board = ["", "", "", "", "", "", "", "", ""];
+        let gameActive = true;
+        function makeMove(cell, index) {
+            if (board[index] === "" && gameActive) {
+                board[index] = "❤️"; cell.innerText = "❤️"; checkWinner();
+                if (gameActive) setTimeout(computerMove, 500);
+            }
+        }
+        function computerMove() {
+            let empty = board.map((v, i) => v === "" ? i : null).filter(v => v !== null);
+            if (empty.length > 0 && gameActive) {
+                let r = empty[Math.floor(Math.random() * empty.length)];
+                board[r] = "🦆"; document.querySelectorAll('.cell')[r].innerText = "🦆"; checkWinner();
+            }
+        }
+        function checkWinner() {
+            const win = [[0,1,2],[3,4,5],[6,7,8],[0,3,6],[1,4,7],[2,5,8],[0,4,8],[2,4,6]];
+            for (let c of win) {
+                let [a, b, c1] = c;
+                if (board[a] && board[a] === board[b] && board[a] === board[c1]) {
+                    gameActive = false;
+                    if (board[a] === "❤️") {
+                        document.getElementById('game-message').style.display = 'block';
+                        for(let i=0; i<5; i++) setTimeout(() => createHeartShape({clientX: window.innerWidth/2, clientY: window.innerHeight/2}), i*300);
+                    }
+                    return;
+                }
+            }
+        }
+        function resetGame() {
+            board = ["", "", "", "", "", "", "", "", ""]; gameActive = true;
+            document.querySelectorAll('.cell').forEach(c => c.innerText = "");
+            document.getElementById('game-message').style.display = 'none';
+        }
+
+        // IDIOMAS (50+)
+        const idiomasData = [
+            ["Español", "Te amo"], ["Inglés", "I love you"], ["Francés", "Je t'aime"], ["Italiano", "Ti amo"], ["Alemán", "Ich liebe dich"],
+            ["Portugués", "Eu te amo"], ["Japonés", "Aishiteru"], ["Coreano", "Saranghae"], ["Ruso", "Ya tebya lyublyu"], ["Árabe", "Ana behibak"],
+            ["Chino Mandarín", "Wǒ ài nǐ"], ["Griego", "Se agapó"], ["Holandés", "Ik hou van jou"], ["Sueco", "Jag älskar dig"], ["Turco", "Seni seviyorum"],
+            ["Polaco", "Kocham Cię"], ["Hindi", "Main tumse pyar karta hoon"], ["Tailandés", "Phom rak khun"], ["Vietnamita", "Anh yêu em"], ["Hebreo", "Ani ohev otach"],
+            ["Catalán", "T'estimo"], ["Euskera", "Maite zaitut"], ["Gallego", "Ámote"], ["Latín", "Te amo"], ["Esperanto", "Mi amas vin"],
+            ["Hawaiano", "Aloha Au Ia 'Oe"], ["Tagalo", "Mahal kita"], ["Suajili", "Nakupenda"], ["Islandés", "Ég elska þig"], ["Checo", "Miluji tě"],
+            ["Finlandés", "Minä rakastan sinua"], ["Húngaro", "Szeretlek"], ["Rumano", "Te iubesc"], ["Danés", "Jeg elsker dig"], ["Noruego", "Jeg elsker deg"],
+            ["Ucraniano", "Ya tebe lyublyu"], ["Indonesio", "Aku cinta kamu"], ["Bengalí", "Aami tomake bhalobashi"], ["Persa", "Doostat daram"], ["Afrikáans", "Ek het jou lief"],
+            ["Albanés", "Te dua"], ["Armenio", "Yes kez sirum yem"], ["Bosnio", "Volim te"], ["Búlgaro", "Obicham te"], ["Croata", "Volim te"],
+            ["Estonio", "Ma armastan sind"], ["Gaélico", "Tha gaol agam ort"], ["Lituano", "Aš tave myliu"], ["Programación (JS)", "console.log('Te Amo');"], ["Binario", "01010100 01000101 20 01000001 01001101 01001111"]
+        ];
+        const tbody = document.getElementById('lista-idiomas');
+        if(tbody) idiomasData.forEach(i => { tbody.innerHTML += `<tr><td>${i[0]}</td><td>${i[1]}</td></tr>`; });
+
+        const poemas = { 1: "En un mundo de ruidos, tu voz es mi música favorita.", 2: "Ni todas las guitarras podrían tocar una melodía tan bella como tu sonrisa.", 3: "Si la vida es un escenario, no quiero que la función termine si estás tú." };
+        function showPoema(n) { document.getElementById('display-poema').innerHTML = poemas[n]; }
+        
+        showSection('sec-poemas');
+    </script>
+</body>
+</html>
