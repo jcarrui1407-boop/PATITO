@@ -3,147 +3,269 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Para mi Patito | San Valentín</title>
-    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/css/bootstrap.min.css" rel="stylesheet">
-    <link href="https://fonts.googleapis.com/css2?family=Dancing+Script:wght@700&family=Montserrat:wght@300;400;600&display=swap" rel="stylesheet">
-    
+    <title>Solo para mi Patito ❤️</title>
+    <link href="https://fonts.googleapis.com/css2?family=Dancing+Script:wght@700&family=Montserrat:wght@300;600&display=swap" rel="stylesheet">
     <style>
         :root {
-            --primary-love: #ff4d6d;
-            --secondary-love: #ff85a1;
-            --soft-pink: #fecfef;
+            --gold: #d4af37;
+            --love-red: #ff0000;
+            --glass: rgba(0, 0, 0, 0.85);
         }
 
         body {
-            background: radial-gradient(circle, #ff9a9e 0%, #fecfef 100%);
-            height: 100vh;
-            display: flex;
-            align-items: center;
-            justify-content: center;
-            font-family: 'Montserrat', sans-serif;
             margin: 0;
+            background: #000;
+            color: #fff;
+            font-family: 'Montserrat', sans-serif;
+            overflow: hidden;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            height: 100vh;
+            transition: background 1.5s ease;
         }
 
-        .main-card {
-            background: rgba(255, 255, 255, 0.7);
-            backdrop-filter: blur(15px);
-            border: 1px solid rgba(255, 255, 255, 0.4);
-            padding: 3rem;
-            border-radius: 40px;
+        body.valentine-bg {
+            background: radial-gradient(circle, #ff4d6d 0%, #4a0000 100%);
+        }
+
+        canvas {
+            position: absolute;
+            top: 0;
+            left: 0;
+            z-index: 1;
+        }
+
+        #password-zone {
+            position: relative;
+            z-index: 10;
+            background: var(--glass);
+            backdrop-filter: blur(25px);
+            padding: 35px;
+            border-radius: 30px;
+            border: 2px solid var(--love-red);
             text-align: center;
-            box-shadow: 0 25px 45px rgba(0,0,0,0.1);
-            max-width: 550px;
-            width: 90%;
-            transition: transform 0.4s ease;
+            opacity: 0;
+            transform: scale(0.7);
+            transition: all 0.8s cubic-bezier(0.175, 0.885, 0.32, 1.275);
+            pointer-events: none;
+            box-shadow: 0 0 50px rgba(255, 0, 0, 0.4);
         }
 
-        h1 {
-            font-family: 'Dancing Script', cursive;
-            color: var(--primary-love);
-            font-size: 3.5rem;
-            margin-bottom: 1.5rem;
+        #password-zone.visible {
+            opacity: 1;
+            transform: scale(1);
+            pointer-events: auto;
         }
 
-        .subtitle {
-            font-weight: 300;
-            color: #555;
-            margin-bottom: 2.5rem;
-            letter-spacing: 1px;
-        }
-
-        .btn-love {
-            background: var(--primary-love);
+        h2 { font-family: 'Dancing Script', cursive; color: #fff; font-size: 2.8rem; margin: 0; text-shadow: 0 0 15px var(--love-red); }
+        
+        input {
+            background: rgba(255,255,255,0.05);
+            border: 1px solid var(--love-red);
+            padding: 12px;
+            border-radius: 12px;
             color: white;
-            padding: 15px 45px;
-            border-radius: 50px;
-            font-weight: 600;
+            text-align: center;
+            outline: none;
+            width: 240px;
+            margin: 20px 0;
+            font-size: 1.1rem;
+            letter-spacing: 2px;
+        }
+
+        .btn-unlock {
+            background: var(--love-red);
             border: none;
-            transition: all 0.3s ease;
-            text-decoration: none;
-            display: inline-block;
-            box-shadow: 0 10px 20px rgba(255, 77, 109, 0.3);
-        }
-
-        .btn-love:hover {
-            background: var(--secondary-love);
-            transform: translateY(-3px);
-            box-shadow: 0 15px 25px rgba(255, 77, 109, 0.4);
             color: white;
+            padding: 12px 30px;
+            border-radius: 12px;
+            cursor: pointer;
+            font-weight: 600;
+            text-transform: uppercase;
+            transition: 0.3s;
+            box-shadow: 0 4px 15px rgba(255, 0, 0, 0.5);
         }
 
-        .btn-no {
-            background: transparent;
-            color: #888;
-            padding: 15px 45px;
-            border-radius: 50px;
-            border: 1px solid #ccc;
-            transition: all 0.3s;
+        .btn-unlock:hover { transform: scale(1.1); background: #ff4d6d; }
+
+        #error-msg {
+            color: #ffb3c1;
+            font-size: 0.9rem;
+            margin-top: 15px;
+            min-height: 1.2em;
         }
 
-        .btn-no:hover {
-            background: #f8f9fa;
-            color: #444;
+        @keyframes shake {
+            0%, 100% { transform: translateX(0); }
+            25% { transform: translateX(-10px); }
+            75% { transform: translateX(10px); }
         }
-
-        /* Animación de entrada */
-        .fade-in {
-            animation: fadeIn 1.2s ease-out;
-        }
-
-        @keyframes fadeIn {
-            from { opacity: 0; transform: translateY(20px); }
-            to { opacity: 1; transform: translateY(0); }
+        
+        /* Efecto de salida */
+        .fade-out {
+            opacity: 0;
+            transform: scale(2);
+            transition: 1s all ease-in;
         }
     </style>
 </head>
 <body>
 
-    <div class="main-card fade-in">
-        <h1>¿Quieres pasar San Valentín conmigo, Patito?</h1>
-        <p class="subtitle">He preparado algo especial para los dos...</p>
-        
-        <div class="d-flex flex-column flex-md-row justify-content-center gap-3">
-            <a href="si.html" class="btn-love">💖 ¡Acepto!</a>
-            <button class="btn-no" onclick="intentarDeNuevo()">No 🙈</button>
-        </div>
-        
-        <p id="mensaje-error" class="mt-4 text-danger fw-bold" style="display: none;"></p>
+    <canvas id="sphereCanvas"></canvas>
+
+    <div id="password-zone">
+        <h2>Hola Patito... 🦆</h2>
+        <p style="font-size: 0.9rem; opacity: 0.9;">Introduce nuestra clave especial para entrar</p>
+        <input type="password" id="passInput" placeholder="••••••••••••">
+        <br>
+        <button class="btn-unlock" onclick="checkPass()">Abrir mi Corazón</button>
+        <div id="error-msg"></div>
     </div>
 
     <script>
-        // 
-        const mensajes = [
-            "¿Seguro/a? Piénsalo bien... 😏",
-            "Esa respuesta no es válida, Patito. 🦆",
-            "¡Inténtalo otra vez! Sé que quieres decir que sí. ✨",
-            "Error 404: El 'No' no existe en mi corazón. ❤️"
+        const canvas = document.getElementById('sphereCanvas');
+        const ctx = canvas.getContext('2d');
+        const passZone = document.getElementById('password-zone');
+        const errorMsg = document.getElementById('error-msg');
+        let width, height, particles = [];
+        let mouse = { x: -1000, y: -1000 };
+        let isInside = false;
+        let accessGranted = false;
+
+        const particleCount = 2000; 
+        const sphereRadius = 260;
+
+        const erroresPatito = [
+            "¡Casi, mi Patito! Intenta otra vez... ❤️",
+            "¿Te has olvidado, Patito? Piensa en nuestra fecha...",
+            "Esa no es la clave, Patito linda. 🦆",
+            "Solo el Patito verdadero sabe el secreto... ❤️"
         ];
-        let indice = 0;
 
-        function intentarDeNuevo() {
-            const errorElement = document.getElementById('mensaje-error');
-            errorElement.style.display = 'block';
-            errorElement.innerText = mensajes[indice];
-            indice = (indice + 1) % mensajes.length;
+        class Particle {
+            constructor() {
+                const u = Math.random();
+                const v = Math.random();
+                const theta = 2 * Math.PI * u;
+                const phi = Math.acos(2 * v - 1);
+                const r = Math.cbrt(Math.random()) * sphereRadius;
+
+                this.sx = r * Math.sin(phi) * Math.cos(theta);
+                this.sy = r * Math.sin(phi) * Math.sin(theta);
+                this.sz = r * Math.cos(phi);
+
+                this.x = width/2 + this.sx;
+                this.y = height/2 + this.sy;
+                
+                const t = Math.random() * Math.PI * 2;
+                this.hx = 16 * Math.pow(Math.sin(t), 3) * 16;
+                this.hy = -(13 * Math.cos(t) - 5 * Math.cos(2 * t) - 2 * Math.cos(3 * t) - Math.cos(4 * t)) * 16;
+                
+                const rojos = ['#ff0000', '#ee0000', '#ff2d55', '#ff4d6d', '#b30000'];
+                this.color = rojos[Math.floor(Math.random() * rojos.length)];
+                this.size = Math.random() * 2.5 + 0.5;
+            }
+
+            update(rot) {
+                let targetX, targetY;
+                
+                // Si el acceso es concedido, las partículas explotan hacia afuera
+                if (accessGranted) {
+                    this.x += (this.x - width/2) * 0.05;
+                    this.y += (this.y - height/2) * 0.05;
+                    return;
+                }
+
+                if (isInside) {
+                    targetX = width/2 + this.hx + (Math.random() - 0.5) * 5;
+                    targetY = height/2 + this.hy + (Math.random() - 0.5) * 5;
+                } else {
+                    const x1 = this.sx * Math.cos(rot) - this.sz * Math.sin(rot);
+                    const z1 = this.sx * Math.sin(rot) + this.sz * Math.cos(rot);
+                    const y1 = this.sy * Math.cos(rot) - z1 * Math.sin(rot);
+                    targetX = width/2 + x1;
+                    targetY = height/2 + y1;
+                }
+                this.x += (targetX - this.x) * 0.08;
+                this.y += (targetY - this.y) * 0.08;
+            }
+
+            draw() {
+                ctx.fillStyle = this.color;
+                ctx.beginPath();
+                ctx.arc(this.x, this.y, this.size, 0, Math.PI * 2);
+                ctx.fill();
+            }
+        }
+
+        function init() {
+            width = canvas.width = window.innerWidth;
+            height = canvas.height = window.innerHeight;
+            particles = [];
+            for (let i = 0; i < particleCount; i++) particles.push(new Particle());
+        }
+
+        let rotation = 0;
+        function animate() {
+            ctx.clearRect(0, 0, width, height);
+            rotation += 0.007;
+            const dist = Math.hypot(mouse.x - width/2, mouse.y - height/2);
             
-            // Pequeño efecto de vibración
+            if (!accessGranted) {
+                if (dist < 180) {
+                    if(!isInside) {
+                        isInside = true;
+                        document.body.classList.add('valentine-bg');
+                        passZone.classList.add('visible');
+                    }
+                } else if (dist > 350) {
+                    if(isInside) {
+                        isInside = false;
+                        document.body.classList.remove('valentine-bg');
+                        passZone.classList.remove('visible');
+                        errorMsg.innerText = "";
+                    }
+                }
+            }
 
-            document.querySelector('.main-card').style.animation = 'none';
-            setTimeout(() => {
-                document.querySelector('.main-card').style.animation = 'vibrar 0.3s';
-            }, 10);
+            particles.forEach(p => {
+                p.update(rotation);
+                p.draw();
+            });
+
+            requestAnimationFrame(animate);
         }
+
+        function checkPass() {
+            const pass = document.getElementById('passInput').value;
+            if(pass === "Patito130725") {
+                accessGranted = true;
+                errorMsg.style.color = "#fff";
+                errorMsg.innerText = "❤️ ¡Correcto! Entrando en nuestro mundo... ❤️";
+                passZone.style.pointerEvents = "none";
+                
+                // Efecto de desvanecimiento y redirección
+                setTimeout(() => {
+                    passZone.classList.add('fade-out');
+                    setTimeout(() => {
+                        window.location.href = "si.html";
+                    }, 1000);
+                }, 800);
+            } else {
+                const randomError = erroresPatito[Math.floor(Math.random() * erroresPatito.length)];
+                errorMsg.innerText = randomError;
+                passZone.style.animation = "none";
+                setTimeout(() => passZone.style.animation = "shake 0.4s", 10);
+                document.getElementById('passInput').value = "";
+            }
+        }
+
+        window.addEventListener('mousemove', e => { mouse.x = e.clientX; mouse.y = e.clientY; });
+        window.addEventListener('resize', init);
+
+        init();
+        animate();
     </script>
-
-    <style>
-        @keyframes vibrar {
-            0% { transform: translateX(0); }
-            25% { transform: translateX(5px); }
-            50% { transform: translateX(-5px); }
-            75% { transform: translateX(5px); }
-            100% { transform: translateX(0); }
-        }
-    </style>
 </body>
-
 </html>

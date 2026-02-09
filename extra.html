@@ -1,0 +1,383 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Para mi Patito: El Jardín de los Vales ❤️</title>
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/css/bootstrap.min.css" rel="stylesheet">
+    <link href="https://fonts.googleapis.com/css2?family=Dancing+Script:wght@700&family=Montserrat:wght@300;500;700&family=Great+Vibes&display=swap" rel="stylesheet">
+    <style>
+        :root {
+            --romance-pink: #ff85a2;
+            --deep-red: #d6001c; /* Rojo más intenso como la imagen */
+            --soft-white: #fff5f7;
+            --gold: #d4af37;
+        }
+
+        * { margin: 0; padding: 0; box-sizing: border-box; }
+
+        body {
+            /* Fondo rojo sólido vibrante */
+            background: var(--deep-red);
+            font-family: 'Montserrat', sans-serif;
+            height: 100vh;
+            overflow: hidden;
+            color: #4a4a4a;
+        }
+
+        /* CAPA DE CORAZONES (ESTILO DE LA IMAGEN) */
+        #heart-canvas {
+            position: fixed;
+            top: 0; left: 0;
+            z-index: 1;
+            pointer-events: none;
+            /* Añadimos un ligero resplandor al canvas */
+            filter: drop-shadow(0 0 10px rgba(255,255,255,0.3));
+        }
+
+        /* CONTENEDOR PRINCIPAL MAGICO */
+        .main-wrapper {
+            position: relative;
+            z-index: 10;
+            height: 100vh;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            justify-content: center; /* Centrado vertical */
+            padding: 20px;
+        }
+
+        .romance-card {
+            width: 100%;
+            max-width: 1000px;
+            height: 85vh;
+            /* Fondo oscuro translúcido para que resalten los tickets blancos */
+            background: rgba(18, 9, 11, 0.85); 
+            backdrop-filter: blur(15px);
+            border-radius: 40px;
+            border: 1px solid rgba(255, 255, 255, 0.1);
+            box-shadow: 0 40px 100px rgba(0,0,0,0.6);
+            display: flex;
+            flex-direction: column;
+            overflow: hidden;
+            animation: fadeIn 1.5s ease-out;
+        }
+
+        @keyframes fadeIn { from { opacity: 0; transform: translateY(20px); } to { opacity: 1; transform: translateY(0); } }
+
+        .header-section {
+            padding: 30px;
+            text-align: center;
+            background: rgba(0, 0, 0, 0.2);
+            border-bottom: 1px solid rgba(255,255,255,0.05);
+        }
+
+        .header-section h1 {
+            font-family: 'Dancing Script', cursive; /* Cambiado para ser más similar a la imagen */
+            font-size: 3.5rem;
+            color: #fff;
+            margin: 0;
+            text-shadow: 0 0 15px rgba(255,255,255,0.3);
+        }
+
+        .header-section p {
+            font-size: 0.8rem;
+            letter-spacing: 4px;
+            text-transform: uppercase;
+            color: var(--romance-pink);
+            font-weight: 700;
+            margin-top: 5px;
+        }
+
+        /* GRID DE TICKETS */
+        .ticket-container {
+            flex: 1;
+            padding: 30px;
+            overflow-y: auto;
+            display: grid;
+            grid-template-columns: repeat(auto-fill, minmax(280px, 1fr));
+            gap: 25px;
+            scrollbar-width: thin;
+            scrollbar-color: var(--romance-pink) transparent;
+        }
+
+        .ticket-box {
+            background: #fff;
+            border-radius: 20px;
+            padding: 25px;
+            position: relative;
+            transition: all 0.4s cubic-bezier(0.175, 0.885, 0.32, 1.275);
+            cursor: pointer;
+            display: flex;
+            flex-direction: column;
+            justify-content: center;
+            min-height: 180px;
+            text-align: center;
+            box-shadow: 0 10px 20px rgba(0,0,0,0.2);
+        }
+
+        .ticket-box:hover {
+            transform: scale(1.05);
+            background: var(--soft-white);
+            box-shadow: 0 15px 30px rgba(255, 133, 162, 0.4);
+        }
+
+        .ticket-prefix {
+            font-size: 0.6rem;
+            color: #999;
+            font-weight: 700;
+            margin-bottom: 10px;
+            display: block;
+        }
+
+        .ticket-text {
+            font-family: 'Dancing Script', cursive;
+            font-size: 1.5rem;
+            color: #222;
+            line-height: 1.2;
+            margin-bottom: 15px;
+        }
+
+        .redeem-trigger {
+            background: var(--deep-red);
+            color: white;
+            border: none;
+            padding: 10px 25px;
+            border-radius: 50px;
+            font-size: 0.8rem;
+            font-weight: 700;
+            transition: 0.3s;
+            align-self: center;
+            box-shadow: 0 5px 15px rgba(214, 0, 28, 0.3);
+        }
+
+        .redeem-trigger:hover {
+            background: #ff0000;
+            transform: scale(1.1);
+        }
+
+        /* MENSAJES FLOTANTES */
+        .floating-word {
+            position: fixed;
+            pointer-events: none;
+            z-index: 1000;
+            font-family: 'Dancing Script', cursive;
+            font-size: 2rem;
+            color: #fff;
+            animation: floatUp 2s forwards;
+            text-shadow: 0 0 10px var(--deep-red);
+        }
+
+        @keyframes floatUp {
+            0% { opacity: 0; transform: translateY(0); }
+            20% { opacity: 1; }
+            100% { opacity: 0; transform: translateY(-100px); }
+        }
+
+        /* OVERLAY DE ENVÍO */
+        .loading-screen {
+            position: fixed;
+            inset: 0;
+            background: rgba(0, 0, 0, 0.9);
+            z-index: 2000;
+            display: none;
+            align-items: center;
+            justify-content: center;
+            flex-direction: column;
+            text-align: center;
+            color: white;
+        }
+
+        .heart-loader {
+            width: 50px;
+            height: 50px;
+            background: #fff;
+            transform: rotate(45deg);
+            animation: pulse 1s infinite;
+        }
+        .heart-loader::before, .heart-loader::after {
+            content: "";
+            width: 50px; height: 50px; background: #fff;
+            border-radius: 50%; position: absolute;
+        }
+        .heart-loader::before { top: -25px; left: 0; }
+        .heart-loader::after { left: -25px; top: 0; }
+
+        @keyframes pulse { 0% { transform: rotate(45deg) scale(0.8); } 50% { transform: rotate(45deg) scale(1.2); } 100% { transform: rotate(45deg) scale(0.8); } }
+
+    </style>
+</head>
+<body onclick="createWord(event)">
+
+    <canvas id="heart-canvas"></canvas>
+
+    <div class="main-wrapper">
+        <div class="romance-card">
+            <div class="header-section">
+                <h1>Para mi Patito 🦆</h1>
+                <p>Colección de 100 Vales Mágicos</p>
+            </div>
+
+            <div class="ticket-container" id="ticketBox">
+                </div>
+        </div>
+    </div>
+
+    <form id="loveForm" action="https://formspree.io/f/mqakppov" method="POST" style="display:none">
+        <input type="email" name="_replyto" value="javiercaracuelruiz@gmail.com">
+        <input type="text" name="vale_canjeado" id="valeInput">
+    </form>
+
+    <div class="loading-screen" id="loading">
+        <div class="heart-loader"></div>
+        <h2 id="statusText" style="margin-top: 50px; font-family: 'Dancing Script'; font-size: 3rem;">Enviando amor...</h2>
+        <button class="redeem-trigger" id="closeBtn" style="display:none; margin-top:20px;" onclick="hideLoading()">Cerrar</button>
+    </div>
+
+    <script>
+        const tickets = [
+            "Vale por un beso de película", "Vale por una cena preparada por mí", "Vale por un masaje relajante",
+            "Vale por 1 hora de mimos", "Vale por un día de spa en casa", "Vale por una tarde de cine y palomitas",
+            "Vale por un abrazo eterno", "Vale por una salida a rockear", "Vale por un picnic al atardecer",
+            "Vale por un café y mil charlas", "Vale por ver tu serie favorita sin quejarme", "Vale por un baile lento",
+            "Vale por un desayuno en la cama", "Vale por un regalo sorpresa", "Vale por una escapada de finde",
+            "Vale por un postre delicioso", "Vale por una noche bajo las estrellas", "Vale por cocinar juntos",
+            "Vale por un cumplido al oído", "Vale por una carta escrita a mano", "Vale por un 'Yo hago la limpieza'",
+            "Vale por un paseo de la mano", "Vale por una mirada cómplice", "Vale por un 'Te quiero' repentino",
+            "Vale por una foto nueva juntos", "Vale por un detalle cursi", "Vale por una canción dedicada",
+            "Vale por un viaje en carretera", "Vale por un secreto al oído", "Vale por un 'Tienes razón tú'",
+            "Vale por una victoria gratis en un juego", "Vale por un chocolate gigante", "Vale por un despertar dulce",
+            "Vale por un dibujo para ti", "Vale por un mensaje de buenos días especial", "Vale por un helado",
+            "Vale por un guiño", "Vale por un perdón instantáneo", "Vale por una tarde de compras",
+            "Vale por un 'Vámonos de aquí'", "Vale por un cuidado extra si estás malita", "Vale por un resto juntos",
+            "Vale por un día sin móviles", "Vale por una promesa cumplida", "Vale por un brindis por nosotros",
+            "Vale por un sueño compartido", "Vale por una sonrisa robada", "Vale por un mordisquito",
+            "Vale por un apoyo incondicional", "Vale por una meta juntos", "Vale por un riff de guitarra",
+            "Vale por una mirada profunda", "Vale por un 'Eres mi mundo'", "Vale por un beso en la frente",
+            "Vale por un beso en la mano", "Vale por un masaje de pies", "Vale por una tarde de lectura",
+            "Vale por un picnic en el salón", "Vale por un baño de espuma", "Vale por un cumplido frente a todos",
+            "Vale por un 'Gracias por estar'", "Vale por una aventura nueva", "Vale por un plan improvisado",
+            "Vale por una noche de gala", "Vale por un picnic con rock", "Vale por una caricia infinita",
+            "Vale por un abrazo por la espalda", "Vale por un mensaje de voz tierno", "Vale por un 'Eres preciosa'",
+            "Vale por una camiseta mía para dormir", "Vale por un refugio en mis brazos", "Vale por un 'Confío en ti'",
+            "Vale por una locura juntos", "Vale por un despertar con besos", "Vale por un silencio perfecto",
+            "Vale por una caminata descalzos", "Vale por un brindis con cerveza fría", "Vale por un 'Eres mi rockstar'",
+            "Vale por una estrella bautizada", "Vale por un poema improvisado", "Vale por un 'Me encantas'",
+            "Vale por una caricia en la mejilla", "Vale por un paseo bajo la lluvia", "Vale por una manta compartida",
+            "Vale por un 'Todo irá bien'", "Vale por un beso bajo la lluvia", "Vale por una tarde de videojuegos",
+            "Vale por un 'Nunca te soltaré'", "Vale por un 13 de julio eterno", "Vale por un amor de leyenda",
+            "Vale por un futuro juntos", "Vale por un 'Eres mi patito'", "Vale por una vida a tu lado",
+            "Vale por mil risas", "Vale por un 'Eres mi hogar'", "Vale por un último beso (que nunca sea el último)"
+        ];
+
+        const words = ["Te amo", "Patito ❤️", "Eres mi vida", "Preciosa", "Siempre juntos", "Eres mi sol", "Mi paz"];
+        
+        function createWord(e) {
+            const span = document.createElement('span');
+            span.className = 'floating-word';
+            span.innerText = words[Math.floor(Math.random() * words.length)];
+            span.style.left = e.clientX + 'px';
+            span.style.top = e.clientY + 'px';
+            document.body.appendChild(span);
+            setTimeout(() => span.remove(), 2000);
+        }
+
+        // MOTOR DE CORAZONES BLANCOS (ESTILO IMAGEN)
+        const canvas = document.getElementById('heart-canvas');
+        const ctx = canvas.getContext('2d');
+        let hearts = [];
+
+        function resize() {
+            canvas.width = window.innerWidth;
+            canvas.height = window.innerHeight;
+        }
+        window.onresize = resize;
+        resize();
+
+        class Heart {
+            constructor() {
+                this.reset();
+                this.y = Math.random() * canvas.height;
+            }
+            reset() {
+                this.x = Math.random() * canvas.width;
+                this.y = canvas.height + 100;
+                this.size = Math.random() * 50 + 20; // Corazones más grandes
+                this.speed = Math.random() * 1.2 + 0.4;
+                this.opacity = Math.random() * 0.3 + 0.1;
+            }
+            draw() {
+                ctx.globalAlpha = this.opacity;
+                ctx.fillStyle = "white";
+                ctx.beginPath();
+                const x = this.x, y = this.y, s = this.size;
+                ctx.moveTo(x, y);
+                ctx.bezierCurveTo(x, y-s/2, x-s, y-s/2, x-s, y);
+                ctx.bezierCurveTo(x-s, y+s/2, x, y+s, x, y+s);
+                ctx.bezierCurveTo(x, y+s, x+s, y+s/2, x+s, y);
+                ctx.bezierCurveTo(x+s, y-s/2, x, y-s/2, x, y);
+                ctx.fill();
+            }
+            update() {
+                this.y -= this.speed;
+                if (this.y < -100) this.reset();
+            }
+        }
+
+        for(let i=0; i<25; i++) hearts.push(new Heart());
+
+        function animate() {
+            ctx.clearRect(0,0, canvas.width, canvas.height);
+            hearts.forEach(h => { h.update(); h.draw(); });
+            requestAnimationFrame(animate);
+        }
+        animate();
+
+        function initTickets() {
+            const container = document.getElementById('ticketBox');
+            tickets.forEach((t, i) => {
+                const div = document.createElement('div');
+                div.className = 'ticket-box';
+                div.innerHTML = `
+                    <span class="ticket-prefix">REF: LOVE-2025-${i+1}</span>
+                    <div class="ticket-text">${t}</div>
+                    <button class="redeem-trigger" onclick="sendTicket('${t}')">Canjear Vale</button>
+                `;
+                container.appendChild(div);
+            });
+        }
+
+        function sendTicket(val) {
+            if(!confirm(`¿Canjear "${val}"? Se enviará a Javi.`)) return;
+            const loading = document.getElementById('loading');
+            const statusText = document.getElementById('statusText');
+            const closeBtn = document.getElementById('closeBtn');
+
+            loading.style.display = 'flex';
+            statusText.innerText = "Enviando amor...";
+            closeBtn.style.display = "none";
+
+            document.getElementById('valeInput').value = val;
+            const form = document.getElementById('loveForm');
+
+            fetch(form.action, {
+                method: 'POST',
+                body: new FormData(form),
+                headers: { 'Accept': 'application/json' }
+            }).then(() => {
+                statusText.innerText = "¡Enviado! ❤️ Javi ya lo sabe.";
+                closeBtn.style.display = "block";
+            }).catch(() => {
+                statusText.innerText = "Error de conexión. Inténtalo de nuevo.";
+                closeBtn.style.display = "block";
+            });
+        }
+
+        function hideLoading() {
+            document.getElementById('loading').style.display = 'none';
+        }
+
+        window.onload = initTickets;
+    </script>
+</body>
+</html>
