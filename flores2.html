@@ -1,0 +1,318 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Lirios para ti | Con Amor</title>
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/css/bootstrap.min.css" rel="stylesheet">
+    <link href="https://fonts.googleapis.com/css2?family=Dancing+Script:wght@700&family=Montserrat:wght@300;500;700&display=swap" rel="stylesheet">
+    
+    <style>
+        :root {
+            --romance-pink: #ff85a2;
+            --deep-red: #d6001c;
+            --soft-white: #fff5f7;
+            --gold: #d4af37;
+        }
+
+        * { margin: 0; padding: 0; box-sizing: border-box; }
+
+        body {
+            background: linear-gradient(180deg, #2a0f1a 0%, #d6001c 50%, #8b0017 100%);
+            font-family: 'Montserrat', sans-serif;
+            color: #fff;
+            min-height: 100vh;
+            overflow: hidden;
+            cursor: default;
+            margin: 0;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+        }
+
+        .lilies-container {
+            position: relative;
+            width: 100%;
+            height: 100vh;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            z-index: 10;
+        }
+
+        svg {
+            width: 100%;
+            height: 100%;
+            position: absolute;
+            top: 0;
+            left: 0;
+        }
+
+        .lily-group {
+            filter: drop-shadow(0 0 20px rgba(255, 255, 255, 0.2));
+        }
+
+        .lily-petal {
+            opacity: 0;
+            transform-origin: center;
+            animation: petalAppear 2s ease-out forwards;
+        }
+
+        .lily-petal:nth-child(1) { animation-delay: 0s; }
+        .lily-petal:nth-child(2) { animation-delay: 0.2s; }
+        .lily-petal:nth-child(3) { animation-delay: 0.4s; }
+        .lily-petal:nth-child(4) { animation-delay: 0.6s; }
+        .lily-petal:nth-child(5) { animation-delay: 0.8s; }
+        .lily-petal:nth-child(6) { animation-delay: 1s; }
+
+        @keyframes petalAppear {
+            0% {
+                opacity: 0;
+                transform: scale(0.3) rotateY(90deg);
+            }
+            60% {
+                opacity: 1;
+            }
+            100% {
+                opacity: 0.95;
+                transform: scale(1) rotateY(0deg);
+            }
+        }
+
+        .lily-center {
+            opacity: 0;
+            animation: centerAppear 1.5s ease-out forwards;
+            animation-delay: 1.2s;
+        }
+
+        @keyframes centerAppear {
+            0% {
+                opacity: 0;
+                r: 0;
+            }
+            100% {
+                opacity: 1;
+                r: 15;
+            }
+        }
+
+        .lily-stamen {
+            opacity: 0;
+            animation: stamenAppear 1.5s ease-out forwards;
+            animation-delay: 1.5s;
+        }
+
+        @keyframes stamenAppear {
+            0% {
+                opacity: 0;
+                transform: scale(0);
+            }
+            100% {
+                opacity: 0.9;
+                transform: scale(1);
+            }
+        }
+
+        .content-overlay {
+            position: absolute;
+            width: 100%;
+            height: 100%;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            justify-content: center;
+            text-align: center;
+            z-index: 20;
+            padding: 40px;
+        }
+
+        .message-lily {
+            background: rgba(18, 9, 11, 0.9);
+            backdrop-filter: blur(20px);
+            padding: 50px;
+            border-radius: 25px;
+            border: 2px solid var(--gold);
+            max-width: 600px;
+            box-shadow: 0 40px 100px rgba(0,0,0,0.8);
+            animation: messageAppear 1s ease-out 3s both;
+        }
+
+        @keyframes messageAppear {
+            from {
+                opacity: 0;
+                transform: translateY(30px);
+            }
+            to {
+                opacity: 1;
+                transform: translateY(0);
+            }
+        }
+
+        .message-lily h2 {
+            font-family: 'Dancing Script', cursive;
+            color: var(--gold);
+            font-size: 2.5rem;
+            margin-bottom: 20px;
+        }
+
+        .message-lily p {
+            font-size: 1rem;
+            line-height: 1.8;
+            font-style: italic;
+            opacity: 0.95;
+            margin: 15px 0;
+        }
+
+        .signature-lily {
+            font-family: 'Dancing Script', cursive;
+            font-size: 1.8rem;
+            color: var(--gold);
+            margin-top: 30px;
+        }
+
+        .back-btn-lily {
+            position: fixed;
+            top: 30px;
+            left: 30px;
+            background: rgba(255, 255, 255, 0.1);
+            backdrop-filter: blur(10px);
+            border: 1px solid rgba(255,255,255,0.2);
+            color: white;
+            padding: 12px 24px;
+            border-radius: 10px;
+            text-decoration: none;
+            transition: 0.3s;
+            font-size: 0.9rem;
+            letter-spacing: 1px;
+            text-transform: uppercase;
+            font-weight: 600;
+            box-shadow: 0 5px 15px rgba(0,0,0,0.2);
+            z-index: 100;
+        }
+
+        .back-btn-lily:hover {
+            background: var(--romance-pink);
+            border-color: var(--romance-pink);
+            transform: translateY(-3px);
+            color: white;
+            text-decoration: none;
+        }
+
+        .glow-effect {
+            position: absolute;
+            width: 300px;
+            height: 300px;
+            background: radial-gradient(circle, rgba(255, 133, 162, 0.1) 0%, transparent 70%);
+            border-radius: 50%;
+            animation: glowPulse 4s ease-in-out infinite;
+            animation-delay: 2s;
+        }
+
+        @keyframes glowPulse {
+            0%, 100% {
+                transform: scale(1);
+                opacity: 0.5;
+            }
+            50% {
+                transform: scale(1.2);
+                opacity: 0.8;
+            }
+        }
+    </style>
+</head>
+<body>
+    <a href="flores.html" class="back-btn-lily">← Volver</a>
+
+    <div class="lilies-container">
+        <div class="glow-effect"></div>
+        
+        <svg viewBox="0 0 400 400" width="400" height="400" style="max-width: 90vw; max-height: 90vh;">
+            <!-- Grupo de flores (3 lirios) -->
+            <g class="lily-group">
+                <!-- LIRIO 1 (Centro - Grande) -->
+                <g transform="translate(200, 200)">
+                    <!-- Pétalos del lirio central -->
+                    <path class="lily-petal" d="M 0,-60 Q -25,-85 -30,-120 Q -25,-100 0,-80" fill="#d49cdb" stroke="#c25ec1" stroke-width="1"/>
+                    <path class="lily-petal" d="M 30,-52 Q 35,-85 70,-100 Q 50,-85 35,-65" fill="#e8b4ed" stroke="#c25ec1" stroke-width="1"/>
+                    <path class="lily-petal" d="M 52,-30 Q 85,-35 120,-20 Q 95,-25 65,-35" fill="#d49cdb" stroke="#c25ec1" stroke-width="1"/>
+                    <path class="lily-petal" d="M 52,30 Q 85,35 120,20 Q 95,25 65,35" fill="#e8b4ed" stroke="#c25ec1" stroke-width="1"/>
+                    <path class="lily-petal" d="M 30,52 Q 35,85 70,100 Q 50,85 35,65" fill="#d49cdb" stroke="#c25ec1" stroke-width="1"/>
+                    <path class="lily-petal" d="M 0,60 Q -25,85 -30,120 Q -25,100 0,80" fill="#e8b4ed" stroke="#c25ec1" stroke-width="1"/>
+                    
+                    <!-- Centro del lirio -->
+                    <circle class="lily-center" cx="0" cy="0" r="0" fill="#ffd700" stroke="#ffed4e" stroke-width="2"/>
+                    
+                    <!-- Estambres -->
+                    <g class="lily-stamen">
+                        <line x1="0" y1="-8" x2="0" y2="-20" stroke="#ff6b9d" stroke-width="1.5"/>
+                        <circle cx="0" cy="-22" r="2" fill="#ff1493"/>
+                        <line x1="7" y1="-4" x2="15" y2="-10" stroke="#ff6b9d" stroke-width="1.5"/>
+                        <circle cx="17" cy="-12" r="2" fill="#ff1493"/>
+                        <line x1="-7" y1="-4" x2="-15" y2="-10" stroke="#ff6b9d" stroke-width="1.5"/>
+                        <circle cx="-17" cy="-12" r="2" fill="#ff1493"/>
+                    </g>
+                </g>
+
+                <!-- LIRIO 2 (Izquierda) -->
+                <g transform="translate(100, 180)">
+                    <path class="lily-petal" d="M 0,-45 Q -18,-65 -22,-90 Q -18,-75 0,-60" fill="#c25ec1" stroke="#a83fa8" stroke-width="1"/>
+                    <path class="lily-petal" d="M 23,-39 Q 26,-65 52,-75 Q 37,-65 26,-49" fill="#d49cdb" stroke="#a83fa8" stroke-width="1"/>
+                    <path class="lily-petal" d="M 39,-23 Q 65,-26 90,-15 Q 72,-19 49,-26" fill="#c25ec1" stroke="#a83fa8" stroke-width="1"/>
+                    <path class="lily-petal" d="M 39,23 Q 65,26 90,15 Q 72,19 49,26" fill="#d49cdb" stroke="#a83fa8" stroke-width="1"/>
+                    <path class="lily-petal" d="M 23,39 Q 26,65 52,75 Q 37,65 26,49" fill="#c25ec1" stroke="#a83fa8" stroke-width="1"/>
+                    <path class="lily-petal" d="M 0,45 Q -18,65 -22,90 Q -18,75 0,60" fill="#d49cdb" stroke="#a83fa8" stroke-width="1"/>
+                    
+                    <circle class="lily-center" cx="0" cy="0" r="0" fill="#ffed4e" stroke="#fff299" stroke-width="1.5"/>
+                    
+                    <g class="lily-stamen">
+                        <line x1="0" y1="-6" x2="0" y2="-15" stroke="#ff6b9d" stroke-width="1"/>
+                        <circle cx="0" cy="-17" r="1.5" fill="#ff1493"/>
+                        <line x1="5" y1="-3" x2="11" y2="-8" stroke="#ff6b9d" stroke-width="1"/>
+                        <circle cx="13" cy="-9" r="1.5" fill="#ff1493"/>
+                        <line x1="-5" y1="-3" x2="-11" y2="-8" stroke="#ff6b9d" stroke-width="1"/>
+                        <circle cx="-13" cy="-9" r="1.5" fill="#ff1493"/>
+                    </g>
+                </g>
+
+                <!-- LIRIO 3 (Derecha) -->
+                <g transform="translate(300, 180)">
+                    <path class="lily-petal" d="M 0,-45 Q -18,-65 -22,-90 Q -18,-75 0,-60" fill="#e8b4ed" stroke="#a83fa8" stroke-width="1"/>
+                    <path class="lily-petal" d="M 23,-39 Q 26,-65 52,-75 Q 37,-65 26,-49" fill="#c25ec1" stroke="#a83fa8" stroke-width="1"/>
+                    <path class="lily-petal" d="M 39,-23 Q 65,-26 90,-15 Q 72,-19 49,-26" fill="#e8b4ed" stroke="#a83fa8" stroke-width="1"/>
+                    <path class="lily-petal" d="M 39,23 Q 65,26 90,15 Q 72,19 49,26" fill="#c25ec1" stroke="#a83fa8" stroke-width="1"/>
+                    <path class="lily-petal" d="M 23,39 Q 26,65 52,75 Q 37,65 26,49" fill="#e8b4ed" stroke="#a83fa8" stroke-width="1"/>
+                    <path class="lily-petal" d="M 0,45 Q -18,65 -22,90 Q -18,75 0,60" fill="#c25ec1" stroke="#a83fa8" stroke-width="1"/>
+                    
+                    <circle class="lily-center" cx="0" cy="0" r="0" fill="#ffed4e" stroke="#fff299" stroke-width="1.5"/>
+                    
+                    <g class="lily-stamen">
+                        <line x1="0" y1="-6" x2="0" y2="-15" stroke="#ff6b9d" stroke-width="1"/>
+                        <circle cx="0" cy="-17" r="1.5" fill="#ff1493"/>
+                        <line x1="5" y1="-3" x2="11" y2="-8" stroke="#ff6b9d" stroke-width="1"/>
+                        <circle cx="13" cy="-9" r="1.5" fill="#ff1493"/>
+                        <line x1="-5" y1="-3" x2="-11" y2="-8" stroke="#ff6b9d" stroke-width="1"/>
+                        <circle cx="-13" cy="-9" r="1.5" fill="#ff1493"/>
+                    </g>
+                </g>
+            </g>
+        </svg>
+
+        <div class="content-overlay">
+            <div class="message-lily">
+                <h2>Los Lirios del Amor</h2>
+                <p>En el lenguaje de las flores, los lirios representan la elegancia, la pureza y el amor en su forma más refinada.</p>
+                <p style="margin-top: 20px;">Cada pétalo que ves aquí ha sido creado con amor, tal como cada momento contigo florece en mi corazón. Eres mi flor más preciada, mi Patito hermoso.</p>
+                <p class="signature-lily">— Javi ❤️</p>
+            </div>
+        </div>
+    </div>
+
+    <script>
+        // Agregar efecto de brillo adicional después de que aparezca todo
+        setTimeout(() => {
+            const svg = document.querySelector('svg');
+            svg.style.filter = 'drop-shadow(0 0 30px rgba(255, 133, 162, 0.4))';
+        }, 3000);
+    </script>
+</body>
+</html>

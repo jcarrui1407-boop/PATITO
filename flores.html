@@ -1,0 +1,427 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Flores para ti | Con Amor</title>
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/css/bootstrap.min.css" rel="stylesheet">
+    <link href="https://fonts.googleapis.com/css2?family=Dancing+Script:wght@700&family=Montserrat:wght@300;500;700&display=swap" rel="stylesheet">
+    
+    <style>
+        :root {
+            --romance-pink: #ff85a2;
+            --deep-red: #d6001c;
+            --soft-white: #fff5f7;
+            --gold: #d4af37;
+        }
+
+        * { margin: 0; padding: 0; box-sizing: border-box; }
+
+        body {
+            background: linear-gradient(135deg, #d6001c 0%, #8b0017 100%);
+            font-family: 'Montserrat', sans-serif;
+            color: #fff;
+            min-height: 100vh;
+            overflow-x: hidden;
+            cursor: pointer;
+            margin: 0;
+        }
+
+        #flower-canvas {
+            position: fixed;
+            top: 0; left: 0;
+            z-index: 1;
+            pointer-events: none;
+            filter: drop-shadow(0 0 10px rgba(255,255,255,0.3));
+        }
+
+        .container {
+            max-width: 900px;
+            padding: 40px 20px;
+            text-align: center;
+            position: relative;
+            z-index: 10;
+        }
+
+        h1 {
+            font-family: 'Dancing Script', cursive;
+            font-size: clamp(2.5rem, 8vw, 3.5rem);
+            color: #fff;
+            margin-bottom: 2rem;
+            text-shadow: 0 0 15px rgba(255,255,255,0.3);
+            animation: fadeIn 1.5s ease-out;
+        }
+
+        .back-btn {
+            display: inline-block;
+            background: rgba(255, 255, 255, 0.1);
+            backdrop-filter: blur(10px);
+            border: 1px solid rgba(255,255,255,0.2);
+            color: white;
+            padding: 10px 20px;
+            border-radius: 10px;
+            text-decoration: none;
+            transition: 0.3s;
+            margin-bottom: 30px;
+            font-size: 0.9rem;
+            letter-spacing: 1px;
+            text-transform: uppercase;
+            font-weight: 600;
+            box-shadow: 0 5px 15px rgba(0,0,0,0.2);
+        }
+
+        .back-btn:hover {
+            background: var(--romance-pink);
+            border-color: var(--romance-pink);
+            transform: translateY(-3px);
+            color: white;
+            text-decoration: none;
+        }
+
+        .flowers-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+            gap: 25px;
+            margin: 40px 0;
+        }
+
+        .flower-card {
+            background: rgba(18, 9, 11, 0.85);
+            backdrop-filter: blur(15px);
+            padding: 30px;
+            border-radius: 20px;
+            border: 1px solid rgba(255, 255, 255, 0.1);
+            box-shadow: 0 40px 100px rgba(0,0,0,0.6);
+            transition: 0.3s;
+            text-align: center;
+        }
+
+        .flower-card:hover {
+            transform: translateY(-10px);
+            border-color: var(--romance-pink);
+            box-shadow: 0 60px 120px rgba(255, 133, 162, 0.3);
+        }
+
+        .flower-emoji {
+            font-size: 4rem;
+            margin-bottom: 15px;
+            display: inline-block;
+            animation: floatFlower 3s ease-in-out infinite;
+        }
+
+        @keyframes floatFlower {
+            0%, 100% { transform: translateY(0px); }
+            50% { transform: translateY(-10px); }
+        }
+
+        .flower-card h3 {
+            font-family: 'Dancing Script', cursive;
+            color: var(--romance-pink);
+            font-size: 1.8rem;
+            margin: 15px 0;
+        }
+
+        .flower-card p {
+            font-size: 0.95rem;
+            line-height: 1.6;
+            opacity: 0.9;
+            color: #fff;
+        }
+
+        .message-box {
+            background: rgba(18, 9, 11, 0.85);
+            backdrop-filter: blur(15px);
+            padding: 40px;
+            border-radius: 25px;
+            border: 2px solid var(--gold);
+            box-shadow: 0 40px 100px rgba(0,0,0,0.6);
+            margin: 40px 0;
+            animation: fadeIn 1s ease;
+        }
+
+        .message-box h2 {
+            font-family: 'Dancing Script', cursive;
+            color: var(--gold);
+            font-size: 2.5rem;
+            margin-bottom: 20px;
+        }
+
+        .message-box p {
+            font-size: 1rem;
+            line-height: 1.8;
+            text-align: center;
+            font-style: italic;
+            margin: 15px 0;
+        }
+
+        .signature {
+            font-family: 'Dancing Script', cursive;
+            font-size: 1.8rem;
+            color: var(--gold);
+            margin-top: 30px;
+        }
+
+        @keyframes fadeIn { 
+            from { opacity: 0; transform: translateY(20px); } 
+            to { opacity: 1; transform: translateY(0); } 
+        }
+
+        .flower-particle {
+            position: fixed;
+            pointer-events: none;
+            z-index: 9999;
+            animation: flowerFall 2s ease-out forwards;
+        }
+
+        @keyframes flowerFall {
+            0% { 
+                opacity: 1; 
+                transform: translateY(-50px) rotate(0deg);
+            }
+            100% { 
+                opacity: 0; 
+                transform: translateY(500px) rotate(360deg);
+            }
+        }
+
+        .back-link {
+            text-align: center;
+            margin-top: 50px;
+            padding-bottom: 30px;
+        }
+
+        .back-link a {
+            color: var(--gold);
+            text-decoration: none;
+            font-family: 'Dancing Script', cursive;
+            font-size: 1.3rem;
+            transition: 0.3s;
+        }
+
+        .back-link a:hover {
+            color: var(--romance-pink);
+            text-shadow: 0 0 10px rgba(255, 133, 162, 0.5);
+        }
+
+        #hidden-btn {
+            position: fixed;
+            bottom: 40px;
+            right: 40px;
+            width: 60px;
+            height: 60px;
+            background: transparent;
+            border: none;
+            cursor: pointer;
+            z-index: 5000;
+            padding: 0;
+        }
+
+        .heart-float {
+            position: absolute;
+            font-size: 1.5rem;
+            pointer-events: none;
+            animation: floatHeart 4s ease-in-out infinite;
+        }
+
+        @keyframes floatHeart {
+            0%, 100% { transform: translateY(0) rotate(0deg); opacity: 0.7; }
+            50% { transform: translateY(-30px) rotate(360deg); opacity: 1; }
+        }
+    </style>
+</head>
+<body onclick="createFlowerParticle(event)">
+
+    <canvas id="flower-canvas"></canvas>
+
+    <div class="container">
+        <a href="si.html" class="back-btn">← Volver</a>
+        
+        <h1>🌹 Flores para mi Patito 🌹</h1>
+
+        <div class="message-box">
+            <h2>Un jardín de amor para ti</h2>
+            <p>Cada flor en este jardín representa un sentimiento que guardo en mi corazón para ti. Cada pétalo es un momento compartido, cada color una emoción sincera.</p>
+            <p style="margin-top: 20px;">Quería que supieras que eres la flor más hermosa en el jardín de mi vida, Patito.</p>
+        </div>
+
+        <div class="flowers-grid">
+            <div class="flower-card">
+                <div class="flower-emoji">🌹</div>
+                <h3>Rosa Roja</h3>
+                <p>Símbolo de amor profundo y pasión. Como los sentimientos que tengo hacia ti, intensos y verdaderos.</p>
+            </div>
+            <div class="flower-card">
+                <div class="flower-emoji">🌷</div>
+                <h3>Tulipán</h3>
+                <p>Representa la elegancia y la gracia. Eso eres tú para mí, pura elegancia en cada gesto.</p>
+            </div>
+            <div class="flower-card">
+                <div class="flower-emoji">🌻</div>
+                <h3>Girasol</h3>
+                <p>Símbolo de lealtad y longevidad. Como nuestro amor, que siempre sigue la luz del otro.</p>
+            </div>
+            <div class="flower-card">
+                <div class="flower-emoji">💐</div>
+                <h3>Ramo Perfecto</h3>
+                <p>La combinación perfecta de colores y formas. Así es nuestra historia, una mezcla hermosa de momentos.</p>
+            </div>
+            <div class="flower-card">
+                <div class="flower-emoji">🌸</div>
+                <h3>Cerezo en Flor</h3>
+                <p>Representa la belleza efímera y la renovación. Cada día contigo es un renacimiento de mi amor.</p>
+            </div>
+            <div class="flower-card">
+                <div class="flower-emoji">🌺</div>
+                <h3>Hibisco</h3>
+                <p>Flor tropical que simboliza la belleza rara e imperecedera. Como eres tú en mi vida, única e irreemplazable.</p>
+            </div>
+        </div>
+
+        <div class="message-box">
+            <h2>Mi promesa</h2>
+            <p>Te prometo cuidarte como se cuida una flor delicada. Con paciencia, con amor, con toda la dedicación que mereces.</p>
+            <p>Te prometo que cada día intentaré ser digno de estar a tu lado, y que siempre, siempre encontrarás en mí un lugar seguro y lleno de amor.</p>
+            <p>Eres mi flor favorita en este jardín de la vida, mi Patito hermoso.</p>
+            <p class="signature">— Javi ❤️</p>
+        </div>
+
+        <div class="back-link">
+            <p style="opacity: 0.7; margin-bottom: 20px;">Haz clic en cualquier parte para ver flores caer</p>
+            <div style="margin: 30px 0;">
+                <a href="flores3.html" style="display: inline-block; background: rgba(212, 175, 51, 0.2); backdrop-filter: blur(10px); border: 2px solid #ffd700; color: #ffd700; padding: 15px 40px; border-radius: 15px; text-decoration: none; transition: 0.3s; font-family: 'Dancing Script', cursive; font-size: 1.5rem; text-shadow: 0 0 10px rgba(255, 215, 0, 0.5); margin: 0 10px;" onmouseover="this.style.boxShadow='0 0 30px rgba(255, 215, 0, 0.6)'; this.style.background='rgba(212, 175, 51, 0.4)';" onmouseout="this.style.boxShadow='none'; this.style.background='rgba(212, 175, 51, 0.2)';">👑 Mi Princesa 👑</a>
+            </div>
+            <a href="si.html">← Volver al inicio</a>
+        </div>
+    </div>
+
+    <script>
+        // CANVAS PÉTALOS FLOTANTES
+        const canvas = document.getElementById('flower-canvas');
+        const ctx = canvas.getContext('2d');
+        let petals = [];
+
+        function resize() {
+            canvas.width = window.innerWidth;
+            canvas.height = window.innerHeight;
+        }
+        window.onresize = resize;
+        resize();
+
+        class Petal {
+            constructor() {
+                this.reset();
+                this.y = Math.random() * canvas.height;
+            }
+            reset() {
+                this.x = Math.random() * canvas.width;
+                this.y = canvas.height + 100;
+                this.size = Math.random() * 40 + 15;
+                this.speed = Math.random() * 1.2 + 0.4;
+                this.opacity = Math.random() * 0.3 + 0.1;
+            }
+            draw() {
+                ctx.globalAlpha = this.opacity;
+                ctx.fillStyle = "#ff85a2";
+                ctx.beginPath();
+                const x = this.x, y = this.y, s = this.size;
+                // Dibujar un pétalo simple
+                ctx.ellipse(x, y, s * 0.4, s * 0.8, Math.random() * Math.PI, 0, Math.PI * 2);
+                ctx.fill();
+            }
+            update() {
+                this.y -= this.speed;
+                if (this.y < -100) this.reset();
+            }
+        }
+
+        for(let i=0; i<20; i++) petals.push(new Petal());
+
+        function animate() {
+            ctx.clearRect(0, 0, canvas.width, canvas.height);
+            petals.forEach(p => { p.update(); p.draw(); });
+            requestAnimationFrame(animate);
+        }
+        animate();
+
+        function createFlowerParticle(e) {
+            const flowers = ['🌹', '🌷', '🌻', '🌸', '🌺', '💐'];
+            const flower = flowers[Math.floor(Math.random() * flowers.length)];
+            
+            const h = document.createElement("div");
+            h.className = "flower-particle";
+            h.innerHTML = flower;
+            h.style.left = e.clientX + "px";
+            h.style.top = e.clientY + "px";
+            h.style.fontSize = (Math.random() * 30 + 20) + "px";
+            
+            document.body.appendChild(h);
+            setTimeout(() => h.remove(), 2000);
+        }
+
+        // BOTÓN OCULTO CON CORAZONES FLOTANTES
+        const hiddenBtn = document.createElement('button');
+        hiddenBtn.id = 'hidden-btn';
+        hiddenBtn.onclick = () => window.location.href = 'flores2.html';
+        document.body.appendChild(hiddenBtn);
+
+        let heartParticles = [];
+        let mouseX = 0;
+        let mouseY = 0;
+        const btnRect = () => hiddenBtn.getBoundingClientRect();
+
+        class HeartParticle {
+            constructor() {
+                this.x = Math.random() * 120 - 60;
+                this.y = Math.random() * 120 - 60;
+                this.vx = 0;
+                this.vy = 0;
+                this.el = document.createElement('div');
+                this.el.className = 'heart-float';
+                this.el.innerHTML = '❤';
+                this.el.style.left = this.x + 'px';
+                this.el.style.top = this.y + 'px';
+                this.el.style.position = 'absolute';
+                hiddenBtn.appendChild(this.el);
+            }
+
+            update(cursorX, cursorY, btnCenterX, btnCenterY) {
+                const dx = cursorX - (btnCenterX + this.x);
+                const dy = cursorY - (btnCenterY + this.y);
+                const dist = Math.sqrt(dx * dx + dy * dy);
+
+                if (dist < 200) {
+                    const attraction = 0.15;
+                    this.vx += (dx / dist) * attraction;
+                    this.vy += (dy / dist) * attraction;
+                } else {
+                    this.vx *= 0.95;
+                    this.vy *= 0.95;
+                }
+
+                this.x += this.vx;
+                this.y += this.vy;
+
+                this.el.style.left = this.x + 'px';
+                this.el.style.top = this.y + 'px';
+            }
+        }
+
+        for (let i = 0; i < 8; i++) {
+            heartParticles.push(new HeartParticle());
+        }
+
+        document.addEventListener('mousemove', (e) => {
+            mouseX = e.clientX;
+            mouseY = e.clientY;
+
+            const rect = btnRect();
+            const btnCenterX = rect.left + rect.width / 2;
+            const btnCenterY = rect.top + rect.height / 2;
+
+            heartParticles.forEach(heart => {
+                heart.update(mouseX, mouseY, btnCenterX, btnCenterY);
+            });
+        });
+    </script>
+</body>
+</html>

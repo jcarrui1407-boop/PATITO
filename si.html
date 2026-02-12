@@ -5,32 +5,52 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Para mi Patito | Con Amor</title>
     <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/css/bootstrap.min.css" rel="stylesheet">
-    <link href="https://fonts.googleapis.com/css2?family=Dancing+Script:wght@700&family=Playfair+Display:ital,wght@0,400;1,700&family=Montserrat:wght@300;400;600&display=swap" rel="stylesheet">
+    <link href="https://fonts.googleapis.com/css2?family=Dancing+Script:wght@700&family=Montserrat:wght@300;500;700&display=swap" rel="stylesheet">
     
 <style>
         :root {
+            --romance-pink: #ff85a2;
+            --deep-red: #d6001c;
+            --soft-white: #fff5f7;
             --gold: #d4af37;
-            --love-red: #ff4d6d;
-            --glass: rgba(0, 0, 0, 0.75);
         }
+
+        * { margin: 0; padding: 0; box-sizing: border-box; }
 
         body {
-            background: linear-gradient(rgba(0,0,0,0.6), rgba(0,0,0,0.6)), 
-                        url("https://images.unsplash.com/photo-1518199266791-5375a83190b7");
-            background-size: cover;
-            background-position: center;
-            background-attachment: fixed;
+            background: var(--deep-red);
+            font-family: 'Montserrat', sans-serif;
             color: #fff;
             min-height: 100vh;
-            font-family: 'Montserrat', sans-serif;
-            margin: 0;
             overflow-x: hidden;
             cursor: pointer;
+            margin: 0;
         }
 
-        .container { max-width: 900px; padding: 40px 20px; text-align: center; }
+        #heart-canvas {
+            position: fixed;
+            top: 0; left: 0;
+            z-index: 1;
+            pointer-events: none;
+            filter: drop-shadow(0 0 10px rgba(255,255,255,0.3));
+        }
 
-        h1 { font-family: 'Dancing Script', cursive; font-size: clamp(2.5rem, 8vw, 5rem); color: #ff85a1; margin-bottom: 2rem; text-shadow: 2px 2px 10px rgba(0,0,0,0.5); }
+        .container {
+            max-width: 900px;
+            padding: 40px 20px;
+            text-align: center;
+            position: relative;
+            z-index: 10;
+        }
+
+        h1 {
+            font-family: 'Dancing Script', cursive;
+            font-size: clamp(2.5rem, 8vw, 3.5rem);
+            color: #fff;
+            margin-bottom: 2rem;
+            text-shadow: 0 0 15px rgba(255,255,255,0.3);
+            animation: fadeIn 1.5s ease-out;
+        }
 
         .main-nav {
             display: grid;
@@ -51,21 +71,37 @@
             letter-spacing: 1px;
             text-transform: uppercase;
             font-weight: 600;
+            box-shadow: 0 5px 15px rgba(0,0,0,0.2);
+            cursor: pointer;
         }
 
-        .btn-custom:hover { background: var(--love-red); border-color: var(--love-red); transform: translateY(-3px); }
+        .btn-custom:hover {
+            background: var(--romance-pink);
+            border-color: var(--romance-pink);
+            transform: translateY(-3px);
+            color: white;
+        }
 
         .content-section {
             display: none;
-            background: var(--glass);
+            background: rgba(18, 9, 11, 0.85);
             backdrop-filter: blur(15px);
             padding: 35px;
             border-radius: 25px;
-            border: 1px solid rgba(255,255,255,0.1);
-            animation: fadeIn 0.5s ease;
+            border: 1px solid rgba(255, 255, 255, 0.1);
+            box-shadow: 0 40px 100px rgba(0,0,0,0.6);
+            animation: fadeIn 0.8s ease;
         }
 
-        /* TRES EN RAYA */
+        @keyframes fadeIn { from { opacity: 0; transform: translateY(20px); } to { opacity: 1; transform: translateY(0); } }
+
+        .content-section h2 {
+            font-family: 'Dancing Script', cursive;
+            color: #fff;
+            font-size: 2.5rem;
+            margin-bottom: 1.5rem;
+        }
+
         .tic-tac-toe {
             display: grid;
             grid-template-columns: repeat(3, 85px);
@@ -77,7 +113,7 @@
 
         .cell {
             background: rgba(255, 255, 255, 0.05);
-            border: 2px solid var(--love-red);
+            border: 2px solid var(--romance-pink);
             border-radius: 12px;
             display: flex;
             align-items: center;
@@ -85,13 +121,18 @@
             font-size: 2.2rem;
             cursor: pointer;
             transition: 0.3s;
+            box-shadow: 0 5px 15px rgba(0,0,0,0.3);
         }
 
-        /* SOPA DE LETRAS */
+        .cell:hover {
+            background: rgba(255, 133, 162, 0.1);
+            transform: scale(1.05);
+        }
+
         .word-search-container {
             margin-top: 50px;
             padding-top: 30px;
-            border-top: 1px solid rgba(255,255,255,0.2);
+            border-top: 1px solid rgba(255,255,255,0.1);
         }
 
         .ws-grid {
@@ -105,7 +146,7 @@
         .ws-cell {
             width: 32px;
             height: 32px;
-            background: rgba(255,255,255,0.1);
+            background: rgba(255,255,255,0.08);
             border: 1px solid rgba(255,255,255,0.2);
             display: flex;
             align-items: center;
@@ -115,10 +156,167 @@
             cursor: pointer;
             border-radius: 4px;
             transition: 0.2s;
+            color: #fff;
         }
 
-        .ws-cell.selected { background: var(--gold); color: black; border-color: white; }
-        .ws-cell.found { background: #28a745; color: white; border-color: #fff; pointer-events: none; }
+        .ws-cell:hover {
+            background: rgba(255, 133, 162, 0.2);
+        }
+
+        .ws-cell.selected {
+            background: var(--gold);
+            color: black;
+            border-color: white;
+            box-shadow: 0 0 10px rgba(255, 133, 162, 0.5);
+        }
+
+        .ws-cell.found {
+            background: #28a745;
+            color: white;
+            border-color: #fff;
+            pointer-events: none;
+        }
+
+        .crossword-content {
+            display: flex;
+            gap: 20px;
+            justify-content: center;
+            align-items: flex-start;
+            flex-wrap: wrap;
+            margin: 30px 0;
+        }
+
+        .crossword-wrapper {
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+        }
+
+        .crossword-grid {
+            display: inline-grid;
+            gap: 2px;
+            margin: 20px 0;
+            padding: 10px;
+            background: rgba(0,0,0,0.3);
+            border-radius: 10px;
+        }
+
+        .crossword-input {
+            width: 32px;
+            height: 32px;
+            text-align: center;
+            font-weight: bold;
+            font-size: 0.9rem;
+            padding: 2px;
+            background: rgba(255,255,255,0.1);
+            border: 1px solid rgba(255,255,255,0.3);
+            color: #fff;
+            border-radius: 3px;
+            transition: 0.2s;
+        }
+
+        .crossword-input:disabled {
+            background: #333;
+            cursor: default;
+            border: 1px solid #555;
+        }
+
+        .crossword-input:focus {
+            outline: none;
+            background: rgba(255, 133, 162, 0.15);
+            border-color: var(--gold);
+        }
+
+        .crossword-input.highlighted {
+            background: rgba(212, 175, 51, 0.3) !important;
+            border-color: var(--gold) !important;
+            box-shadow: 0 0 10px rgba(212, 175, 51, 0.5);
+        }
+
+        .crossword-clues-container {
+            display: flex;
+            gap: 30px;
+            max-width: 400px;
+        }
+
+        .clues-section {
+            flex: 1;
+        }
+
+        .clues-section h5 {
+            color: var(--gold);
+            margin-bottom: 15px;
+            font-size: 1rem;
+        }
+
+        .clues-section p {
+            font-size: 0.85rem;
+            line-height: 1.6;
+            text-align: left;
+            margin-bottom: 8px;
+            opacity: 0.5;
+            transition: 0.3s;
+            cursor: pointer;
+        }
+
+        .clues-section p:hover {
+            opacity: 0.8;
+        }
+
+        .clues-section p.active-clue {
+            opacity: 1;
+            color: var(--gold);
+            font-weight: bold;
+        }
+
+        .crossword-tooltip {
+            position: fixed;
+            background: rgba(0, 0, 0, 0.98);
+            color: var(--gold);
+            padding: 18px 24px;
+            border-radius: 15px;
+            border: 2px solid var(--gold);
+            font-size: 0.95rem;
+            z-index: 10000;
+            max-width: 300px;
+            white-space: normal;
+            line-height: 1.7;
+            box-shadow: 0 0 40px rgba(212, 175, 51, 0.8);
+            pointer-events: none;
+            animation: tooltipPop 0.3s ease-out;
+        }
+
+        @keyframes tooltipPop {
+            from { transform: scale(0.8); opacity: 0; }
+            to { transform: scale(1); opacity: 1; }
+        }
+
+        .crossword-tooltip::before {
+            content: '';
+            position: absolute;
+            width: 12px;
+            height: 12px;
+            background: rgba(0, 0, 0, 0.98);
+            border-left: 2px solid var(--gold);
+            border-top: 2px solid var(--gold);
+            transform: rotate(-45deg);
+            left: -8px;
+            top: 25px;
+        }
+
+        .tooltip-header {
+            font-weight: bold;
+            color: var(--gold);
+            margin-bottom: 12px;
+            padding-bottom: 10px;
+            border-bottom: 1px solid rgba(212, 175, 51, 0.4);
+            font-size: 1rem;
+        }
+
+        .tooltip-body {
+            font-size: 0.9rem;
+            line-height: 1.6;
+        }
 
         #final-proposal {
             display: none;
@@ -136,20 +334,45 @@
             100% { transform: scale(1); }
         }
 
-        #game-message {
+        #sopa-message {
             display: none;
-            background: rgba(0, 0, 0, 0.9);
+            background: rgba(0, 0, 0, 0.4);
             padding: 30px;
             border-radius: 20px;
             border: 2px solid var(--gold);
             margin-top: 25px;
             box-shadow: 0 0 30px rgba(212, 175, 51, 0.4);
             text-align: left;
+            animation: fadeIn 0.8s ease;
+        }
+
+        #crossword-message {
+            display: none;
+            background: rgba(0, 0, 0, 0.4);
+            padding: 30px;
+            border-radius: 20px;
+            border: 2px solid var(--gold);
+            margin-top: 25px;
+            box-shadow: 0 0 30px rgba(212, 175, 51, 0.4);
+            text-align: left;
+            animation: fadeIn 0.8s ease;
+        }
+
+        #game-message {
+            display: none;
+            background: rgba(0, 0, 0, 0.4);
+            padding: 30px;
+            border-radius: 20px;
+            border: 2px solid var(--gold);
+            margin-top: 25px;
+            box-shadow: 0 0 30px rgba(212, 175, 51, 0.4);
+            text-align: left;
+            animation: fadeIn 0.8s ease;
         }
 
         .heart-particle {
             position: fixed;
-            color: var(--love-red);
+            color: var(--romance-pink);
             pointer-events: none;
             z-index: 9999;
             font-size: 1.2rem;
@@ -162,14 +385,132 @@
             100% { transform: translate(var(--x), var(--y)) scale(1.2); opacity: 0; }
         }
 
-        .table-container { max-height: 400px; overflow-y: auto; border-radius: 10px; border: 1px solid rgba(255,255,255,0.1); }
-        .table-love { color: #eee; font-size: 0.9rem; margin-bottom: 0; }
-        .table-love thead th { position: sticky; top: 0; background: #222; z-index: 10; color: var(--love-red); }
+        .table-container {
+            max-height: 400px;
+            overflow-y: auto;
+            border-radius: 10px;
+            border: 1px solid rgba(255,255,255,0.1);
+        }
 
-        @keyframes fadeIn { from { opacity: 0; transform: translateY(20px); } to { opacity: 1; transform: translateY(0); } }
-    </style>
+        .table-love {
+            color: #eee;
+            font-size: 0.9rem;
+            margin-bottom: 0;
+        }
+
+        .table-love thead th {
+            position: sticky;
+            top: 0;
+            background: rgba(0, 0, 0, 0.5);
+            z-index: 10;
+            color: var(--romance-pink);
+        }
+
+        .table-love tbody tr:hover {
+            background: rgba(255, 133, 162, 0.1) !important;
+        }
+
+        .btn-outline-light {
+            color: rgba(255,255,255,0.8);
+            border: 1px solid rgba(255,255,255,0.3);
+        }
+
+        .btn-outline-light:hover {
+            color: white;
+            border-color: var(--romance-pink);
+            background: rgba(255, 133, 162, 0.1);
+        }
+
+        .btn-outline-secondary {
+            color: rgba(255,255,255,0.8);
+            border: 1px solid rgba(255,255,255,0.3);
+        }
+
+        .btn-outline-secondary:hover {
+            color: white;
+            border-color: var(--romance-pink);
+            background: rgba(255, 133, 162, 0.1);
+        }
+
+        .extra-btn {
+            padding: 15px 40px;
+            border: 2px solid var(--gold);
+            color: var(--gold);
+            font-size: 1rem;
+            margin-top: 40px;
+            background: transparent;
+            transition: 0.3s;
+        }
+
+        .extra-btn:hover {
+            background: rgba(212, 175, 51, 0.1);
+            transform: scale(1.05);
+        }
+
+        .badge {
+            background: rgba(255,255,255,0.1);
+            border: 1px solid rgba(255, 133, 162, 0.5) !important;
+            color: #fff;
+        }
+
+        .badge.bg-success {
+            background: #28a745 !important;
+            border-color: #fff !important;
+        }
+
+        .row-header, .col-header {
+            cursor: pointer;
+            transition: 0.2s;
+        }
+
+        .row-header:hover, .col-header:hover {
+            background: rgba(255, 133, 162, 0.3) !important;
+            transform: scale(1.1);
+        }
+
+        .crossword-input.highlight-row, .crossword-input.highlight-col {
+            background: rgba(212, 175, 51, 0.4) !important;
+            border-color: var(--gold) !important;
+            box-shadow: 0 0 8px rgba(212, 175, 51, 0.6);
+        }
+
+        .clue-tooltip {
+            position: fixed;
+            background: rgba(0, 0, 0, 0.95);
+            color: var(--gold);
+            padding: 15px 20px;
+            border-radius: 12px;
+            border: 2px solid var(--gold);
+            font-size: 0.95rem;
+            max-width: 280px;
+            white-space: normal;
+            line-height: 1.6;
+            z-index: 10000;
+            box-shadow: 0 0 40px rgba(212, 175, 51, 0.8);
+            pointer-events: none;
+            animation: tooltipSlide 0.3s ease-out;
+        }
+
+        @keyframes tooltipSlide {
+            from { transform: translateY(-10px); opacity: 0; }
+            to { transform: translateY(0); opacity: 1; }
+        }
+
+        .clue-tooltip-title {
+            font-weight: bold;
+            margin-bottom: 8px;
+            font-size: 1rem;
+        }
+
+        .clue-tooltip-text {
+            font-size: 0.9rem;
+            opacity: 0.95;
+        }
+</style>
 </head>
 <body onclick="createHeartShape(event)">
+
+    <canvas id="heart-canvas"></canvas>
 
     <div class="container">
         <h1>Para mi Patito 🦆❤️</h1>
@@ -183,7 +524,7 @@
         </nav>
 
         <div id="sec-juego" class="content-section">
-            <h2 style="font-family: 'Dancing Script'; color: #ff85a1;">1. Tres en Raya del Amor</h2>
+            <h2>1. Tres en Raya del Amor</h2>
             <div class="tic-tac-toe" id="board">
                 <div class="cell" onclick="makeMove(this, 0)"></div>
                 <div class="cell" onclick="makeMove(this, 1)"></div>
@@ -209,12 +550,22 @@
             </div>
 
             <div class="word-search-container">
-                <h2 style="font-family: 'Dancing Script'; color: #ff85a1;">2. Sopa de Letras Especial</h2>
+                <h2>2. Sopa de Letras Especial</h2>
                 <p class="small opacity-75">Selecciona las letras para encontrar las palabras ocultas</p>
                 <div class="ws-grid" id="ws-grid"></div>
                 
-                <div id="word-list-display" class="d-flex justify-content-center gap-2 flex-wrap mt-2">
+                <div id="word-list-display" class="d-flex justify-content-center gap-2 flex-wrap mt-2"></div>
+
+                <div id="sopa-message">
+                    <h4 style="color: var(--gold); font-family: 'Dancing Script'; font-size: 2.5rem; text-align: center;">¡Lo hiciste, Patito! 💍✨</h4>
+                    <hr style="border-color: var(--gold); opacity: 0.5;">
+                    <div class="mt-3" style="line-height: 1.8; font-weight: 300; font-style: italic; font-size: 1.05rem;">
+                        <p>Encontraste todas las palabras ocultas en mi corazón. Cada letra que seleccionaste forma parte de lo que siento por ti: que QUIERES seguir a mi lado, que SEAMOS siempre juntos, que yo SIENDO tuyo es lo más hermoso que me ha pasado.</p>
+                        <p>Eres mi mayor tesoro, mi razón de sonreír cada día. Este pequeño juego es solo una forma de decirte lo mucho que te amo y lo afortunado que me siento de tenerte en mi vida.</p>
+                        <p>Gracias por jugar conmigo, gracias por creer en nosotros, y gracias por ser exactamente quien eres: mi Patito perfecto.</p>
                     </div>
+                    <p class="text-end" style="font-family: 'Dancing Script'; font-size: 1.8rem; color: var(--gold);">— Por siempre tuyo, Javi ❤️</p>
+                </div>
 
                 <div id="final-proposal">
                     <h3 style="font-family: 'Dancing Script'; color: var(--gold); font-size: 2.5rem;">¿Quieres seguir siendo mi novia? 💍❤️</h3>
@@ -223,10 +574,45 @@
 
                 <button class="btn btn-sm btn-outline-secondary mt-4" onclick="initWordSearch()">Reiniciar Sopa</button>
             </div>
+
+            <div class="word-search-container">
+                <h2>3. Crucigrama de San Valentín</h2>
+                <p class="small opacity-75">Completa el crucigrama con palabras de temática romántica (Haz clic en las filas/columnas para ver las pistas)</p>
+                
+                <div class="crossword-content">
+                    <div class="crossword-wrapper">
+                        <div id="crossword-grid" class="crossword-grid"></div>
+                    </div>
+
+                    <div class="crossword-clues-container">
+                        <div class="clues-section">
+                            <h5>📋 HORIZONTALES</h5>
+                            <div id="horizontal-clues"></div>
+                        </div>
+
+                        <div class="clues-section">
+                            <h5>📋 VERTICALES</h5>
+                            <div id="vertical-clues"></div>
+                        </div>
+                    </div>
+                </div>
+
+                <button class="btn btn-sm btn-outline-secondary mt-3" onclick="initCrossword()">Reiniciar Crucigrama</button>
+
+                <div id="crossword-message">
+                    <h4 style="color: var(--gold); font-family: 'Dancing Script'; font-size: 2.5rem; text-align: center;">¡Completaste el crucigrama! 🎉💕</h4>
+                    <hr style="border-color: var(--gold); opacity: 0.5;">
+                    <div class="mt-3" style="line-height: 1.8; font-weight: 300; font-style: italic; font-size: 1.05rem;">
+                        <p>Felicidades, Patito. Completaste cada palabra con la dedicación que mereces. Cada respuesta es un reflejo de lo que significa estar a tu lado: amor, ternura, complicidad y un futuro brillante juntos.</p>
+                        <p>Este crucigrama es mi forma de decirte que cada letra de tu nombre, cada momento contigo, cada risa compartida, forma parte de la obra maestra que es nuestra historia.</p>
+                    </div>
+                    <p class="text-end" style="font-family: 'Dancing Script'; font-size: 1.8rem; color: var(--gold);">— Te adoro, Javi 💕</p>
+                </div>
+            </div>
         </div>
 
         <div id="sec-poemas" class="content-section">
-            <h2 style="font-family: 'Dancing Script'; color: #ff85a1;">Versos para ti</h2>
+            <h2>Versos para ti</h2>
             <div class="d-flex justify-content-center gap-2 mt-3">
                 <button class="btn btn-outline-light" onclick="showPoema(1)">I</button>
                 <button class="btn btn-outline-light" onclick="showPoema(2)">II</button>
@@ -236,7 +622,7 @@
         </div>
 
         <div id="sec-idiomas" class="content-section">
-            <h2 style="font-family: 'Dancing Script'; color: #ff85a1;">Te amo en el mundo</h2>
+            <h2>Te amo en el mundo</h2>
             <div class="table-container mt-3">
                 <table class="table table-dark table-love table-hover">
                     <thead><tr><th>Idioma</th><th>Traducción</th></tr></thead>
@@ -246,7 +632,7 @@
         </div>
 
         <div id="sec-rock" class="content-section text-start">
-            <h2 class="text-center" style="font-family: 'Dancing Script'; color: #ff85a1;">Rocker Playlist</h2>
+            <h2 class="text-center">Rocker Playlist</h2>
             <div class="mt-4">
                 <p>🤘 <strong>Sweet Child O' Mine</strong> - Guns N' Roses</p>
                 <p>🔥 <strong>Still Loving You</strong> - Scorpions</p>
@@ -255,7 +641,7 @@
         </div>
 
         <div id="sec-carta" class="content-section text-start">
-            <h2 class="text-center" style="font-family: 'Dancing Script'; color: var(--gold); font-size: 3rem;">Carta de Javi</h2>
+            <h2 class="text-center" style="font-size: 3rem;">Carta de Javi</h2>
             <div class="mt-4" style="line-height: 1.8; border-left: 3px solid var(--gold); padding-left: 20px;">
                 <p>Mi querida Patito,</p>
                 <p>He creado este rincón digital para que nunca olvides lo mucho que significas para mí. Eres la melodía más increíble de mi canción de rock favorita, la fuerza que me empuja y la calma que necesito al final del día.</p>
@@ -266,13 +652,65 @@
         </div>
 
         <div style="text-align: center; margin-top: 40px; margin-bottom: 50px;">
-            <button class="btn-custom" onclick="window.location.href='extra.html'" style="padding: 15px 40px; border: 2px solid var(--gold); color: var(--gold); font-size: 1rem;">
-                ⭐ EXTRA
-            </button>
+            <button class="btn-custom extra-btn" onclick="window.location.href='extra.html'">⭐ EXTRA</button>
+            <button class="btn-custom extra-btn" onclick="window.location.href='flores.html'">🌹 FLORES</button>
+            <button class="btn-custom extra-btn" onclick="window.location.href='flores3.html'">👑 MI PRINCESA</button>
+            <button class="btn-custom extra-btn" onclick="window.location.href='final.html'">💎 FINAL</button>
         </div>
     </div>
 
     <script>
+        // CANVAS CORAZONES FLOTANTES
+        const canvas = document.getElementById('heart-canvas');
+        const ctx = canvas.getContext('2d');
+        let hearts = [];
+
+        function resize() {
+            canvas.width = window.innerWidth;
+            canvas.height = window.innerHeight;
+        }
+        window.onresize = resize;
+        resize();
+
+        class Heart {
+            constructor() {
+                this.reset();
+                this.y = Math.random() * canvas.height;
+            }
+            reset() {
+                this.x = Math.random() * canvas.width;
+                this.y = canvas.height + 100;
+                this.size = Math.random() * 50 + 20;
+                this.speed = Math.random() * 1.2 + 0.4;
+                this.opacity = Math.random() * 0.3 + 0.1;
+            }
+            draw() {
+                ctx.globalAlpha = this.opacity;
+                ctx.fillStyle = "white";
+                ctx.beginPath();
+                const x = this.x, y = this.y, s = this.size;
+                ctx.moveTo(x, y);
+                ctx.bezierCurveTo(x, y-s/2, x-s, y-s/2, x-s, y);
+                ctx.bezierCurveTo(x-s, y+s/2, x, y+s, x, y+s);
+                ctx.bezierCurveTo(x, y+s, x+s, y+s/2, x+s, y);
+                ctx.bezierCurveTo(x+s, y-s/2, x, y-s/2, x, y);
+                ctx.fill();
+            }
+            update() {
+                this.y -= this.speed;
+                if (this.y < -100) this.reset();
+            }
+        }
+
+        for(let i=0; i<25; i++) hearts.push(new Heart());
+
+        function animate() {
+            ctx.clearRect(0, 0, canvas.width, canvas.height);
+            hearts.forEach(h => { h.update(); h.draw(); });
+            requestAnimationFrame(animate);
+        }
+        animate();
+
         function showSection(id) {
             document.querySelectorAll('.content-section').forEach(s => s.style.display = 'none');
             document.getElementById(id).style.display = 'block';
@@ -292,7 +730,7 @@
             }
         }
 
-        // SOPA DE LETRAS PERSONALIZADA
+        // SOPA DE LETRAS
         const words = ["QUIERES", "SEGUIR", "SIENDO", "MI", "NOVIA"];
         let wordsFound = [];
         const size = 10;
@@ -301,14 +739,15 @@
             const grid = document.getElementById('ws-grid');
             const wordListDiv = document.getElementById('word-list-display');
             const proposal = document.getElementById('final-proposal');
+            const sopaMsg = document.getElementById('sopa-message');
             if(!grid) return;
             
             grid.innerHTML = '';
             wordListDiv.innerHTML = '';
             proposal.style.display = 'none';
+            sopaMsg.style.display = 'none';
             wordsFound = [];
 
-            // Mostrar lista de palabras a buscar
             words.forEach(w => {
                 const span = document.createElement('span');
                 span.className = 'badge border border-secondary p-2 m-1';
@@ -320,7 +759,6 @@
             const matrix = Array(size).fill().map(() => Array(size).fill(''));
             const cellStatus = Array(size).fill().map(() => Array(size).fill(false));
 
-            // Colocar palabras horizontalmente de forma aleatoria
             words.forEach(w => {
                 let placed = false;
                 while(!placed) {
@@ -329,14 +767,13 @@
                     if(matrix[r].slice(c, c+w.length).every(cell => cell === '')) {
                         for(let i=0; i<w.length; i++) {
                             matrix[r][c+i] = w[i];
-                            cellStatus[r][c+i] = true; // Marcar como celda de palabra
+                            cellStatus[r][c+i] = true;
                         }
                         placed = true;
                     }
                 }
             });
 
-            // Rellenar y crear elementos
             for(let r=0; r<size; r++) {
                 for(let c=0; c<size; c++) {
                     if(matrix[r][c] === '') matrix[r][c] = "ABCDEFGHIJKLMNOPQRSTUVWXYZ"[Math.floor(Math.random()*26)];
@@ -344,7 +781,6 @@
                     div.className = 'ws-cell';
                     div.innerText = matrix[r][c];
                     
-                    // Lógica de click
                     div.onclick = function() {
                         this.classList.toggle('selected');
                         checkFoundWords();
@@ -363,7 +799,6 @@
             
             words.forEach(w => {
                 if(!wordsFound.includes(w)) {
-                    // Verificamos si la palabra está contenida en la selección (muy simplificado para que ella lo logre fácil)
                     if(selectedText.includes(w)) {
                         wordsFound.push(w);
                         document.getElementById('word-' + w).classList.replace('border-secondary', 'bg-success');
@@ -375,12 +810,279 @@
             });
 
             if(wordsFound.length === words.length) {
+                document.getElementById('sopa-message').style.display = 'block';
                 document.getElementById('final-proposal').style.display = 'block';
                 for(let i=0; i<3; i++) setTimeout(() => createHeartShape({clientX: window.innerWidth/2, clientY: window.innerHeight/2}), i*400);
             }
         }
 
-        // TRES EN RAYA
+        // ========== CRUCIGRAMA DE SAN VALENTÍN ==========
+        let crosswordGrid = [];
+        let activeTooltip = null;
+        const SIZE = 10;
+        let crosswordWords = [];
+        let crosswordCells = [];
+        let crosswordContainer = null;
+
+        function initCrossword() {
+            const gridContainer = document.getElementById('crossword-grid');
+            crosswordContainer = document.getElementById('crossword-grid').parentElement.querySelector('div[style*="display: grid"]') || gridContainer;
+            const hCluesDiv = document.getElementById('horizontal-clues');
+            const vCluesDiv = document.getElementById('vertical-clues');
+            const msgDiv = document.getElementById('crossword-message');
+            
+            gridContainer.innerHTML = '';
+            hCluesDiv.innerHTML = '';
+            vCluesDiv.innerHTML = '';
+            msgDiv.style.display = 'none';
+            crosswordGrid = [];
+            crosswordCells = [];
+
+            // ESTRUCTURA 10x10 CON PALABRAS CRUZADAS - INTERCONEXIONES AJUSTADAS
+            const grid = Array(10).fill(null).map(() => Array(10).fill(''));
+            
+            // HORIZONTALES:
+            // AMOR en fila 1, columna 1-4: A[1,1] M[1,2] O[1,3] R[1,4]
+            grid[1][1] = 'A'; grid[1][2] = 'M'; grid[1][3] = 'O'; grid[1][4] = 'R';
+            
+            // BESO en fila 3, columna 1-4: B[3,1] E[3,2] S[3,3] O[3,4]
+            grid[3][1] = 'B'; grid[3][2] = 'E'; grid[3][3] = 'S'; grid[3][4] = 'O';
+            
+            // LATIDO en fila 5, columna 0-5: L[5,0] A[5,1] T[5,2] I[5,3] D[5,4] O[5,5]
+            grid[5][0] = 'L'; grid[5][1] = 'A'; grid[5][2] = 'T'; grid[5][3] = 'I'; grid[5][4] = 'D'; grid[5][5] = 'O';
+            
+            // PASION en fila 7, columna 1-6: P[7,1] A[7,2] S[7,3] I[7,4] O[7,5] N[7,6]
+            grid[7][1] = 'P'; grid[7][2] = 'A'; grid[7][3] = 'S'; grid[7][4] = 'I'; grid[7][5] = 'O'; grid[7][6] = 'N';
+
+            // VERTICALES:
+            // ROMANCE en columna 3, fila 0-6: R[0,3] O[1,3] M[2,3] A[3,3] N[4,3] C[5,3] E[6,3]
+            grid[0][3] = 'R'; grid[1][3] = 'O'; grid[2][3] = 'M'; grid[3][3] = 'A'; grid[4][3] = 'N'; grid[5][3] = 'C'; grid[6][3] = 'E';
+            
+            // OSO en columna 4, fila 3-5: O[3,4] S[4,4] O[5,4]
+            grid[3][4] = 'O'; grid[4][4] = 'S'; grid[5][4] = 'O';
+            
+            // NOVIOS en columna 2, fila 1-6: N[1,2] O[2,2] V[3,2] I[4,2] O[5,2] S[6,2]
+            grid[1][2] = 'N'; grid[2][2] = 'O'; grid[3][2] = 'V'; grid[4][2] = 'I'; grid[5][2] = 'O'; grid[6][2] = 'S';
+
+            // Definir palabras del crucigrama globalmente
+            crosswordWords = [
+          { word: "AMOR", row: 1, col: 1, dir: "H", clue: "Sentimiento eterno por ti" },
+          { word: "BESO", row: 3, col: 1, dir: "H", clue: "Demostración de cariño" },
+          { word: "LATIDO", row: 5, col: 0, dir: "H", clue: "Pulso del corazón enamorado" },
+          { word: "PASION", row: 7, col: 1, dir: "H", clue: "Fuego del amor intenso" },
+          { word: "ROMANCE", row: 0, col: 3, dir: "V", clue: "Historia de amor y aventura" },
+          { word: "OSO", row: 3, col: 4, dir: "V", clue: "Peluches clásicos del amor" },
+          { word: "NOVIOS", row: 1, col: 2, dir: "V", clue: "Dos amantes en una relación" }
+            ];
+
+            const rows = 10;
+            const cols = 10;
+
+            // CREAR GRID
+            const wrapper = document.createElement('div');
+            wrapper.style.display = 'grid';
+            wrapper.style.gridTemplateColumns = `40px repeat(${cols}, 32px)`;
+            wrapper.style.gap = '2px';
+            wrapper.style.width = 'fit-content';
+            wrapper.style.margin = '0 auto';
+            wrapper.style.padding = '10px';
+            wrapper.style.background = 'rgba(0,0,0,0.3)';
+            wrapper.style.borderRadius = '10px';
+
+            // Esquina
+            const corner = document.createElement('div');
+            corner.style.width = '40px';
+            corner.style.height = '32px';
+            wrapper.appendChild(corner);
+
+            // Números columnas
+            for(let c = 0; c < cols; c++) {
+                const header = document.createElement('div');
+                header.className = 'col-header';
+                header.style.width = '32px';
+                header.style.height = '32px';
+                header.style.display = 'flex';
+                header.style.alignItems = 'center';
+                header.style.justifyContent = 'center';
+                header.style.color = 'var(--gold)';
+                header.style.fontWeight = 'bold';
+                header.style.fontSize = '0.8rem';
+                header.style.borderRadius = '4px';
+                header.innerText = (c + 1);
+                header.addEventListener('click', () => highlightCrosswordColumn(c));
+                wrapper.appendChild(header);
+            }
+
+            // Filas y celdas
+            const rowLetters = ['A', 'B', 'C', 'D', 'E', 'F', 'G', 'H', 'I', 'J'];
+            
+            for(let r = 0; r < rows; r++) {
+                const rowLabel = document.createElement('div');
+                rowLabel.className = 'row-header';
+                rowLabel.style.width = '40px';
+                rowLabel.style.height = '32px';
+                rowLabel.style.display = 'flex';
+                rowLabel.style.alignItems = 'center';
+                rowLabel.style.justifyContent = 'center';
+                rowLabel.style.color = 'var(--gold)';
+                rowLabel.style.fontWeight = 'bold';
+                rowLabel.style.fontSize = '0.9rem';
+                rowLabel.style.borderRadius = '4px';
+                rowLabel.innerText = rowLetters[r];
+                rowLabel.addEventListener('click', () => highlightCrosswordRow(r));
+                wrapper.appendChild(rowLabel);
+
+                if(!crosswordGrid[r]) crosswordGrid[r] = [];
+                
+                for(let c = 0; c < cols; c++) {
+                    const char = grid[r][c];
+                    const cell = document.createElement('input');
+                    cell.type = 'text';
+                    cell.maxLength = '1';
+                    cell.className = 'crossword-input';
+                    cell.dataset.row = r;
+                    cell.dataset.col = c;
+                    
+                    if(char === '') {
+                        cell.disabled = true;
+                        cell.style.background = '#333';
+                        cell.style.border = 'none';
+                        cell.style.cursor = 'default';
+                    } else {
+                        cell.dataset.answer = char;
+                        
+                        cell.addEventListener('input', (e) => {
+                            e.target.value = e.target.value.toUpperCase();
+                            checkCrossword(grid);
+                        });
+                    }
+                    
+                    wrapper.appendChild(cell);
+                    crosswordGrid[r][c] = cell;
+                    crosswordCells.push(cell);
+                }
+            }
+
+            gridContainer.appendChild(wrapper);
+
+            // PISTAS
+            hCluesDiv.innerHTML = '<strong style="color: var(--gold);">HORIZONTALES:</strong><br>';
+            crosswordWords.filter(w => w.dir === "H").forEach(w => {
+                const p = document.createElement('p');
+                p.style.cursor = 'pointer';
+                p.innerHTML = `<strong>${w.row + 1}.</strong> ${w.clue}`;
+                p.addEventListener('click', () => p.classList.toggle('active-clue'));
+                hCluesDiv.appendChild(p);
+            });
+
+            vCluesDiv.innerHTML = '<strong style="color: var(--gold);">VERTICALES:</strong><br>';
+            crosswordWords.filter(w => w.dir === "V").forEach(w => {
+                const p = document.createElement('p');
+                p.style.cursor = 'pointer';
+                p.innerHTML = `<strong>${w.col + 1}.</strong> ${w.clue}`;
+                p.addEventListener('click', () => p.classList.toggle('active-clue'));
+                vCluesDiv.appendChild(p);
+            });
+        }
+
+        function checkCrossword(grid) {
+            let allCorrect = true;
+            let filledCells = 0;
+            const totalCells = grid.flat().filter(c => c !== '').length;
+
+            for(let r = 0; r < 10; r++) {
+                for(let c = 0; c < 10; c++) {
+                    const cell = crosswordGrid[r][c];
+                    if(cell && grid[r][c] !== '') {
+                        const userInput = cell.value.toUpperCase();
+                        const correctAnswer = grid[r][c];
+                        
+                        if(userInput === correctAnswer) {
+                            cell.style.background = 'rgba(40, 167, 69, 0.3)';
+                            filledCells++;
+                        } else if(userInput !== '') {
+                            cell.style.background = 'rgba(255, 133, 162, 0.2)';
+                            allCorrect = false;
+                        } else {
+                            cell.style.background = 'rgba(255,255,255,0.1)';
+                            allCorrect = false;
+                        }
+                    }
+                }
+            }
+
+            if(allCorrect && filledCells === totalCells) {
+                document.getElementById('crossword-message').style.display = 'block';
+                for(let i=0; i<5; i++) setTimeout(() => createHeartShape({clientX: window.innerWidth/2, clientY: window.innerHeight/2}), i*300);
+            }
+        }
+
+        function highlightCrosswordColumn(col) {
+            clearCrosswordHighlights();
+            const verticalWord = crosswordWords.find(w => w.dir === "V" && w.col === col);
+            
+            for(let r = 0; r < SIZE; r++) {
+                const cell = crosswordGrid[r][col];
+                if(cell && !cell.disabled) {
+                    cell.classList.add('highlight-col');
+                }
+            }
+            
+            if(verticalWord) {
+                showCrosswordClueTooltip(verticalWord.clue, `Vertical - Columna ${col + 1}`);
+            }
+        }
+
+        function highlightCrosswordRow(row) {
+            clearCrosswordHighlights();
+            const horizontalWord = crosswordWords.find(w => w.dir === "H" && w.row === row);
+            
+            for(let c = 0; c < SIZE; c++) {
+                const cell = crosswordGrid[row][c];
+                if(cell && !cell.disabled) {
+                    cell.classList.add('highlight-row');
+                }
+            }
+            
+            if(horizontalWord) {
+                showCrosswordClueTooltip(horizontalWord.clue, `Horizontal - Fila ${String.fromCharCode(65 + row)}`);
+            }
+        }
+
+        function clearCrosswordHighlights() {
+            document.querySelectorAll('.crossword-input.highlight-row, .crossword-input.highlight-col').forEach(c => {
+                c.classList.remove('highlight-row', 'highlight-col');
+            });
+            removeCrosswordClueTooltip();
+        }
+
+        function showCrosswordClueTooltip(clue, direction) {
+            removeCrosswordClueTooltip();
+            const tooltip = document.createElement('div');
+            tooltip.id = 'crossword-clue-tooltip';
+            tooltip.className = 'clue-tooltip';
+            tooltip.innerHTML = `<div class="clue-tooltip-title">${direction}</div><div class="clue-tooltip-text">${clue}</div>`;
+            document.body.appendChild(tooltip);
+            
+            // Posicionar el tooltip
+            const gridContainer = document.getElementById('crossword-grid');
+            const rect = gridContainer.getBoundingClientRect();
+            const tooltipHeight = 100;
+            const tooltipWidth = 280;
+            
+            if(rect.bottom + tooltipHeight + 20 < window.innerHeight) {
+                tooltip.style.top = (rect.bottom + 20) + 'px';
+            } else {
+                tooltip.style.top = (rect.top - tooltipHeight - 20) + 'px';
+            }
+            
+            tooltip.style.left = (rect.left + rect.width / 2 - tooltipWidth / 2) + 'px';
+        }
+
+        function removeCrosswordClueTooltip() {
+            const tooltip = document.getElementById('crossword-clue-tooltip');
+            if(tooltip) tooltip.remove();
+        }
         let board = ["", "", "", "", "", "", "", "", ""];
         let gameActive = true;
         function makeMove(cell, index) {
@@ -416,7 +1118,7 @@
             document.getElementById('game-message').style.display = 'none';
         }
 
-        // IDIOMAS (50+)
+        // IDIOMAS
         const idiomasData = [
             ["Español", "Te amo"], ["Inglés", "I love you"], ["Francés", "Je t'aime"], ["Italiano", "Ti amo"], ["Alemán", "Ich liebe dich"],
             ["Portugués", "Eu te amo"], ["Japonés", "Aishiteru"], ["Coreano", "Saranghae"], ["Ruso", "Ya tebya lyublyu"], ["Árabe", "Ana behibak"],

@@ -1,0 +1,625 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Para mi Princesa | Con Amor</title>
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/css/bootstrap.min.css" rel="stylesheet">
+    <link href="https://fonts.googleapis.com/css2?family=Dancing+Script:wght@700&family=Montserrat:wght@300;500;700&display=swap" rel="stylesheet">
+    
+    <style>
+        * { margin: 0; padding: 0; box-sizing: border-box; }
+
+        body {
+            background: radial-gradient(ellipse at center top, #1a0a2e 0%, #0f051a 30%, #0a0010 100%);
+            font-family: 'Montserrat', sans-serif;
+            color: #fff;
+            min-height: 100vh;
+            overflow-y: auto;
+            cursor: default;
+            margin: 0;
+            padding: 0;
+            position: relative;
+        }
+
+        /* Estrellas de fondo */
+        .stars {
+            position: absolute;
+            width: 100%;
+            height: 100%;
+            top: 0;
+            left: 0;
+            z-index: 0;
+        }
+
+        .star {
+            position: absolute;
+            background: white;
+            border-radius: 50%;
+            animation: twinkle 3s infinite;
+        }
+
+        @keyframes twinkle {
+            0%, 100% { opacity: 0.3; }
+            50% { opacity: 1; }
+        }
+
+        .lily-container {
+            position: relative;
+            width: 100%;
+            min-height: 100vh;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            justify-content: flex-start;
+            z-index: 10;
+            padding: 80px 20px 60px 20px;
+        }
+
+        svg {
+            width: 100%;
+            height: 100%;
+            position: absolute;
+            top: 0;
+            left: 0;
+            filter: drop-shadow(0 0 40px rgba(255, 223, 0, 0.5));
+        }
+
+        /* Efecto de glow principal */
+        .lily-glow {
+            position: absolute;
+            border-radius: 50%;
+            animation: glowExpand 4s ease-out infinite;
+        }
+
+        .glow1 {
+            width: 400px;
+            height: 400px;
+            background: radial-gradient(circle, rgba(255, 215, 0, 0.4) 0%, transparent 70%);
+            animation-delay: 0s;
+        }
+
+        .glow2 {
+            width: 300px;
+            height: 300px;
+            background: radial-gradient(circle, rgba(255, 255, 100, 0.3) 0%, transparent 70%);
+            animation-delay: 0.5s;
+        }
+
+        .glow3 {
+            width: 200px;
+            height: 200px;
+            background: radial-gradient(circle, rgba(255, 223, 0, 0.5) 0%, transparent 70%);
+            animation-delay: 1s;
+        }
+
+        @keyframes glowExpand {
+            0% {
+                transform: scale(0.8);
+                opacity: 0.8;
+            }
+            50% {
+                opacity: 1;
+            }
+            100% {
+                transform: scale(1.2);
+                opacity: 0.4;
+            }
+        }
+
+        .lilies-main {
+            display: none;
+        }
+
+        .lily-flower {
+            position: absolute;
+            filter: drop-shadow(0 0 25px rgba(255, 223, 0, 0.6));
+        }
+
+        .lily-main {
+            width: 350px;
+            height: 350px;
+            animation: lilyPulse 3s ease-in-out infinite;
+        }
+
+        @keyframes lilyPulse {
+            0%, 100% {
+                filter: drop-shadow(0 0 25px rgba(255, 223, 0, 0.6));
+                transform: scale(1);
+            }
+            50% {
+                filter: drop-shadow(0 0 40px rgba(255, 223, 0, 0.9));
+                transform: scale(1.05);
+            }
+        }
+
+        /* Partículas de luz */
+        .light-particle {
+            position: absolute;
+            border-radius: 50%;
+            animation: floatLight 4s infinite ease-in-out;
+        }
+
+        @keyframes floatLight {
+            0% {
+                opacity: 0;
+                transform: translateY(0) translateX(0);
+            }
+            25% {
+                opacity: 1;
+            }
+            75% {
+                opacity: 1;
+            }
+            100% {
+                opacity: 0;
+                transform: translateY(-100px) translateX(50px);
+            }
+        }
+
+        .content-message {
+            position: relative;
+            text-align: center;
+            z-index: 20;
+            width: 100%;
+            max-width: 800px;
+            padding: 40px 20px;
+            opacity: 1;
+            pointer-events: auto;
+            margin: 0 auto;
+            animation: slideInContent 1s ease-out forwards;
+        }
+
+        @keyframes slideInContent {
+            from {
+                opacity: 0;
+                transform: translateY(20px);
+            }
+            to {
+                opacity: 1;
+                transform: translateY(0);
+            }
+        }
+
+        .princess-title {
+            font-family: 'Dancing Script', cursive;
+            font-size: 3.5rem;
+            color: #ffd700;
+            margin-bottom: 30px;
+            text-shadow: 0 0 20px rgba(255, 215, 0, 0.8), 0 0 40px rgba(255, 215, 0, 0.4);
+            letter-spacing: 2px;
+            font-weight: 700;
+        }
+
+        .love-message {
+            background: rgba(15, 5, 26, 0.98);
+            backdrop-filter: blur(20px);
+            padding: 50px 40px;
+            border-radius: 25px;
+            border: 2px solid #ffd700;
+            box-shadow: 0 0 40px rgba(255, 215, 0, 0.3), inset 0 0 20px rgba(255, 215, 0, 0.1);
+            margin-top: 30px;
+            text-align: left;
+        }
+
+        .love-message p {
+            font-size: 1.15rem;
+            line-height: 2;
+            font-style: italic;
+            margin: 20px 0;
+            color: #f8f8f8;
+            text-shadow: 0 0 10px rgba(255, 215, 0, 0.2);
+            font-weight: 300;
+        }
+
+        .signature {
+            font-family: 'Dancing Script', cursive;
+            font-size: 2.2rem;
+            color: #ffd700;
+            margin-top: 30px;
+            text-shadow: 0 0 15px rgba(255, 215, 0, 0.6);
+            font-weight: 700;
+        }
+
+        .back-btn {
+            position: fixed;
+            top: 30px;
+            left: 30px;
+            background: rgba(255, 215, 0, 0.1);
+            backdrop-filter: blur(10px);
+            border: 2px solid rgba(255, 215, 0, 0.3);
+            color: #ffd700;
+            padding: 12px 24px;
+            border-radius: 10px;
+            text-decoration: none;
+            transition: 0.3s;
+            font-size: 0.9rem;
+            letter-spacing: 1px;
+            text-transform: uppercase;
+            font-weight: 600;
+            box-shadow: 0 5px 15px rgba(0,0,0,0.2);
+            z-index: 100;
+        }
+
+        .back-btn:hover {
+            background: rgba(255, 215, 0, 0.2);
+            border-color: #ffd700;
+            transform: translateY(-3px);
+            color: #ffed4e;
+            text-decoration: none;
+            text-shadow: 0 0 10px rgba(255, 215, 0, 0.5);
+        }
+
+        /* Hearts flotantes */
+        .heart-float {
+            position: fixed;
+            font-size: 1.5rem;
+            opacity: 0;
+            animation: heartFloat 3s ease-out forwards;
+            pointer-events: none;
+            z-index: 15;
+            will-change: transform, opacity;
+        }
+
+        @keyframes heartFloat {
+            0% {
+                opacity: 1;
+                transform: translateY(0) translateX(0) scale(1) rotate(0deg);
+            }
+            50% {
+                opacity: 1;
+            }
+            100% {
+                opacity: 0;
+                transform: translateY(var(--ty)) translateX(var(--tx)) scale(0.3) rotate(360deg);
+            }
+        }
+
+        /* Animaciones de pétalos */
+        #back-petals {
+            animation: petalBreathe 4s ease-in-out infinite;
+        }
+
+        #middle-petals {
+            animation: petalFloat 5s ease-in-out infinite;
+        }
+
+        #inner-petals {
+            animation: petalRotate 6s linear infinite;
+        }
+
+        #stamens {
+            animation: stamenGlow 3s ease-in-out infinite;
+        }
+
+        @keyframes petalBreathe {
+            0%, 100% {
+                transform: scale(1);
+                opacity: 0.8;
+            }
+            50% {
+                transform: scale(1.08);
+                opacity: 0.95;
+            }
+        }
+
+        @keyframes petalFloat {
+            0%, 100% {
+                transform: translateY(0px) rotateZ(0deg);
+            }
+            25% {
+                transform: translateY(-5px) rotateZ(2deg);
+            }
+            50% {
+                transform: translateY(0px) rotateZ(0deg);
+            }
+            75% {
+                transform: translateY(-5px) rotateZ(-2deg);
+            }
+        }
+
+        @keyframes petalRotate {
+            from {
+                transform: rotateZ(0deg);
+            }
+            to {
+                transform: rotateZ(360deg);
+            }
+        }
+
+        @keyframes stamenGlow {
+            0%, 100% {
+                opacity: 0.8;
+                filter: drop-shadow(0 0 2px #ff1493);
+            }
+            50% {
+                opacity: 1;
+                filter: drop-shadow(0 0 8px #ff1493);
+            }
+        }
+
+        /* NUEVOS ESTILOS DEL RAMO */
+        #flower-container {
+            display: none;
+        }
+
+        .rose {
+            position: relative;
+            width: 100px;
+            height: 100px;
+            margin: 0 -15px;
+            animation: sway 4s ease-in-out infinite;
+            transform-origin: bottom center;
+        }
+
+        .rose:nth-child(2) { animation-delay: -1s; }
+        .rose:nth-child(3) { animation-delay: -2s; }
+
+        .petal {
+            position: absolute;
+            bottom: 50px;
+            left: 50%;
+            transform-origin: bottom center;
+            background: linear-gradient(to bottom, #ff4d94, #800033);
+            border-radius: 50% 50% 20% 20%;
+            box-shadow: inset 0 0 10px rgba(0,0,0,0.5);
+        }
+
+        .petal.outer { width: 60px; height: 65px; margin-left: -30px; }
+        .petal.inner { width: 40px; height: 50px; margin-left: -20px; z-index: 2; }
+        .petal.center { 
+            width: 20px; height: 30px; margin-left: -10px; z-index: 3;
+            background: #4d001f; border-radius: 50%; 
+        }
+
+        .stem {
+            position: absolute;
+            top: 50px;
+            left: 50%;
+            width: 4px;
+            height: 150px;
+            background: linear-gradient(to bottom, #1a3300, #0d1a00);
+            margin-left: -2px;
+            z-index: -1;
+            border-radius: 2px;
+        }
+
+        .leaf {
+            position: absolute;
+            width: 20px;
+            height: 30px;
+            background: #2d5a27;
+            border-radius: 0 50% 0 50%;
+            top: 80px;
+            left: 50%;
+            transform-origin: left;
+        }
+        .leaf.right { transform: rotate(45deg); margin-left: 2px; }
+        .leaf.left { transform: scaleX(-1) rotate(45deg); margin-left: -22px; }
+
+        .glow {
+            position: absolute;
+            width: 150px;
+            height: 150px;
+            background: radial-gradient(circle, rgba(255, 192, 203, 0.3) 0%, transparent 70%);
+            top: -25px;
+            left: -25px;
+            z-index: -1;
+            filter: blur(10px);
+        }
+
+        @keyframes sway {
+            0%, 100% { transform: rotate(-2deg); }
+            50% { transform: rotate(2deg); }
+        }
+    </style>
+</head>
+<body>
+    <div class="stars" id="stars-container"></div>
+
+    <a href="flores.html" class="back-btn">← Volver</a>
+
+    <div class="lily-container">
+
+
+        <div class="lilies-main">
+            <div class="bouquet" id="flower-container"></div>
+        </div>
+
+        <div class="content-message">
+            <h2 class="princess-title">👑 Para mi Princesa Favorita 👑</h2>
+            <div class="love-message">
+                <p>Mi amor, cada vez que pienso en ti, mi corazón brilla como este lirio dorado. Eres la luz más hermosa en mi oscuridad, mi razón de sonreír, mi todo.</p>
+                
+                <p>Quería que vieras que así es como te veo yo: radiante, elegante, perfecta. Eres mi princesa favorita, no porque lo seas de un reino, sino porque reinas en mi corazón.</p>
+                
+                <p>Gracias por existir, gracias por amarme, gracias por ser exactamente quien eres. Eres mi flor más preciada, mi tesoro eterno.</p>
+                
+                <p class="signature">Te amo infinitamente,<br>Javi ❤️</p>
+            </div>
+        </div>
+    </div>
+
+    <script>
+        // ============ SISTEMA DE ESTRELLAS AVANZADO ============
+        const starsContainer = document.getElementById('stars-container');
+        const stars = [];
+        
+        class Star {
+            constructor() {
+                this.el = document.createElement('div');
+                this.el.className = 'star';
+                this.size = Math.random() * 3 + 0.5;
+                this.el.style.width = this.size + 'px';
+                this.el.style.height = this.size + 'px';
+                this.el.style.left = Math.random() * 100 + '%';
+                this.el.style.top = Math.random() * 100 + '%';
+                this.el.style.animationDelay = Math.random() * 3 + 's';
+                this.el.style.boxShadow = `0 0 ${this.size * 2}px rgba(255, 255, 255, 0.8)`;
+                this.speed = Math.random() * 0.3 + 0.1;
+                starsContainer.appendChild(this.el);
+                stars.push(this);
+            }
+        }
+
+        // Crear 80 estrellas
+        for (let i = 0; i < 80; i++) {
+            new Star();
+        }
+
+        // ============ SISTEMA DE PARTÍCULAS DE LUZ AVANZADO ============
+        const lilyContainer = document.querySelector('.lilies-main');
+        const particles = [];
+
+        class LightParticle {
+            constructor() {
+                this.el = document.createElement('div');
+                this.el.className = 'light-particle';
+                this.size = Math.random() * 8 + 3;
+                this.el.style.width = this.size + 'px';
+                this.el.style.height = this.size + 'px';
+                
+                const colors = ['#ffd700', '#ffff99', '#fffacd', '#ffed4e', '#fff9e6'];
+                this.el.style.background = colors[Math.floor(Math.random() * colors.length)];
+                
+                this.el.style.left = Math.random() * 100 + 'px';
+                this.el.style.top = Math.random() * 100 + 'px';
+                this.el.style.boxShadow = `0 0 ${this.size}px ${this.el.style.background}`;
+                this.el.style.animationDuration = (Math.random() * 2 + 3) + 's';
+                this.el.style.animationDelay = Math.random() * 1 + 's';
+                
+                lilyContainer.appendChild(this.el);
+                particles.push(this);
+                
+                setTimeout(() => {
+                    this.el.remove();
+                    particles.splice(particles.indexOf(this), 1);
+                }, 5000);
+            }
+        }
+
+        // Generar partículas continuamente
+        setInterval(() => {
+            if (particles.length < 30) {
+                new LightParticle();
+            }
+        }, 200);
+
+        // ============ SISTEMA DE CORAZONES FLOTANTES MEJORADO ============
+        document.addEventListener('click', (e) => {
+            createHeartBurst(e.clientX, e.clientY);
+        });
+
+        function createHeartBurst(x, y) {
+            const heartCount = 12;
+            const hearts = ['❤️', '💕', '💖', '💗', '💝', '✨'];
+            
+            for (let i = 0; i < heartCount; i++) {
+                const heart = document.createElement('div');
+                heart.className = 'heart-float';
+                heart.innerHTML = hearts[i % hearts.length];
+                heart.style.left = x + 'px';
+                heart.style.top = y + 'px';
+                heart.style.fontSize = (Math.random() * 30 + 15) + 'px';
+                
+                const angle = (i / heartCount) * Math.PI * 2;
+                const distance = 200;
+                const offsetX = Math.cos(angle) * distance;
+                const offsetY = Math.sin(angle) * distance;
+                
+                heart.style.setProperty('--tx', offsetX + 'px');
+                heart.style.setProperty('--ty', offsetY + 'px');
+                
+                document.body.appendChild(heart);
+                
+                setTimeout(() => heart.remove(), 3000);
+            }
+        }
+
+        // ============ CREAR ROSAS ============
+        const container = document.getElementById('flower-container');
+
+        function createRose() {
+            const rose = document.createElement('div');
+            rose.className = 'rose';
+
+            // Añadir resplandor
+            const glow = document.createElement('div');
+            glow.className = 'glow';
+            rose.appendChild(glow);
+
+            // Añadir pétalos
+            const rotations = [0, 45, -45, 90, -90];
+            rotations.forEach((angle) => {
+                const petal = document.createElement('div');
+                petal.className = 'petal outer';
+                petal.style.transform = `rotate(${angle}deg)`;
+                rose.appendChild(petal);
+            });
+
+            // Centro
+            const center = document.createElement('div');
+            center.className = 'petal center';
+            rose.appendChild(center);
+
+            // Tallo
+            const stem = document.createElement('div');
+            stem.className = 'stem';
+            rose.appendChild(stem);
+
+            // Hojas
+            const leafL = document.createElement('div');
+            leafL.className = 'leaf left';
+            rose.appendChild(leafL);
+
+            const leafR = document.createElement('div');
+            leafR.className = 'leaf right';
+            rose.appendChild(leafR);
+
+            return rose;
+        }
+
+        // Crear 3 rosas
+        for(let i = 0; i < 3; i++) {
+            container.appendChild(createRose());
+        }
+
+        // ============ EFECTO DE CLICK EN EL RAMO ============
+        const flowerContainer = document.getElementById('flower-container');
+        
+        flowerContainer.addEventListener('click', (e) => {
+            e.stopPropagation();
+            const message = document.querySelector('.content-message');
+            message.classList.add('show');
+            createHeartBurst(e.clientX, e.clientY);
+        });
+
+        // ============ EFECTO DE MOVIMIENTO SUAVE ============
+        let mouseX = 0;
+        let mouseY = 0;
+
+        document.addEventListener('mousemove', (e) => {
+            mouseX = e.clientX;
+            mouseY = e.clientY;
+        });
+
+        // Hacer que los brillos sigan ligeramente el mouse
+        setInterval(() => {
+            const glows = document.querySelectorAll('.lily-glow');
+            glows.forEach((glow, index) => {
+                const x = (mouseX - window.innerWidth / 2) * 0.02 * (index + 1);
+                const y = (mouseY - window.innerHeight / 2) * 0.02 * (index + 1);
+                glow.style.transform = `translate(${x}px, ${y}px)`;
+            });
+        }, 30);
+
+        // ============ EFECTO DE CARGA ============
+        window.addEventListener('load', () => {
+            // Crear una explosión de corazones al cargar
+            setTimeout(() => {
+                createHeartBurst(window.innerWidth / 2, window.innerHeight / 2);
+            }, 1000);
+        });
+    </script>
+</body>
+</html>
