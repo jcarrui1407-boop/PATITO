@@ -1,0 +1,628 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Nota Final · Para mi Estrella · 13/07/25 ✨</title>
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/css/bootstrap.min.css" rel="stylesheet">
+    <link href="https://fonts.googleapis.com/css2?family=Dancing+Script:wght@400;700&family=Montserrat:wght@100;300;400;600&family=Great+Vibes&family=Playfair+Display:ital@0;1&display=swap" rel="stylesheet">
+    
+    <style>
+        :root {
+            --romance-pink: #ff85a2;
+            --deep-red: #d6001c;
+            --soft-white: #fff5f7;
+            --gold: #d4af37;
+            --night: #0a0015;
+            --velvet: #1a0a2e;
+        }
+
+        * { margin: 0; padding: 0; box-sizing: border-box; }
+
+        body {
+            background: var(--deep-red);
+            font-family: 'Montserrat', sans-serif;
+            color: #fff;
+            min-height: 100vh;
+            overflow-x: hidden;
+            cursor: default;
+            margin: 0;
+            position: relative;
+        }
+
+        #heart-canvas {
+            position: fixed;
+            top: 0; left: 0;
+            z-index: 1;
+            pointer-events: none;
+            filter: drop-shadow(0 0 10px rgba(255,255,255,0.3));
+        }
+
+        .back-btn {
+            position: fixed;
+            top: 30px;
+            left: 30px;
+            background: rgba(212, 175, 51, 0.2);
+            backdrop-filter: blur(10px);
+            border: 2px solid var(--gold);
+            color: var(--gold);
+            padding: 12px 24px;
+            border-radius: 15px;
+            text-decoration: none;
+            transition: 0.3s;
+            font-size: 0.85rem;
+            letter-spacing: 1px;
+            text-transform: uppercase;
+            font-weight: 600;
+            z-index: 100;
+            font-family: 'Montserrat', sans-serif;
+        }
+
+        .back-btn:hover {
+            background: rgba(212, 175, 51, 0.4);
+            border-color: var(--gold);
+            color: var(--gold);
+            transform: translateY(-3px);
+            text-decoration: none;
+            box-shadow: 0 0 20px rgba(212, 175, 51, 0.6);
+        }
+
+        .container {
+            max-width: 1000px;
+            padding: 80px 30px;
+            text-align: center;
+            position: relative;
+            z-index: 10;
+            margin: 0 auto;
+        }
+
+        h1 {
+            font-family: 'Great Vibes', cursive;
+            font-size: clamp(3.5rem, 10vw, 5.5rem);
+            color: #fff;
+            margin-bottom: 2rem;
+            text-shadow: 0 0 30px rgba(255,255,255,0.5), 0 0 60px var(--gold);
+            animation: fadeInDown 1.5s ease-out;
+            letter-spacing: 4px;
+        }
+
+        @keyframes fadeInDown {
+            from { opacity: 0; transform: translateY(-50px); }
+            to { opacity: 1; transform: translateY(0); }
+        }
+
+        .content-section {
+            background: rgba(18, 9, 11, 0.92);
+            backdrop-filter: blur(20px);
+            padding: 60px 50px;
+            border-radius: 40px;
+            border: 2px solid rgba(212, 175, 51, 0.5);
+            box-shadow: 0 40px 100px rgba(0,0,0,0.8), 0 0 0 2px rgba(255,133,162,0.2);
+            animation: fadeInUp 1.2s ease-out;
+            text-align: left;
+            position: relative;
+            overflow: hidden;
+        }
+
+        .content-section::before {
+            content: '❤️';
+            position: absolute;
+            bottom: 20px;
+            right: 30px;
+            font-size: 100px;
+            opacity: 0.05;
+            transform: rotate(15deg);
+            pointer-events: none;
+        }
+
+        .content-section::after {
+            content: '✨';
+            position: absolute;
+            top: 20px;
+            left: 30px;
+            font-size: 80px;
+            opacity: 0.05;
+            transform: rotate(-15deg);
+            pointer-events: none;
+        }
+
+        @keyframes fadeInUp {
+            from { opacity: 0; transform: translateY(50px); }
+            to { opacity: 1; transform: translateY(0); }
+        }
+
+        .content-section h2 {
+            font-family: 'Dancing Script', cursive;
+            color: var(--gold);
+            font-size: 3rem;
+            margin-bottom: 2rem;
+            text-align: center;
+            text-shadow: 0 0 20px rgba(212, 175, 51, 0.5);
+            border-bottom: 2px dashed var(--gold);
+            padding-bottom: 20px;
+        }
+
+        .content-section h3 {
+            font-family: 'Playfair Display', serif;
+            font-size: 1.8rem;
+            color: var(--romance-pink);
+            margin: 40px 0 20px;
+            font-style: italic;
+            border-left: 6px solid var(--gold);
+            padding-left: 20px;
+        }
+
+        .content-section p {
+            font-size: 1.15rem;
+            line-height: 2;
+            font-weight: 300;
+            margin-bottom: 25px;
+            color: rgba(255, 255, 255, 0.95);
+            text-align: justify;
+            font-family: 'Montserrat', sans-serif;
+        }
+
+        .content-section p.italic {
+            font-style: italic;
+            font-family: 'Dancing Script', cursive;
+            font-size: 1.8rem;
+            text-align: center;
+            color: var(--gold);
+        }
+
+        .content-section .signature {
+            font-family: 'Dancing Script', cursive;
+            font-size: 2.5rem;
+            color: var(--gold);
+            text-align: right;
+            margin-top: 50px;
+            border-top: 1px solid rgba(212, 175, 51, 0.5);
+            padding-top: 30px;
+        }
+
+        .content-section .highlight {
+            color: var(--gold);
+            font-weight: 600;
+            background: rgba(212, 175, 51, 0.1);
+            padding: 2px 8px;
+            border-radius: 8px;
+        }
+
+        .content-section .quote {
+            font-size: 1.3rem;
+            font-style: italic;
+            padding: 30px;
+            background: rgba(255, 133, 162, 0.1);
+            border-left: 6px solid var(--romance-pink);
+            border-radius: 0 20px 20px 0;
+            margin: 40px 0;
+        }
+
+        .date-stamp {
+            display: inline-block;
+            background: rgba(212, 175, 51, 0.2);
+            border: 2px solid var(--gold);
+            padding: 15px 40px;
+            border-radius: 60px;
+            font-family: 'Dancing Script', cursive;
+            font-size: 1.8rem;
+            margin: 30px 0;
+            text-align: center;
+            box-shadow: 0 0 30px rgba(212, 175, 51, 0.4);
+        }
+
+        .heart-particle {
+            position: fixed;
+            color: var(--romance-pink);
+            pointer-events: none;
+            z-index: 9999;
+            font-size: 1.2rem;
+            animation: heartExplode 1.5s ease-out forwards;
+        }
+
+        @keyframes heartExplode {
+            0% { transform: translate(0, 0) scale(0); opacity: 0; }
+            20% { opacity: 1; }
+            100% { transform: translate(var(--x), var(--y)) scale(1.2); opacity: 0; }
+        }
+
+        .letter-seal {
+            display: flex;
+            justify-content: center;
+            gap: 30px;
+            margin: 60px 0 20px;
+            font-size: 2.5rem;
+        }
+
+        .letter-seal span {
+            animation: sealGlow 3s infinite;
+        }
+
+        @keyframes sealGlow {
+            0%, 100% { filter: drop-shadow(0 0 10px var(--gold)); transform: scale(1); }
+            50% { filter: drop-shadow(0 0 30px var(--romance-pink)); transform: scale(1.1); }
+        }
+
+        .divider {
+            width: 100%;
+            height: 2px;
+            background: linear-gradient(90deg, transparent, var(--gold), var(--romance-pink), var(--gold), transparent);
+            margin: 60px 0;
+        }
+
+        @media (max-width: 768px) {
+            .container { padding: 60px 20px; }
+            .content-section { padding: 40px 25px; }
+            .content-section p { font-size: 1rem; }
+            .content-section h2 { font-size: 2.2rem; }
+        }
+    </style>
+</head>
+<body onclick="createHeartShape(event)">
+
+    <canvas id="heart-canvas"></canvas>
+    <a href="si.html" class="back-btn">← Volver</a>
+
+    <div class="container">
+        <h1>Para mi Estrella ✨</h1>
+        
+        <div class="content-section">
+            
+            <!-- ENCABEZADO CON FECHA - CORREGIDA -->
+            <div style="text-align: center; margin-bottom: 40px;">
+                <div class="date-stamp">
+                    13 de Julio de 2025 · 13/07/25
+                </div>
+                <div style="font-family: 'Great Vibes'; font-size: 2.2rem; color: var(--romance-pink); margin-top: 10px;">
+                    El día que empezó nuestra historia ❤️
+                </div>
+            </div>
+
+            <!-- CARTA 1 - EL INICIO -->
+            <h2>Mi querida Estrella,</h2>
+            
+            <p>Han pasado <span class="highlight">218 días</span> desde aquel 13 de julio de 2025, el día en que nuestras miradas se encontraron y supe, con una certeza absoluta, que mi vida acababa de cambiar para siempre. No fue casualidad, no fue destino; fue la conjunción perfecta de dos almas que desde siempre estaban escritas la una para la otra en algún lugar del cosmos. Como las estrellas que llevas en tu nombre, como la luz que nunca se apaga. Tú llegaste un domingo de verano y mi mundo, de repente, tuvo sentido.</p>
+
+            <p>Recuerdo aquella noche como si fuera ayer. El sonido de tu risa, la forma en que tus ojos verdes brillaban bajo las farolas, ese gesto tuyo de apartar el cabello cuando estás nerviosa. Y yo, absolutamente perdido, completamente encontrado. En ese momento supe que mi vida se dividía en dos: antes del 13/07/25 y después del 13/07/25. Y el después, te juro, ha sido el regalo más hermoso que jamás podría haber imaginado. 218 días, 218 razones para agradecer que aquel día te cruzaste en mi camino.</p>
+
+            <div class="quote">
+                "Y en el silencio de la noche, cuando miro al cielo del 13 de julio, no busco estrellas fugaces para pedir deseos. Busco la estrella más brillante, y le susurro tu nombre. Porque tú eres mi único deseo, mi Estrella, desde aquel domingo de verano."
+            </div>
+
+            <!-- CARTA 2 - LO QUE SIENTO -->
+            <h3>✨ Lo que siento cuando pienso en ti</h3>
+
+            <p>Cuando pienso en ti, el mundo se detiene. Literalmente. El ruido desaparece, las prisas se olvidan, y solo existe tu rostro proyectado en mi mente con una claridad sobrecogedora. Puedo estar en medio de una calle abarrotada, en el trabajo, en el metro, en cualquier lugar; si pienso en ti, de repente estoy en nuestro lugar favorito, contigo, sintiendo el calor de tus manos entre las mías. Eres mi refugio mental, mi hogar al que siempre puedo volver. Y todo empezó aquel 13 de julio.</p>
+
+            <p>Te amo de tantas formas que a veces siento que las palabras se quedan cortas. Te amo con la intensidad de un solo de guitarra de Scorpions, con la ternura de un amanecer después de una noche de tormenta, con la paciencia de quien sabe que tiene toda una vida para seguir descubriéndote. Te amo en español, en inglés, en francés, en todos los idiomas que aprendí y en los que me quedan por aprender. Te amo en silencio cuando duermes, y en voz alta cuando despiertas. Te amo en presente porque es lo único que tengo seguro, y te amo en futuro porque es lo único que quiero construir contigo.</p>
+
+            <!-- CARTA 3 - NUESTROS MOMENTOS -->
+            <h3>📆 Los momentos que guardo en mi corazón</h3>
+
+            <p>Guardo cada momento como un tesoro. Nuestra primera cita, cuando hablamos durante horas y horas sin darnos cuenta de que el café se había quedado frío. La primera vez que me tomaste de la mano y sentí que flotaba. Aquel atardecer en la playa donde me dijiste "te quiero" por primera vez, con esa voz temblorosa y esa honestidad que tanto admiro en ti. Nuestra primera discusión, porque hasta el enfado contigo es bonito cuando sé que al final siempre hay un abrazo esperando.</p>
+
+            <p>Guardo tus cumpleaños, tus logros, tus días malos. Guardo cada sonrisa que me has regalado y cada lágrima que has compartido conmigo. Guardo tus manías, tus rarezas, tus silencios. Guardo la forma en que pronuncias mi nombre, como si fuera una palabra sagrada. Y te juro, mi amor, que voy a seguir guardando cada momento de nuestra historia en este baúl sin fondo que es mi corazón, hasta el último de mis días. Porque cada segundo desde el 13/07/25 merece ser eterno.</p>
+
+            <!-- CARTA 4 - QUIÉN ERES TÚ PARA MÍ -->
+            <h3>💫 Quién eres tú en mi vida</h3>
+
+            <p>Tú eres la persona que me enseñó que el amor no duele, que no tiene que ser complicado, que no hay que merecerse ni ganárselo. Tú me enseñaste que el amor simplemente es, y que cuando es de verdad, fluye con la naturalidad del agua, con la calidez del sol. Antes de ti, creía que el amor era algo que había que conquistar, una batalla constante. Contigo aprendí que el amor es un jardín que se riega con pequeños gestos, con paciencia, con presencia. Y todo empezó a florecer aquel 13 de julio.</p>
+
+            <p>Tú eres mi paz en medio del caos. Cuando el mundo se vuelve demasiado ruidoso, demasiado rápido, demasiado exigente, cierro los ojos y pienso en ti. En tu risa. En la forma en que frunces el ceño cuando te concentras. En cómo tus ojos cambian de color según la luz. Y de repente, todo vuelve a su sitio. El corazón se serena, la mente se ordena. Tú eres mi centro de gravedad, mi 13 de julio perpetuo.</p>
+
+            <p>Tú eres mi mayor inspiración. Cada cosa bonita que he escrito desde que te conozco, cada canción que he escuchado de forma diferente, cada atardecer que he fotografiado, tiene tu nombre escrito en alguna parte. Me haces querer ser mejor persona, mejor novio, mejor ser humano. No por presión, no por obligación, sino porque tú mereces lo mejor del mundo, y quiero ser yo quien te lo dé.</p>
+
+            <!-- CARTA 5 - LO QUE ADMIRO DE TI -->
+            <h3>🌟 Las infinitas razones por las que te admiro</h3>
+
+            <p>Admiro tu fortaleza, esa capacidad tuya de levantarte una y otra vez, incluso cuando la vida te ha puesto pruebas difíciles. Admiro tu inteligencia, la forma en que ves el mundo desde ángulos que a nadie más se le ocurren. Admiro tu sentido del humor, cómo me haces reír hasta dolerme la barriga con ocurrencias que solo tú podrías tener. Admiro tu sensibilidad, esa manera tan tuya de conectar con las emociones, de entender sin necesidad de explicaciones.</p>
+
+            <p>Admiro tu bondad genuina, esa que no espera nada a cambio. Admiro cómo tratas a las personas que quieres, con esa mezcla perfecta de cuidado y libertad. Admiro tu forma de bailar cuando crees que nadie te mira. Tu forma de cantar en la ducha. Tu forma de mirar al horizonte cuando sueñas despierta. Admiro cada una de tus imperfecciones, porque son las que te hacen real, humana, única. Y admiro la forma en que me aceptas a mí con todas las mías, sin querer cambiarme, sin juzgarme. Desde el 13/07/25, eres mi mayor admiración.</p>
+
+            <!-- CARTA 6 - NUESTRO FUTURO -->
+            <h3>🌅 Lo que quiero construir contigo</h3>
+
+            <p>Quiero despertarme cada mañana a tu lado, con tu pelo revuelto y tu cara de sueño. Quiero hacerte café mientras tú te arreglas, quiero dejarte notas de amor en la nevera, quiero discutir sobre qué serie vemos esta noche aunque siempre terminemos viendo la tuya. Quiero viajar contigo a todos esos lugares que hemos anotado en nuestra lista interminable: París, Tokio, Nueva York, los fiordos noruegos, las playas de Tailandia. Quiero hacerte una foto en cada uno y llenar nuestras paredes de recuerdos. Y quiero que el primer viaje sea el 13 de julio de cada año, para celebrar el día que lo cambió todo.</p>
+
+            <p>Quiero celebrar tus éxitos como si fueran míos, porque de alguna forma lo son. Quiero sostenerme fuerte cuando lleguen los malos momentos, y sé que llegarán, pero quiero que los enfrentemos juntos, de la mano, sin soltarnos. Quiero formar una familia contigo, si es lo que deseas. Quiero verte como madre de mis hijos, quiero heredarles tu sonrisa y tus ojos. Quiero envejecer a tu lado, que el tiempo decore nuestras sienes con canas, que las arrugas cuenten nuestra historia que empezó aquel 13 de julio.</p>
+
+            <p>Quiero seguir enamorándome de ti cada día. Quiero que dentro de cincuenta años me mires y aún sientas ese cosquilleo en el estómago. Quiero que nuestras nietas se cansen de escuchar la historia de cómo nos conocimos un 13 de julio, y que aún así nosotros la contemos con la misma emoción del primer día. Quiero que nuestro amor sea leyenda, de esas que la gente cuenta como ejemplo de que sí, existe el amor para siempre. Y quiero que el 13/07 sea siempre nuestro día.</p>
+
+            <!-- CARTA 7 - LA CANCIÓN -->
+            <h3>🎸 Still Loving You · Scorpions</h3>
+
+            <p>Sabes, Estrella, hay una canción que desde aquel 13 de julio no he podido escuchar de la misma manera. <span class="highlight">"Still Loving You"</span> de Scorpions solía ser solo una balada de rock ochentera, de esas que sonaban en la radio cuando mi padre limpiaba el coche. Ahora es nuestra canción. Cada vez que suena, el mundo se paraliza y solo existes tú. "Time, it needs time to win back your love again" — pero yo no necesito ganar tu amor, ya lo tengo desde aquel domingo de verano, y pienso cuidarlo cada segundo de mi existencia.</p>
+
+            <p>"I'm loving you, still loving you..." Esa frase resuena en mi pecho como un mantra. Porque eso es lo que hago, Estrella. Te amo hoy, te amaba ayer, te amaré mañana. No es un amor estático, no es un sentimiento que se queda dormido. Es un amor que crece, que se expande, que se reinventa. Cada día desde el 13/07/25 encuentro una nueva razón para amarte. Cada día me sorprendes con una faceta tuya que no conocía. Cada día te elijo, y te seguiré eligiendo hasta que mi cuerpo diga basta.</p>
+
+            <div class="quote" style="text-align: center; font-size: 1.6rem;">
+                🎸 "Still loving you, still loving you..." 🎸
+            </div>
+
+            <!-- CARTA 8 - LAS COSAS PEQUEÑAS -->
+            <h3>✨ Las pequeñas cosas que hacen grande nuestro amor</h3>
+
+            <p>El amor no está solo en los grandes gestos, en los viajes espectaculares o en las declaraciones épicas. El amor está en las pequeñas cosas. En el mensaje de buenos días que me mandas sin falta desde aquel julio. En cómo me ajustas la bufanda cuando hace frío. En la forma en que pones tus pies sobre los míos mientras vemos una película. En cómo sabes cuándo he tenido un mal día solo por el tono de mi voz.</p>
+
+            <p>El amor está en la mermelada de fresa que compras porque sabes que es mi favorita. En las risas tontas de madrugada. En los silencios cómodos que no necesitan ser llenados. En cómo me miras cuando crees que no me doy cuenta. En la paciencia infinita con la que me explicas algo por quinta vez. En los abrazos largos, muy largos, de esos que parecen detener el tiempo. Han pasado 218 días y cada pequeño gesto sigue haciéndome sentir el hombre más afortunado.</p>
+
+            <p>El amor eres tú haciendo cotidiano lo extraordinario. Y yo, que siempre fui de grandes gestos, he aprendido contigo que la verdadera magia está en lo simple, en lo diario, en lo eternamente pequeño que construye lo inmensamente grande desde aquel 13/07/25.</p>
+
+            <!-- CARTA 9 - PERDÓN Y GRATITUD -->
+            <h3>🕊️ Perdón y gratitud</h3>
+
+            <p>Quiero pedirte perdón por todas las veces que no estuve a la altura en estos 218 días. Por los días en que mi cabeza no estaba con vosotros, por los momentos en que el estrés me nubló y no supe ver lo que tenías delante. Por las palabras que dije sin pensar, y por los silencios que fueron más dañinos. Por cada vez que te hice sentir menos importante de lo que realmente eres. Te pido perdón, mi amor, y te prometo que trabajo cada día para ser mejor, para ti, para nosotros.</p>
+
+            <p>Y quiero darte las gracias. Gracias por quedarte a pesar de mis imperfecciones desde aquel 13 de julio. Gracias por ver en mí algo que ni yo mismo veía. Gracias por confiar en nosotros cuando yo dudaba. Gracias por tu paciencia, tu ternura, tu fe. Gracias por cada sonrisa, cada abrazo, cada te quiero susurrado al oído. Gracias por existir, porque desde que lo haces, mi vida tiene un color que nunca supe que existía.</p>
+
+            <!-- CARTA 10 - DECLARACIÓN FINAL -->
+            <h3>💍 Lo que quiero decirte hoy</h3>
+
+            <p>Hoy, 13 de febrero de 2026, víspera de San Valentín, escribo estas palabras con el corazón en la mano. Han pasado 218 días desde aquel 13/07/25 que marcó nuestras vidas. No sé si algún día leerás esto, o si lo harás dentro de muchos años cuando yo ya no esté. Pero quiero que quede constancia, aquí, en estas líneas que he tejido con la misma dedicación con la que un artesano cuida su obra, de que tú, Estrella, has sido el acontecimiento más importante de mi vida desde aquel domingo de verano.</p>
+
+            <p>No sé cuánto tiempo nos queda. Nadie lo sabe. Pero quiero que sepas que cada minuto a tu lado desde el 13/07/25 ha valido la pena. Que no cambiaría ni uno solo de nuestros días juntos por nada del mundo. Que has sido, eres y serás el amor de mi vida. No me importa si suena a tópico. No me importa si parece exagerado. Es la verdad más absoluta que conozco.</p>
+
+            <p>Así que esto es lo que quiero decirte, Estrella:</p>
+
+            <p style="font-size: 1.6rem; font-family: 'Dancing Script'; text-align: center; margin: 50px 0; color: var(--gold);">
+                Te amo. Te amo. Te amo.
+            </p>
+
+            <p>Y te amaré siempre. En esta vida, y en todas las que vengan después. Porque el amor que siento por ti no cabe en una sola existencia. Es demasiado grande, demasiado profundo, demasiado eterno. Y todo empezó un 13 de julio.</p>
+
+            <!-- CARTA 11 - LOS JUEGOS -->
+            <h3>🎮 Sobre los juegos que he creado para ti</h3>
+
+            <p>Quizás te preguntes por qué 5 juegos. Por qué tanto esfuerzo en algo tan efímero como una página web. La respuesta es sencilla: porque te mereces lo mejor de mí. Cada línea de código, cada animación, cada pequeño detalle ha sido pensado exclusivamente para ti. No hay plantillas, no hay atajos. Hay 2500 líneas de HTML, CSS y JavaScript escritas con el mismo amor con el que se escribe una carta de amor. Y todo comenzó como un regalo para celebrar nuestro primer 13 de julio juntos.</p>
+
+            <p>El juego de memoria representa todas las veces que he guardado un recuerdo nuestro desde aquel 13/07/25 y lo he atesorado en mi corazón. La caza de estrellas eres tú, siempre fugaz, siempre brillante, siempre difícil de alcanzar. El puzzle es mi intento de encajar todas las piezas de mi vida para que tú seas el centro desde aquel día. La flecha al corazón es obvia: siempre acierto cuando el objetivo eres tú. Y el laberinto... el laberinto es la vida. A veces parece que no encontramos la salida, pero siempre, siempre, te encuentro a ti al final desde aquel 13 de julio.</p>
+
+            <!-- CARTA 12 - EL RAMO DE ROSAS -->
+            <h3>🌹 El ramo de rosas que no pude darte</h3>
+
+            <p>Quería regalarte un ramo de rosas físicas, de esas que se marchitan en una semana. Pero luego pensé que quizás era mejor crear algo que durara más tiempo. Algo que pudieras visitar cuando quisieras, en cualquier momento, desde cualquier lugar. Así que pinté 50 rosas con código, cada una con un color diferente, cada una con un significado especial. Las rojas son la pasión que siento por ti desde el primer día. Las rosadas son la dulzura de estos 218 días contigo. Las blancas son la pureza de lo nuestro. Las doradas son la eternidad que quiero construir contigo. Todas son para ti.</p>
+
+            <p>Las hojas verdes son la esperanza, la certeza de que nuestro amor seguirá creciendo cada 13 de julio. Los pétalos caídos son los momentos difíciles que hemos superado juntos en estos 218 días. Los capullos son todos los sueños que aún no hemos cumplido, todos los 13 de julio que nos quedan por vivir. Y la tierra que las sostiene es la base sólida de confianza y respeto sobre la que hemos construido nuestra historia desde aquel 13/07/25.</p>
+
+            <!-- CARTA 13 - LOS NOMBRES -->
+            <h3>📝 Sobre los nombres que te llamo</h3>
+
+            <p>Patito. Estrella. Mi vida. Mi amor. Cada nombre que te he dado tiene una historia. Patito nació aquella tarde de agosto, un mes después de nuestro 13 de julio, en el parque, cuando viste unos patos en el estanque y te quedaste embobada mirándolos durante diez minutos. Dijiste que querías ser como ellos, siempre en pareja, siempre juntos. Y desde entonces, eres mi Patito. Estrella es más reciente. Surgió una noche que estábamos en la azotea de tu casa, viendo el cielo. Me señalaste la estrella más brillante y me dijiste: "Esa quiero ser yo cuando me vaya". Te dije que no hacía falta, que tú ya brillabas más que todas ellas juntas. Y no mentía. Desde el 13/07/25, tú eres mi estrella polar.</p>
+
+            <!-- CARTA 14 - LAS PROMESAS -->
+            <h3>🤝 13 promesas para nuestro 13 de julio</h3>
+
+            <p><span class="highlight">Primera:</span> Prometo escucharte siempre, de verdad, con atención plena, aunque esté cansado o preocupado.</p>
+            <p><span class="highlight">Segunda:</span> Prometo celebrar tus logros como si fueran míos, porque lo son.</p>
+            <p><span class="highlight">Tercera:</span> Prometo estar a tu lado en los días grises, en los tormentosos, en los que parecen no tener salida.</p>
+            <p><span class="highlight">Cuarta:</span> Prometo reírme contigo hasta que duela la barriga, al menos una vez al día.</p>
+            <p><span class="highlight">Quinta:</span> Prometo seguir sorprendiéndote, aunque lleve 218 días haciéndolo.</p>
+            <p><span class="highlight">Sexta:</span> Prometo pedir perdón cuando me equivoque, y hacerlo de corazón.</p>
+            <p><span class="highlight">Séptima:</span> Prometo no irme nunca a dormir sin decirte te quiero.</p>
+            <p><span class="highlight">Octava:</span> Prometo recordar las fechas importantes, pero sobre todo el 13 de julio.</p>
+            <p><span class="highlight">Novena:</span> Prometo cuidar de ti cuando estés enferma, cuando estés cansada, cuando solo necesites un abrazo.</p>
+            <p><span class="highlight">Décima:</span> Prometo respetar tu espacio, tu tiempo, tu individualidad.</p>
+            <p><span class="highlight">Undécima:</span> Prometo seguir aprendiendo de ti, contigo, para ti.</p>
+            <p><span class="highlight">Duodécima:</span> Prometo no dejar que la rutina apague nuestra chispa.</p>
+            <p><span class="highlight">Decimotercera:</span> Prometo amarte hoy, mañana, siempre, en los buenos y malos momentos, en la salud y en la enfermedad, en la alegría y en la tristeza, hasta que la muerte nos separe. Y aún después, te prometo que seguiré amándote desde donde sea que esté. Porque el 13/07/25 me diste el mejor regalo de mi vida: tu amor.</p>
+
+            <!-- CARTA 15 - EL FINAL -->
+            <h3>💕 Y ahora, el final de esta carta interminable</h3>
+
+            <p>Si has llegado hasta aquí, habrás leído más de 3500 palabras escritas desde el corazón desde aquel 13/07/25. No sé si me he explicado bien. No sé si he conseguido transmitirte aunque sea una décima parte de lo que siento. Pero si algo queda claro después de todo esto es que, simplemente, eres lo más importante de mi vida desde aquel domingo de verano.</p>
+
+            <p>No sé qué nos deparará el futuro. No sé si algún día leerás esto con lágrimas en los ojos o con una sonrisa en los labios. No sé si estaremos juntos dentro de 50 años, sentados en un porche, recordando aquel 13 de julio de 2025. Pero sí sé una cosa: pase lo que pase, hayas sido tú o haya sido yo, nada ni nadie podrá borrar lo que hemos vivido. Estos 218 días. Estas 3500 palabras. Estos 5 juegos. Estas 50 rosas. Eres parte de mí, y lo serás siempre. Porque el 13/07/25 ya es una fecha grabada a fuego en mi corazón.</p>
+
+            <p>Así que esto es todo, mi Estrella. Mi Patito. Mi amor. Esto es lo que quería decirte. Gracias por existir. Gracias por quedarte desde aquel 13 de julio. Gracias por ser tú. Y gracias, sobre todo, por dejarme ser yo a tu lado.</p>
+
+            <div style="text-align: center; margin: 60px 0 30px;">
+                <span style="font-size: 3rem;">✨</span>
+                <span style="font-size: 4rem; margin: 0 20px;">13·07·25</span>
+                <span style="font-size: 3rem;">✨</span>
+            </div>
+
+            <!-- FIRMA -->
+            <div class="signature">
+                Siempre tuyo, <br>
+                Javi
+            </div>
+            <div style="text-align: right; margin-top: 10px; font-size: 1.2rem; color: var(--romance-pink);">
+                13/07/25 · El día que cambió mi vida
+            </div>
+
+            <!-- POSTDATA -->
+            <div style="margin-top: 60px; padding-top: 30px; border-top: 1px dashed rgba(212, 175, 51, 0.5);">
+                <p style="font-size: 1.2rem; text-align: center; font-style: italic;">
+                    PD: La próxima vez que sea 13 de julio, te regalaré un ramo de rosas de verdad. Pero hasta entonces, aquí tienes este, que no se marchita. 🌹
+                </p>
+                <p style="font-size: 1.2rem; text-align: center; margin-top: 20px; font-style: italic;">
+                    PD2: 218 días, 218 razones. Y las que nos quedan. Te quiero.
+                </p>
+            </div>
+
+            <!-- SELLO FINAL -->
+            <div class="letter-seal">
+                <span>💌</span>
+                <span>13</span>
+                <span>❤️</span>
+                <span>07</span>
+                <span>✨</span>
+                <span>25</span>
+                <span>💫</span>
+            </div>
+
+            <div class="divider"></div>
+
+            <!-- ESTADÍSTICAS DE AMOR - CORREGIDAS -->
+            <div style="display: grid; grid-template-columns: repeat(auto-fit, minmax(150px, 1fr)); gap: 20px; margin-top: 40px;">
+                <div style="background: rgba(255,133,162,0.1); padding: 20px; border-radius: 20px; text-align: center;">
+                    <div style="font-size: 2.5rem; color: var(--gold);">218</div>
+                    <div style="font-size: 0.9rem; text-transform: uppercase;">Días juntos</div>
+                    <div style="font-size: 0.8rem; opacity: 0.7;">desde el 13/07/25</div>
+                </div>
+                <div style="background: rgba(255,133,162,0.1); padding: 20px; border-radius: 20px; text-align: center;">
+                    <div style="font-size: 2.5rem; color: var(--gold);">13</div>
+                    <div style="font-size: 0.9rem; text-transform: uppercase;">Promesas</div>
+                    <div style="font-size: 0.8rem; opacity: 0.7;">para nuestro día</div>
+                </div>
+                <div style="background: rgba(255,133,162,0.1); padding: 20px; border-radius: 20px; text-align: center;">
+                    <div style="font-size: 2.5rem; color: var(--gold);">5</div>
+                    <div style="font-size: 0.9rem; text-transform: uppercase;">Juegos de amor</div>
+                    <div style="font-size: 0.8rem; opacity: 0.7;">hechos para ti</div>
+                </div>
+                <div style="background: rgba(255,133,162,0.1); padding: 20px; border-radius: 20px; text-align: center;">
+                    <div style="font-size: 2.5rem; color: var(--gold);">∞</div>
+                    <div style="font-size: 0.9rem; text-transform: uppercase;">Razones para amarte</div>
+                    <div style="font-size: 0.8rem; opacity: 0.7;">13/07/25 - Siempre</div>
+                </div>
+            </div>
+
+            <!-- CONTADOR REGRESIVO -->
+            <div style="background: rgba(212,175,51,0.1); padding: 30px; border-radius: 30px; margin-top: 50px; text-align: center; border: 1px solid var(--gold);">
+                <div style="font-family: 'Dancing Script'; font-size: 2rem; color: var(--gold);">Próximo 13 de julio</div>
+                <div style="font-size: 1.5rem; margin-top: 10px; font-weight: 300;">
+                    Faltan <span style="font-size: 2.2rem; color: white; font-weight: 700; margin: 0 10px;">150</span> días
+                </div>
+                <div style="margin-top: 20px; font-size: 1rem; opacity: 0.8;">Nuestro primer aniversario 💕</div>
+            </div>
+
+            <!-- VERSO FINAL -->
+            <div style="margin-top: 80px; text-align: center; font-family: 'Dancing Script'; font-size: 1.8rem; color: var(--romance-pink);">
+                "Y si alguna vez dudas de lo mucho que significas para mí,<br>
+                vuelve aquí. Lee esto. Recuerda el 13/07/25.<br>
+                Siempre serás mi Estrella favorita en este universo infinito."
+            </div>
+
+            <div style="margin-top: 50px; text-align: center; font-size: 0.9rem; opacity: 0.7;">
+                <p>Esta carta fue escrita entre el 1 y el 13 de febrero de 2026.<br>
+                3800 palabras · 15 cartas · 218 días · 1 solo amor · 13/07/25</p>
+                <p style="margin-top: 20px;">Hecho con ❤️ por Javi para Estrella · Desde aquel 13 de julio de 2025 · San Valentín 2026</p>
+            </div>
+
+        </div> <!-- Fin content-section -->
+    </div> <!-- Fin container -->
+
+    <script>
+        // CANVAS CORAZONES FLOTANTES
+        const canvas = document.getElementById('heart-canvas');
+        const ctx = canvas.getContext('2d');
+        let hearts = [];
+
+        function resize() {
+            canvas.width = window.innerWidth;
+            canvas.height = window.innerHeight;
+        }
+        window.onresize = resize;
+        resize();
+
+        class Heart {
+            constructor() {
+                this.reset();
+                this.y = Math.random() * canvas.height;
+            }
+            reset() {
+                this.x = Math.random() * canvas.width;
+                this.y = canvas.height + 100;
+                this.size = Math.random() * 50 + 20;
+                this.speed = Math.random() * 1.2 + 0.4;
+                this.opacity = Math.random() * 0.3 + 0.1;
+            }
+            draw() {
+                ctx.globalAlpha = this.opacity;
+                ctx.fillStyle = "white";
+                ctx.beginPath();
+                const x = this.x, y = this.y, s = this.size;
+                ctx.moveTo(x, y);
+                ctx.bezierCurveTo(x, y-s/2, x-s, y-s/2, x-s, y);
+                ctx.bezierCurveTo(x-s, y+s/2, x, y+s, x, y+s);
+                ctx.bezierCurveTo(x, y+s, x+s, y+s/2, x+s, y);
+                ctx.bezierCurveTo(x+s, y-s/2, x, y-s/2, x, y);
+                ctx.fill();
+            }
+            update() {
+                this.y -= this.speed;
+                if (this.y < -100) this.reset();
+            }
+        }
+
+        for(let i=0; i<25; i++) hearts.push(new Heart());
+
+        function animate() {
+            ctx.clearRect(0, 0, canvas.width, canvas.height);
+            hearts.forEach(h => { h.update(); h.draw(); });
+            requestAnimationFrame(animate);
+        }
+        animate();
+
+        function createHeartShape(e) {
+            const centerX = e.clientX; const centerY = e.clientY; const totalParticles = 18;
+            for (let i = 0; i < totalParticles; i++) {
+                const h = document.createElement("div"); h.className = "heart-particle"; h.innerHTML = "❤";
+                h.style.left = centerX + "px"; h.style.top = centerY + "px";
+                const angle = (i / totalParticles) * Math.PI * 2;
+                const x = 16 * Math.pow(Math.sin(angle), 3);
+                const y = -(13 * Math.cos(angle) - 5 * Math.cos(2 * angle) - 2 * Math.cos(3 * angle) - Math.cos(4 * angle));
+                const scale = 7; h.style.setProperty('--x', `${x * scale}px`); h.style.setProperty('--y', `${y * scale}px`);
+                document.body.appendChild(h); setTimeout(() => h.remove(), 1500);
+            }
+        }
+
+        // Añadir estrellas al fondo
+        function createBackgroundStars() {
+            for (let i = 0; i < 50; i++) {
+                const star = document.createElement('div');
+                star.style.position = 'fixed';
+                star.style.left = Math.random() * 100 + '%';
+                star.style.top = Math.random() * 100 + '%';
+                star.style.width = Math.random() * 3 + 1 + 'px';
+                star.style.height = star.style.width;
+                star.style.background = 'white';
+                star.style.borderRadius = '50%';
+                star.style.opacity = Math.random() * 0.5 + 0.2;
+                star.style.zIndex = '0';
+                star.style.animation = `twinkle ${Math.random() * 4 + 2}s infinite`;
+                document.body.appendChild(star);
+            }
+        }
+
+        // Calcular días desde el 13/07/25
+        function calcularDias() {
+            const inicio = new Date('2025-07-13');
+            const hoy = new Date();
+            const diferencia = Math.floor((hoy - inicio) / (1000 * 60 * 60 * 24));
+            
+            // Actualizar el contador si existe
+            const diasElement = document.querySelector('.stat-number');
+            if (diasElement) {
+                diasElement.textContent = diferencia;
+            }
+            
+            // Calcular días hasta el próximo 13 de julio
+            const proximo13Julio = new Date('2026-07-13');
+            const diasRestantes = Math.floor((proximo13Julio - hoy) / (1000 * 60 * 60 * 24));
+            const contadorElement = document.querySelector('.contador-dias');
+            if (contadorElement) {
+                contadorElement.textContent = diasRestantes;
+            }
+            
+            return diferencia;
+        }
+
+        // Añadir estilo para las estrellas
+        const style = document.createElement('style');
+        style.innerHTML = `
+            @keyframes twinkle {
+                0%, 100% { opacity: 0.2; }
+                50% { opacity: 0.8; }
+            }
+        `;
+        document.head.appendChild(style);
+        
+        // Inicializar estrellas y contadores al cargar
+        window.addEventListener('load', function() {
+            createBackgroundStars();
+            calcularDias();
+        });
+    </script>
+</body>
+</html>

@@ -1,0 +1,1212 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>✨ ESTRELLA GAMES · 5 JUEGOS ORIGINALES ✨</title>
+    
+    <!-- FUENTES -->
+    <link href="https://fonts.googleapis.com/css2?family=Dancing+Script:wght@700&family=Montserrat:wght@300;500;700&family=Great+Vibes&display=swap" rel="stylesheet">
+    
+    <style>
+        :root {
+            --gold: #d4af37;
+            --rose: #ff85a2;
+            --deep-red: #8b0017;
+            --deep-purple: #1a0a2e;
+            --night-sky: #0a0015;
+        }
+
+        * { margin: 0; padding: 0; box-sizing: border-box; }
+
+        body {
+            background: radial-gradient(ellipse at bottom, #1a0a2e 0%, #0a0015 100%);
+            font-family: 'Montserrat', sans-serif;
+            color: white;
+            min-height: 100vh;
+            padding: 40px 20px;
+        }
+
+        .container {
+            max-width: 1400px;
+            margin: 0 auto;
+        }
+
+        h1 {
+            font-family: 'Great Vibes', cursive;
+            font-size: 5rem;
+            color: var(--gold);
+            text-align: center;
+            text-shadow: 0 0 30px rgba(212, 175, 51, 0.5);
+            margin-bottom: 20px;
+        }
+
+        .subtitle {
+            text-align: center;
+            font-family: 'Dancing Script', cursive;
+            font-size: 2rem;
+            color: var(--rose);
+            margin-bottom: 60px;
+        }
+
+        /* GRID DE JUEGOS */
+        .games-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(600px, 1fr));
+            gap: 40px;
+        }
+
+        .game-card {
+            background: rgba(26, 10, 46, 0.8);
+            backdrop-filter: blur(10px);
+            border: 2px solid rgba(212, 175, 51, 0.3);
+            border-radius: 30px;
+            padding: 30px;
+            transition: 0.3s;
+        }
+
+        .game-card:hover {
+            border-color: var(--gold);
+            box-shadow: 0 0 40px rgba(212, 175, 51, 0.3);
+        }
+
+        .game-title {
+            font-family: 'Dancing Script', cursive;
+            font-size: 2.2rem;
+            color: var(--gold);
+            margin-bottom: 20px;
+            border-bottom: 2px solid var(--rose);
+            padding-bottom: 10px;
+        }
+
+        /* JUEGO 1 - MEMORIA ESTELAR */
+        .memory-grid {
+            display: grid;
+            grid-template-columns: repeat(4, 1fr);
+            gap: 15px;
+            margin: 20px 0;
+        }
+
+        .memory-card {
+            aspect-ratio: 1;
+            background: linear-gradient(145deg, #2a1a3a, #1a0a2a);
+            border: 2px solid var(--gold);
+            border-radius: 15px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 2.5rem;
+            cursor: pointer;
+            transition: 0.3s;
+            transform-style: preserve-3d;
+        }
+
+        .memory-card.flipped {
+            background: linear-gradient(145deg, #ffd700, #ffb6c1);
+            transform: rotateY(180deg);
+        }
+
+        .memory-card.matched {
+            border-color: #ff69b4;
+            box-shadow: 0 0 30px rgba(255, 105, 180, 0.7);
+        }
+
+        /* JUEGO 2 - CAZA ESTRELLAS */
+        .catch-area {
+            position: relative;
+            width: 100%;
+            height: 300px;
+            background: linear-gradient(180deg, #0a0a2a, #1a0a3a);
+            border-radius: 20px;
+            border: 2px solid var(--gold);
+            overflow: hidden;
+            margin: 20px 0;
+        }
+
+        .fall-star {
+            position: absolute;
+            font-size: 2rem;
+            animation: caer linear forwards;
+            cursor: pointer;
+            filter: drop-shadow(0 0 15px gold);
+        }
+
+        @keyframes caer {
+            0% { top: -50px; opacity: 1; transform: rotate(0deg); }
+            100% { top: 100%; opacity: 0; transform: rotate(360deg); }
+        }
+
+        /* ========== JUEGO 3: PUZZLE MEJORADO ========== */
+        .puzzle-container {
+            display: flex;
+            gap: 30px;
+            flex-wrap: wrap;
+            margin: 20px 0;
+        }
+
+        .puzzle-pieces, .puzzle-slots {
+            flex: 1;
+            min-width: 250px;
+        }
+
+        .puzzle-grid {
+            display: grid;
+            grid-template-columns: repeat(3, 1fr);
+            gap: 10px;
+        }
+
+        .piece {
+            aspect-ratio: 1;
+            background: linear-gradient(145deg, #ffd700, #ffb347);
+            border: 3px solid white;
+            border-radius: 15px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 2.8rem;
+            cursor: pointer;
+            transition: 0.3s;
+            box-shadow: 0 0 20px rgba(255, 215, 0, 0.5);
+            transform: scale(1);
+        }
+
+        .piece:hover {
+            transform: scale(1.1);
+            box-shadow: 0 0 40px gold;
+            border-color: var(--gold);
+        }
+
+        .piece.selected {
+            border: 4px solid white;
+            box-shadow: 0 0 50px gold;
+            transform: scale(1.15);
+            filter: drop-shadow(0 0 20px white);
+        }
+
+        .slot {
+            aspect-ratio: 1;
+            background: rgba(255, 133, 162, 0.15);
+            border: 4px dashed var(--gold);
+            border-radius: 15px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 2.8rem;
+            cursor: pointer;
+            transition: 0.3s;
+            color: rgba(255,255,255,0.7);
+        }
+
+        .slot:hover {
+            background: rgba(255, 133, 162, 0.3);
+            border-color: white;
+            transform: scale(1.05);
+        }
+
+        .slot.filled {
+            border: 4px solid #28a745;
+            background: rgba(40, 167, 69, 0.3);
+            box-shadow: 0 0 30px rgba(40, 167, 69, 0.5);
+        }
+
+        .slot.filled.correct {
+            border: 4px solid var(--gold);
+            background: rgba(212, 175, 51, 0.3);
+            box-shadow: 0 0 40px gold;
+        }
+
+        /* ========== JUEGO 4: TIRO CON ARCO MEJORADO ========== */
+        .arrow-area {
+            position: relative;
+            width: 100%;
+            height: 350px;
+            background: linear-gradient(145deg, #1a2a3a, #0a1a2a);
+            border-radius: 20px;
+            border: 2px solid var(--gold);
+            overflow: hidden;
+            margin: 20px 0;
+            box-shadow: inset 0 0 50px rgba(0,0,0,0.8);
+        }
+
+        .heart-target {
+            position: absolute;
+            bottom: 50px;
+            right: 80px;
+            font-size: 4.5rem;
+            animation: latido 0.8s infinite;
+            filter: drop-shadow(0 0 40px rgba(255, 0, 102, 0.9));
+            z-index: 30;
+            transition: 0.3s;
+            text-shadow: 0 0 30px white;
+        }
+
+        @keyframes latido {
+            0%, 100% { transform: scale(1); }
+            50% { transform: scale(1.3); }
+        }
+
+        .bow {
+            position: absolute;
+            left: 40px;
+            bottom: 40px;
+            font-size: 3.5rem;
+            transform: rotate(-15deg);
+            filter: drop-shadow(0 0 20px rgba(212, 175, 51, 0.8));
+            z-index: 40;
+        }
+
+        .arrow-flecha {
+            position: absolute;
+            left: 110px;
+            bottom: 60px;
+            font-size: 3rem;
+            cursor: pointer;
+            transition: 0.2s;
+            filter: drop-shadow(0 0 15px gold);
+            z-index: 50;
+            transform-origin: left center;
+        }
+
+        .arrow-flecha:hover {
+            transform: scale(1.3) rotate(-5deg);
+            filter: drop-shadow(0 0 30px #ffd700);
+        }
+
+        .arrow-flecha:active {
+            transform: scale(0.9);
+        }
+
+        .arrow-trail {
+            position: absolute;
+            left: 140px;
+            bottom: 70px;
+            width: 0px;
+            height: 4px;
+            background: linear-gradient(90deg, gold, transparent);
+            border-radius: 2px;
+            transition: 0.1s;
+            z-index: 45;
+        }
+
+        .diana {
+            position: absolute;
+            bottom: 45px;
+            right: 75px;
+            width: 80px;
+            height: 80px;
+            border-radius: 50%;
+            background: radial-gradient(circle, #ff4d4d 0%, #ff1a1a 50%, #b30000 100%);
+            border: 3px solid white;
+            box-shadow: 0 0 50px rgba(255, 0, 0, 0.8);
+            z-index: 20;
+            animation: rotateDiana 10s linear infinite;
+        }
+
+        @keyframes rotateDiana {
+            0% { transform: rotate(0deg); }
+            100% { transform: rotate(360deg); }
+        }
+
+        .diana::before {
+            content: '';
+            position: absolute;
+            top: 50%;
+            left: 50%;
+            transform: translate(-50%, -50%);
+            width: 40px;
+            height: 40px;
+            border-radius: 50%;
+            background: radial-gradient(circle, #fff, #ffd700);
+            border: 2px solid white;
+        }
+
+        .diana::after {
+            content: '🎯';
+            position: absolute;
+            top: 50%;
+            left: 50%;
+            transform: translate(-50%, -50%);
+            font-size: 2rem;
+            color: white;
+            text-shadow: 0 0 20px black;
+        }
+
+        .power-meter {
+            position: absolute;
+            top: 20px;
+            left: 30px;
+            width: 200px;
+            height: 30px;
+            background: rgba(0,0,0,0.7);
+            border-radius: 15px;
+            border: 2px solid var(--gold);
+            overflow: hidden;
+            z-index: 60;
+        }
+
+        .power-fill {
+            height: 100%;
+            width: 50%;
+            background: linear-gradient(90deg, #ffd700, #ff4500);
+            border-radius: 15px;
+            transition: width 0.1s;
+        }
+
+        .combo-counter {
+            position: absolute;
+            top: 20px;
+            right: 30px;
+            background: rgba(0,0,0,0.8);
+            padding: 15px 25px;
+            border-radius: 40px;
+            border: 2px solid var(--gold);
+            font-size: 1.5rem;
+            font-weight: bold;
+            color: var(--gold);
+            z-index: 60;
+            box-shadow: 0 0 30px rgba(212, 175, 51, 0.5);
+        }
+
+        .combo-counter span {
+            color: white;
+            font-size: 2rem;
+            margin-left: 10px;
+        }
+
+        /* JUEGO 5 - LABERINTO */
+        .maze-area {
+            width: 100%;
+            height: 350px;
+            background: #0a0a1a;
+            border-radius: 20px;
+            border: 2px solid var(--gold);
+            overflow: hidden;
+            margin: 20px 0;
+        }
+
+        .maze-grid {
+            display: grid;
+            grid-template-columns: repeat(8, 1fr);
+            grid-template-rows: repeat(8, 1fr);
+            width: 100%;
+            height: 100%;
+            gap: 2px;
+            padding: 10px;
+        }
+
+        .maze-cell {
+            background: rgba(255, 255, 255, 0.05);
+            border: 1px solid rgba(212, 175, 51, 0.2);
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 1.2rem;
+        }
+
+        .wall { background: rgba(139, 0, 23, 0.5); }
+        .goal { background: rgba(255, 215, 0, 0.3); border: 2px solid var(--gold); }
+        .player { background: rgba(255, 133, 162, 0.8); border: 2px solid white; animation: pulso 1s infinite; }
+
+        @keyframes pulso {
+            0%, 100% { box-shadow: 0 0 20px rgba(255,133,162,0.8); }
+            50% { box-shadow: 0 0 40px rgba(255,133,162,1); }
+        }
+
+        /* BOTONES */
+        .game-controls {
+            display: flex;
+            gap: 15px;
+            flex-wrap: wrap;
+            margin-top: 20px;
+        }
+
+        .btn {
+            background: linear-gradient(145deg, #2a1a3a, #1a0a2a);
+            border: 2px solid var(--gold);
+            color: white;
+            padding: 12px 25px;
+            border-radius: 40px;
+            font-weight: 600;
+            cursor: pointer;
+            transition: 0.3s;
+            font-size: 0.9rem;
+            text-transform: uppercase;
+        }
+
+        .btn:hover {
+            background: linear-gradient(145deg, #3a2a4a, #2a1a3a);
+            border-color: var(--rose);
+            transform: scale(1.1);
+            box-shadow: 0 0 30px rgba(255, 133, 162, 0.5);
+        }
+
+        .score {
+            display: inline-block;
+            background: rgba(212, 175, 51, 0.2);
+            border: 1px solid var(--gold);
+            padding: 8px 20px;
+            border-radius: 40px;
+            margin-right: 15px;
+            font-size: 0.95rem;
+        }
+
+        .mensaje-amor {
+            position: fixed;
+            top: 50%;
+            left: 50%;
+            transform: translate(-50%, -50%);
+            background: linear-gradient(145deg, #d4af37, #ff85a2);
+            padding: 40px 60px;
+            border-radius: 60px;
+            border: 3px solid white;
+            color: white;
+            font-family: 'Dancing Script', cursive;
+            font-size: 2rem;
+            text-align: center;
+            z-index: 9999;
+            animation: pop 0.5s;
+            box-shadow: 0 0 100px rgba(212, 175, 51, 0.8);
+            pointer-events: none;
+        }
+
+        @keyframes pop {
+            from { opacity: 0; transform: translate(-50%, -50%) scale(0.3); }
+            to { opacity: 1; transform: translate(-50%, -50%) scale(1); }
+        }
+
+        .firma {
+            text-align: center;
+            margin-top: 80px;
+            padding: 40px;
+            border-top: 2px solid rgba(212, 175, 51, 0.5);
+            font-family: 'Dancing Script', cursive;
+            font-size: 1.8rem;
+            color: var(--rose);
+        }
+    </style>
+</head>
+<body>
+
+    <div class="container">
+        <h1>✨ Estrella Games ✨</h1>
+        <div class="subtitle">5 juegos creados con amor para mi Estrella · por Javi ❤️</div>
+
+        <!-- JUEGO 1: MEMORIA ESTELAR -->
+        <div class="game-card">
+            <div class="game-title">✨ 1. Conexión Estelar</div>
+            <div>
+                <span class="score" id="memoriaAciertos">Aciertos: 0/6</span>
+                <span class="score" id="memoriaIntentos">Intentos: 0</span>
+            </div>
+            <div class="memory-grid" id="memoriaGrid"></div>
+            <div class="game-controls">
+                <button class="btn" id="btnMemoriaNuevo">✨ Nuevo juego</button>
+                <button class="btn" id="btnMemoriaPista">💫 Pista</button>
+            </div>
+        </div>
+
+        <!-- JUEGO 2: CAZA ESTRELLAS -->
+        <div class="game-card">
+            <div class="game-title">⭐ 2. Atrapa la Estrella Fugaz</div>
+            <div>
+                <span class="score" id="estrellasScore">Estrellas: 0</span>
+                <span class="score" id="estrellasNivel">Nivel: 1</span>
+            </div>
+            <div class="catch-area" id="catchArea">
+                <div style="position: absolute; top: 20px; right: 30px; background: rgba(0,0,0,0.7); padding: 15px 30px; border-radius: 40px; border: 2px solid var(--gold);" id="estrellasDisplay">⭐ 0 estrellas</div>
+            </div>
+            <div class="game-controls">
+                <button class="btn" id="btnEstrellasStart">🌠 Empezar</button>
+                <button class="btn" id="btnEstrellasStop">🛑 Parar</button>
+                <button class="btn" id="btnEstrellasReset">🔄 Reiniciar</button>
+            </div>
+        </div>
+
+        <!-- JUEGO 3: PUZZLE MEJORADO -->
+        <div class="game-card">
+            <div class="game-title">🧩 3. Puzzle del Amor Eterno</div>
+            <span class="score" id="puzzleScore">Piezas: 0/9</span>
+            <span class="score" id="puzzleCorrectas">Correctas: 0/9</span>
+            <div class="puzzle-container">
+                <div class="puzzle-pieces">
+                    <h3 style="color: var(--gold); margin-bottom: 15px;">✨ Tus piezas:</h3>
+                    <div class="puzzle-grid" id="puzzlePieces"></div>
+                </div>
+                <div class="puzzle-slots">
+                    <h3 style="color: var(--gold); margin-bottom: 15px;">💕 Mi corazón:</h3>
+                    <div class="puzzle-grid" id="puzzleSlots"></div>
+                </div>
+            </div>
+            <div class="game-controls">
+                <button class="btn" id="btnPuzzleNuevo">🧩 Nuevo puzzle</button>
+                <button class="btn" id="btnPuzzleMezclar">🔄 Mezclar</button>
+                <button class="btn" id="btnPuzzleSolucion">💫 Ver solución</button>
+                <button class="btn" id="btnPuzzleComprobar">✅ Comprobar</button>
+            </div>
+        </div>
+
+        <!-- JUEGO 4: TIRO CON ARCO MEJORADO -->
+        <div class="game-card">
+            <div class="game-title">🏹 4. Tiro con Arco del Amor</div>
+            <div>
+                <span class="score" id="flechaAciertos">Aciertos: 0</span>
+                <span class="score" id="flechaIntentos">Intentos: 0</span>
+                <span class="score" id="flechaCombo">🔥 Combo: 0</span>
+            </div>
+            <div class="arrow-area" id="arrowArea">
+                <div class="diana" id="diana"></div>
+                <div class="heart-target" id="corazon">❤️</div>
+                <div class="bow">🏹</div>
+                <div class="arrow-flecha" id="flecha">➡️</div>
+                <div class="arrow-trail" id="arrowTrail"></div>
+                
+                <div class="power-meter">
+                    <div class="power-fill" id="powerFill"></div>
+                </div>
+                
+                <div class="combo-counter" id="comboCounter">
+                    🔥 COMBO <span id="comboValue">0</span>
+                </div>
+            </div>
+            <div class="game-controls">
+                <button class="btn" id="btnFlechaReset">🎯 Nueva partida</button>
+                <button class="btn" id="btnFlechaMover">❤️ Mover diana</button>
+                <button class="btn" id="btnFlechaCargar">⚡ Cargar tiro</button>
+            </div>
+            <p style="color: rgba(255,255,255,0.7); margin-top: 10px; font-size: 0.9rem;">🎯 Haz clic en la flecha o pulsa ⚡ Cargar tiro para disparar</p>
+        </div>
+
+        <!-- JUEGO 5: LABERINTO DEL CORAZÓN -->
+        <div class="game-card">
+            <div class="game-title">🗺️ 5. Laberinto del Corazón</div>
+            <div>
+                <span class="score" id="laberintoNivel">Nivel: 1/5</span>
+                <span class="score" id="laberintoEstado">✨ Buscando a Estrella</span>
+            </div>
+            <div class="maze-area">
+                <div class="maze-grid" id="laberintoGrid"></div>
+            </div>
+            <div class="game-controls">
+                <button class="btn" id="btnLaberintoNuevo">🔄 Nuevo laberinto</button>
+                <button class="btn" id="btnLaberintoSiguiente">⬆️ Siguiente nivel</button>
+                <button class="btn" id="btnLaberintoReset">✨ Reiniciar</button>
+            </div>
+            <p style="color: rgba(255,255,255,0.6); margin-top: 15px;">⬆️⬇️⬅️➡️ Usa las flechas del teclado para mover a Javi (💙) hasta Estrella (💛)</p>
+        </div>
+
+        <div class="firma">
+            <p>Para mi Estrella favorita, con todo mi amor</p>
+            <p style="font-size: 2.5rem; margin-top: 20px;">Javi ❤️ Estrella</p>
+            <p style="font-size: 1rem; margin-top: 30px;">2500+ líneas de código · 5 juegos originales · 1 solo amor</p>
+        </div>
+    </div>
+
+    <script>
+        // ===========================================
+        // === JUEGO 1: MEMORIA ESTELAR ==============
+        // ===========================================
+        const pares = [
+            { id: 1, emoji: '✨', nombre: 'Estrella' },
+            { id: 2, emoji: '👨‍💻', nombre: 'Javi' },
+            { id: 3, emoji: '❤️', nombre: 'Amor' },
+            { id: 4, emoji: '💫', nombre: 'Destino' },
+            { id: 5, emoji: '🌠', nombre: 'Fugaz' },
+            { id: 6, emoji: '💕', nombre: 'Juntos' }
+        ];
+
+        let cartas = [];
+        let volteadas = [];
+        let aciertos = 0;
+        let intentos = 0;
+        let bloqueado = false;
+
+        function iniciarMemoria() {
+            const grid = document.getElementById('memoriaGrid');
+            if (!grid) return;
+            
+            cartas = [];
+            pares.forEach((par, idx) => {
+                cartas.push({ ...par, idCarta: `a-${idx}`, emparejada: false });
+                cartas.push({ ...par, idCarta: `b-${idx}`, emparejada: false });
+            });
+            
+            for (let i = cartas.length - 1; i > 0; i--) {
+                const j = Math.floor(Math.random() * (i + 1));
+                [cartas[i], cartas[j]] = [cartas[j], cartas[i]];
+            }
+            
+            grid.innerHTML = '';
+            cartas.forEach((carta, index) => {
+                const div = document.createElement('div');
+                div.className = 'memory-card';
+                div.dataset.index = index;
+                div.dataset.parId = carta.id;
+                div.dataset.emparejada = 'false';
+                div.innerHTML = '<span style="transform: rotateY(180deg); display: block;">❓</span>';
+                
+                div.onclick = function() { girarCarta(this, cartas[index], index); };
+                grid.appendChild(div);
+            });
+            
+            volteadas = [];
+            aciertos = 0;
+            intentos = 0;
+            bloqueado = false;
+            
+            document.getElementById('memoriaAciertos').textContent = 'Aciertos: 0/6';
+            document.getElementById('memoriaIntentos').textContent = 'Intentos: 0';
+        }
+
+        function girarCarta(elemento, carta, index) {
+            if (bloqueado) return;
+            if (elemento.classList.contains('flipped')) return;
+            if (elemento.dataset.emparejada === 'true') return;
+            if (volteadas.length >= 2) return;
+            
+            elemento.classList.add('flipped');
+            elemento.querySelector('span').textContent = carta.emoji;
+            volteadas.push({ elemento, carta, index });
+            
+            if (volteadas.length === 2) {
+                intentos++;
+                document.getElementById('memoriaIntentos').textContent = `Intentos: ${intentos}`;
+                comprobarPareja();
+            }
+        }
+
+        function comprobarPareja() {
+            bloqueado = true;
+            const [c1, c2] = volteadas;
+            
+            if (c1.carta.id === c2.carta.id) {
+                c1.elemento.dataset.emparejada = 'true';
+                c2.elemento.dataset.emparejada = 'true';
+                c1.elemento.classList.add('matched');
+                c2.elemento.classList.add('matched');
+                aciertos++;
+                document.getElementById('memoriaAciertos').textContent = `Aciertos: ${aciertos}/6`;
+                
+                if (aciertos === 6) {
+                    mostrarMensaje('🎉 ¡CONEXIÓN ESTELAR COMPLETA! Eres mi universo entero, Estrella 🎉');
+                }
+                
+                volteadas = [];
+                bloqueado = false;
+            } else {
+                setTimeout(() => {
+                    c1.elemento.classList.remove('flipped');
+                    c2.elemento.classList.remove('flipped');
+                    c1.elemento.querySelector('span').textContent = '❓';
+                    c2.elemento.querySelector('span').textContent = '❓';
+                    volteadas = [];
+                    bloqueado = false;
+                }, 800);
+            }
+        }
+
+        function darPista() {
+            if (aciertos >= 6) return;
+            const cartasDOM = document.querySelectorAll('.memory-card');
+            for (let carta of cartasDOM) {
+                if (carta.dataset.emparejada === 'false' && !carta.classList.contains('flipped')) {
+                    const idx = parseInt(carta.dataset.index);
+                    const datosCarta = cartas[idx];
+                    carta.classList.add('flipped');
+                    carta.querySelector('span').textContent = datosCarta.emoji;
+                    setTimeout(() => {
+                        if (carta.dataset.emparejada === 'false' && !carta.classList.contains('matched')) {
+                            carta.classList.remove('flipped');
+                            carta.querySelector('span').textContent = '❓';
+                        }
+                    }, 1000);
+                    intentos++;
+                    document.getElementById('memoriaIntentos').textContent = `Intentos: ${intentos}`;
+                    break;
+            }}
+        }
+
+        // ===========================================
+        // === JUEGO 2: CAZA ESTRELLAS ==============
+        // ===========================================
+        let intervaloEstrellas = null;
+        let estrellasAtrapadas = 0;
+        let nivelEstrellas = 1;
+        let cazaActiva = false;
+
+        function empezarCaza() {
+            if (cazaActiva) return;
+            cazaActiva = true;
+            intervaloEstrellas = setInterval(() => {
+                if (!cazaActiva) return;
+                const area = document.getElementById('catchArea');
+                if (!area) return;
+                
+                const estrella = document.createElement('div');
+                estrella.className = 'fall-star';
+                const emojis = ['✨', '⭐', '🌟', '💫', '🌠'];
+                estrella.textContent = emojis[Math.floor(Math.random() * emojis.length)];
+                estrella.style.left = Math.random() * 80 + 10 + '%';
+                estrella.style.animationDuration = (4 / nivelEstrellas) + 's';
+                
+                estrella.onclick = function(e) {
+                    e.stopPropagation();
+                    if (!cazaActiva) return;
+                    estrellasAtrapadas++;
+                    document.getElementById('estrellasScore').textContent = `Estrellas: ${estrellasAtrapadas}`;
+                    document.getElementById('estrellasDisplay').textContent = `⭐ ${estrellasAtrapadas} estrellas`;
+                    
+                    if (estrellasAtrapadas % 5 === 0) {
+                        nivelEstrellas++;
+                        document.getElementById('estrellasNivel').textContent = `Nivel: ${nivelEstrellas}`;
+                        mostrarMensaje(`🌠 ¡NIVEL ${nivelEstrellas}! Eres una cazadora de estrellas experta, mi amor 🌠`);
+                    }
+                    estrella.remove();
+                };
+                
+                area.appendChild(estrella);
+                setTimeout(() => { if (estrella.parentNode) estrella.remove(); }, 4000 / nivelEstrellas * 1000);
+            }, 600 / nivelEstrellas);
+        }
+
+        function pararCaza() {
+            cazaActiva = false;
+            if (intervaloEstrellas) clearInterval(intervaloEstrellas);
+            intervaloEstrellas = null;
+            document.querySelectorAll('.fall-star').forEach(s => s.remove());
+        }
+
+        function reiniciarCaza() {
+            pararCaza();
+            estrellasAtrapadas = 0;
+            nivelEstrellas = 1;
+            document.getElementById('estrellasScore').textContent = 'Estrellas: 0';
+            document.getElementById('estrellasNivel').textContent = 'Nivel: 1';
+            document.getElementById('estrellasDisplay').textContent = '⭐ 0 estrellas';
+        }
+
+        // ===========================================
+        // === JUEGO 3: PUZZLE MEJORADO =============
+        // ===========================================
+        const emojisPuzzle = ['✨', '⭐', '❤️', '💫', '🌠', '💕', '👨‍💻', '🌟', '💎'];
+        let piezasArray = [];
+        let slotsArray = [];
+        let piezaSeleccionada = null;
+
+        function iniciarPuzzle() {
+            const contenedorPiezas = document.getElementById('puzzlePieces');
+            const contenedorSlots = document.getElementById('puzzleSlots');
+            if (!contenedorPiezas || !contenedorSlots) return;
+            
+            piezasArray = [...emojisPuzzle];
+            for (let i = piezasArray.length - 1; i > 0; i--) {
+                const j = Math.floor(Math.random() * (i + 1));
+                [piezasArray[i], piezasArray[j]] = [piezasArray[j], piezasArray[i]];
+            }
+            
+            slotsArray = new Array(9).fill(null);
+            piezaSeleccionada = null;
+            
+            contenedorPiezas.innerHTML = '';
+            piezasArray.forEach((emoji, index) => {
+                const pieza = document.createElement('div');
+                pieza.className = 'piece';
+                pieza.textContent = emoji;
+                pieza.dataset.emoji = emoji;
+                pieza.dataset.index = index;
+                pieza.onclick = function() { seleccionarPieza(this); };
+                contenedorPiezas.appendChild(pieza);
+            });
+            
+            contenedorSlots.innerHTML = '';
+            for (let i = 0; i < 9; i++) {
+                const slot = document.createElement('div');
+                slot.className = 'slot';
+                slot.dataset.slotIndex = i;
+                slot.textContent = '❓';
+                slot.onclick = function() { colocarPieza(this); };
+                contenedorSlots.appendChild(slot);
+            }
+            
+            document.getElementById('puzzleScore').textContent = 'Piezas: 0/9';
+            document.getElementById('puzzleCorrectas').textContent = 'Correctas: 0/9';
+        }
+
+        function seleccionarPieza(pieza) {
+            document.querySelectorAll('.piece').forEach(p => p.classList.remove('selected'));
+            pieza.classList.add('selected');
+            piezaSeleccionada = pieza;
+        }
+
+        function colocarPieza(slot) {
+            if (!piezaSeleccionada) {
+                mostrarMensaje('💕 Primero selecciona una pieza 💕');
+                return;
+            }
+            if (slot.classList.contains('filled')) return;
+            
+            const emoji = piezaSeleccionada.dataset.emoji;
+            const indiceSlot = parseInt(slot.dataset.slotIndex);
+            
+            slot.textContent = emoji;
+            slot.classList.add('filled');
+            piezaSeleccionada.style.opacity = '0.3';
+            piezaSeleccionada.style.pointerEvents = 'none';
+            piezaSeleccionada.classList.remove('selected');
+            
+            slotsArray[indiceSlot] = emoji;
+            
+            const colocadas = slotsArray.filter(s => s !== null).length;
+            document.getElementById('puzzleScore').textContent = `Piezas: ${colocadas}/9`;
+            
+            // Comprobar si la pieza está en posición correcta
+            if (emoji === emojisPuzzle[indiceSlot]) {
+                slot.classList.add('correct');
+            }
+            
+            comprobarPuzzle();
+            piezaSeleccionada = null;
+        }
+
+        function comprobarPuzzle() {
+            let correctas = 0;
+            for (let i = 0; i < 9; i++) {
+                if (slotsArray[i] === emojisPuzzle[i]) {
+                    correctas++;
+                }
+            }
+            document.getElementById('puzzleCorrectas').textContent = `Correctas: ${correctas}/9`;
+            
+            if (correctas === 9) {
+                mostrarMensaje('🎉 ¡PUZZLE COMPLETADO! 🎉\n\n"Estrella, eres la pieza que faltaba en mi vida. Javi" 💕');
+            }
+        }
+
+        function mezclarPuzzle() {
+            iniciarPuzzle();
+        }
+
+        function resolverPuzzle() {
+            const slotsDiv = document.getElementById('puzzleSlots');
+            for (let i = 0; i < 9; i++) {
+                const slot = slotsDiv.children[i];
+                slot.textContent = emojisPuzzle[i];
+                slot.classList.add('filled');
+                slot.classList.add('correct');
+            }
+            document.querySelectorAll('.piece').forEach(p => {
+                p.style.opacity = '0.3';
+                p.style.pointerEvents = 'none';
+            });
+            slotsArray = [...emojisPuzzle];
+            document.getElementById('puzzleScore').textContent = 'Piezas: 9/9';
+            document.getElementById('puzzleCorrectas').textContent = 'Correctas: 9/9';
+            mostrarMensaje('💕 "Eres la solución a todos mis acertijos, Estrella. Te amo." 💕');
+        }
+
+        // ===========================================
+        // === JUEGO 4: TIRO CON ARCO MEJORADO ======
+        // ===========================================
+        let flechasAcertadas = 0;
+        let flechasLanzadas = 0;
+        let combo = 0;
+        let maxCombo = 0;
+        let posCorazon = 80;
+        let cargandoTiro = false;
+        let potenciaTiro = 50;
+
+        function lanzarFlecha() {
+            const flecha = document.getElementById('flecha');
+            const corazon = document.getElementById('corazon');
+            const diana = document.getElementById('diana');
+            const trail = document.getElementById('arrowTrail');
+            const powerFill = document.getElementById('powerFill');
+            
+            flechasLanzadas++;
+            document.getElementById('flechaIntentos').textContent = `Intentos: ${flechasLanzadas}`;
+            
+            // Animación de disparo
+            flecha.style.transform = 'translateX(350px) scale(1.3) rotate(10deg)';
+            trail.style.width = '200px';
+            trail.style.background = 'linear-gradient(90deg, #ffd700, #ff4500, transparent)';
+            
+            setTimeout(() => {
+                // Calcular acierto basado en potencia y posición
+                const distancia = Math.abs(posCorazon - 50);
+                const probabilidadBase = (potenciaTiro / 100) * 0.8;
+                let probabilidadAcierto = probabilidadBase;
+                
+                if (distancia < 10) probabilidadAcierto += 0.3;
+                else if (distancia < 20) probabilidadAcierto += 0.2;
+                else if (distancia < 30) probabilidadAcierto += 0.1;
+                
+                const acierto = Math.random() < probabilidadAcierto;
+                
+                if (acierto) {
+                    flechasAcertadas++;
+                    combo++;
+                    if (combo > maxCombo) maxCombo = combo;
+                    
+                    // Efectos visuales
+                    corazon.style.transform = 'scale(2)';
+                    corazon.style.filter = 'drop-shadow(0 0 80px gold) drop-shadow(0 0 40px white)';
+                    diana.style.transform = 'scale(1.3)';
+                    diana.style.borderColor = 'gold';
+                    
+                    mostrarMensaje('❤️ ¡FLECHA AL CORAZÓN! +' + combo + ' COMBO ❤️');
+                    
+                    setTimeout(() => {
+                        corazon.style.transform = 'scale(1)';
+                        corazon.style.filter = 'drop-shadow(0 0 40px rgba(255, 0, 102, 0.9))';
+                        diana.style.transform = 'scale(1)';
+                    }, 500);
+                } else {
+                    combo = 0;
+                    flecha.style.filter = 'drop-shadow(0 0 30px #ff0000)';
+                    setTimeout(() => {
+                        flecha.style.filter = 'drop-shadow(0 0 15px gold)';
+                    }, 300);
+                }
+                
+                document.getElementById('flechaAciertos').textContent = `Aciertos: ${flechasAcertadas}`;
+                document.getElementById('flechaCombo').textContent = `🔥 Combo: ${combo}`;
+                document.getElementById('comboValue').textContent = combo;
+                
+                // Resetear flecha
+                flecha.style.transform = 'translateX(0) scale(1) rotate(-15deg)';
+                trail.style.width = '0px';
+                
+            }, 300);
+        }
+
+        function moverCorazon() {
+            const corazon = document.getElementById('corazon');
+            const diana = document.getElementById('diana');
+            posCorazon = Math.random() * 60 + 20;
+            corazon.style.right = posCorazon + 'px';
+            diana.style.right = (posCorazon - 5) + 'px';
+            
+            // Cambiar tamaño aleatorio
+            const size = Math.random() * 1.5 + 3.5;
+            corazon.style.fontSize = size + 'rem';
+            diana.style.width = (size * 20) + 'px';
+            diana.style.height = (size * 20) + 'px';
+            diana.style.right = (posCorazon - 3) + 'px';
+        }
+
+        function cargarTiro() {
+            const powerFill = document.getElementById('powerFill');
+            let potencia = 30;
+            
+            const intervalo = setInterval(() => {
+                potencia += 2;
+                if (potencia > 100) potencia = 30;
+                powerFill.style.width = potencia + '%';
+                
+                if (potencia > 80) powerFill.style.background = 'linear-gradient(90deg, #ffd700, #ff0000)';
+                else if (potencia > 50) powerFill.style.background = 'linear-gradient(90deg, #ffd700, #ff8c00)';
+                else powerFill.style.background = 'linear-gradient(90deg, #ffd700, #ff4500)';
+            }, 30);
+            
+            setTimeout(() => {
+                clearInterval(intervalo);
+                potenciaTiro = potencia;
+                lanzarFlecha();
+            }, 2000);
+        }
+
+        function reiniciarFlechas() {
+            flechasAcertadas = 0;
+            flechasLanzadas = 0;
+            combo = 0;
+            maxCombo = 0;
+            potenciaTiro = 50;
+            
+            document.getElementById('flechaAciertos').textContent = 'Aciertos: 0';
+            document.getElementById('flechaIntentos').textContent = 'Intentos: 0';
+            document.getElementById('flechaCombo').textContent = '🔥 Combo: 0';
+            document.getElementById('comboValue').textContent = '0';
+            document.getElementById('powerFill').style.width = '50%';
+            
+            const corazon = document.getElementById('corazon');
+            const diana = document.getElementById('diana');
+            corazon.style.right = '80px';
+            corazon.style.fontSize = '4rem';
+            diana.style.right = '75px';
+            diana.style.width = '80px';
+            diana.style.height = '80px';
+            posCorazon = 80;
+        }
+
+        // ===========================================
+        // === JUEGO 5: LABERINTO ===================
+        // ===========================================
+        const laberintos = [
+            [
+                [1,1,1,1,1,1,1,1],
+                [1,0,0,0,0,0,0,1],
+                [1,0,1,1,1,0,1,1],
+                [1,0,0,0,1,0,0,1],
+                [1,1,1,0,1,0,1,1],
+                [1,0,0,0,0,0,0,1],
+                [1,0,1,1,1,0,0,1],
+                [1,1,1,1,1,1,1,1]
+            ]
+        ];
+
+        let nivelLaberinto = 1;
+        let gridLaberinto = [];
+        let jugadorPos = { fila: 1, col: 1 };
+        let metaPos = { fila: 6, col: 6 };
+        let laberintoResuelto = false;
+
+        function iniciarLaberinto(nivel) {
+            nivelLaberinto = nivel;
+            laberintoResuelto = false;
+            const dataLaberinto = laberintos[0];
+            const gridContainer = document.getElementById('laberintoGrid');
+            if (!gridContainer) return;
+            
+            gridContainer.innerHTML = '';
+            gridLaberinto = [];
+            jugadorPos = { fila: 1, col: 1 };
+            metaPos = { fila: 6, col: 6 };
+            
+            for (let f = 0; f < 8; f++) {
+                const fila = [];
+                for (let c = 0; c < 8; c++) {
+                    const celda = document.createElement('div');
+                    celda.className = 'maze-cell';
+                    if (dataLaberinto[f][c] === 1) {
+                        celda.classList.add('wall');
+                        celda.textContent = '🧱';
+                    } else {
+                        if (f === jugadorPos.fila && c === jugadorPos.col) {
+                            celda.classList.add('player');
+                            celda.textContent = '💙';
+                        } else if (f === metaPos.fila && c === metaPos.col) {
+                            celda.classList.add('goal');
+                            celda.textContent = '💛';
+                        } else {
+                            celda.textContent = '·';
+                        }
+                    }
+                    gridContainer.appendChild(celda);
+                    fila.push(celda);
+                }
+                gridLaberinto.push(fila);
+            }
+            document.getElementById('laberintoNivel').textContent = `Nivel: ${nivelLaberinto}/5`;
+            document.getElementById('laberintoEstado').textContent = '✨ Buscando a Estrella';
+        }
+
+        function moverJugador(e) {
+            if (laberintoResuelto) return;
+            const tecla = e.key;
+            if (!tecla.startsWith('Arrow')) return;
+            e.preventDefault();
+            
+            let nuevaFila = jugadorPos.fila;
+            let nuevaCol = jugadorPos.col;
+            if (tecla === 'ArrowUp') nuevaFila--;
+            if (tecla === 'ArrowDown') nuevaFila++;
+            if (tecla === 'ArrowLeft') nuevaCol--;
+            if (tecla === 'ArrowRight') nuevaCol++;
+            
+            if (nuevaFila < 0 || nuevaFila >= 8 || nuevaCol < 0 || nuevaCol >= 8) return;
+            
+            const dataLaberinto = laberintos[0];
+            if (dataLaberinto[nuevaFila][nuevaCol] === 1) return;
+            
+            gridLaberinto[jugadorPos.fila][jugadorPos.col].classList.remove('player');
+            gridLaberinto[jugadorPos.fila][jugadorPos.col].textContent = '·';
+            
+            jugadorPos.fila = nuevaFila;
+            jugadorPos.col = nuevaCol;
+            
+            gridLaberinto[jugadorPos.fila][jugadorPos.col].classList.add('player');
+            gridLaberinto[jugadorPos.fila][jugadorPos.col].textContent = '💙';
+            
+            if (jugadorPos.fila === metaPos.fila && jugadorPos.col === metaPos.col) {
+                laberintoResuelto = true;
+                document.getElementById('laberintoEstado').textContent = '🎉 ¡ENCONTRÉ A MI ESTRELLA!';
+                mostrarMensaje(`✨ ¡LABERINTO COMPLETADO! ✨\n\nSiempre te encontraré, Estrella. Te amo. 💕`);
+            }
+        }
+
+        function siguienteNivel() {
+            if (nivelLaberinto < 5) {
+                iniciarLaberinto(nivelLaberinto + 1);
+            } else {
+                mostrarMensaje('✨ ¡Completaste todos los niveles! Eres increíble, mi amor ✨');
+            }
+        }
+
+        function reiniciarLaberinto() {
+            iniciarLaberinto(1);
+        }
+
+        // ===========================================
+        // === FUNCIONES COMUNES ====================
+        // ===========================================
+        function mostrarMensaje(texto) {
+            const msg = document.createElement('div');
+            msg.className = 'mensaje-amor';
+            msg.innerHTML = texto.replace(/\n/g, '<br>');
+            document.body.appendChild(msg);
+            setTimeout(() => msg.remove(), 4000);
+        }
+
+        // ===========================================
+        // === INICIALIZACIÓN Y EVENTOS =============
+        // ===========================================
+        window.onload = function() {
+            // Iniciar juegos
+            iniciarMemoria();
+            iniciarPuzzle();
+            iniciarLaberinto(1);
+            reiniciarFlechas();
+            
+            // ASIGNAR EVENTOS A BOTONES
+            document.getElementById('btnMemoriaNuevo').onclick = function() { iniciarMemoria(); };
+            document.getElementById('btnMemoriaPista').onclick = function() { darPista(); };
+            
+            document.getElementById('btnEstrellasStart').onclick = function() { empezarCaza(); };
+            document.getElementById('btnEstrellasStop').onclick = function() { pararCaza(); };
+            document.getElementById('btnEstrellasReset').onclick = function() { reiniciarCaza(); };
+            
+            document.getElementById('btnPuzzleNuevo').onclick = function() { iniciarPuzzle(); };
+            document.getElementById('btnPuzzleMezclar').onclick = function() { mezclarPuzzle(); };
+            document.getElementById('btnPuzzleSolucion').onclick = function() { resolverPuzzle(); };
+            document.getElementById('btnPuzzleComprobar').onclick = function() { comprobarPuzzle(); };
+            
+            document.getElementById('btnFlechaReset').onclick = function() { reiniciarFlechas(); };
+            document.getElementById('btnFlechaMover').onclick = function() { moverCorazon(); };
+            document.getElementById('btnFlechaCargar').onclick = function() { cargarTiro(); };
+            document.getElementById('flecha').onclick = function() { lanzarFlecha(); };
+            
+            document.getElementById('btnLaberintoNuevo').onclick = function() { iniciarLaberinto(1); };
+            document.getElementById('btnLaberintoSiguiente').onclick = function() { siguienteNivel(); };
+            document.getElementById('btnLaberintoReset').onclick = function() { reiniciarLaberinto(); };
+            
+            window.addEventListener('keydown', moverJugador);
+            
+            mostrarMensaje('✨ ¡BIENVENIDA A TUS JUEGOS, ESTRELLA! ✨\n\nCada juego es un pedacito de mi amor por ti. 💕');
+        };
+
+        window.onbeforeunload = function() {
+            pararCaza();
+            window.removeEventListener('keydown', moverJugador);
+        };
+    </script>
+
+    <style>
+        .memory-card span { display: block; transform: rotateY(180deg); font-size: 2.5rem; }
+        .mensaje-amor { white-space: pre-line; max-width: 500px; }
+        .power-meter { position: absolute; top: 20px; left: 30px; width: 200px; height: 30px; background: rgba(0,0,0,0.7); border-radius: 15px; border: 2px solid var(--gold); overflow: hidden; z-index: 60; }
+        .power-fill { height: 100%; width: 50%; background: linear-gradient(90deg, #ffd700, #ff4500); border-radius: 15px; transition: width 0.1s; }
+        .combo-counter { position: absolute; top: 20px; right: 30px; background: rgba(0,0,0,0.8); padding: 15px 25px; border-radius: 40px; border: 2px solid var(--gold); font-size: 1.5rem; font-weight: bold; color: var(--gold); z-index: 60; }
+        .arrow-trail { position: absolute; left: 140px; bottom: 70px; width: 0px; height: 4px; background: linear-gradient(90deg, gold, transparent); border-radius: 2px; transition: 0.1s; z-index: 45; }
+    </style>
+
+</body>
+</html>

@@ -170,32 +170,33 @@
             margin-top: 30px;
         }
 
-        .back-btn-lily {
+        .back-btn {
             position: fixed;
             top: 30px;
             left: 30px;
-            background: rgba(255, 255, 255, 0.1);
+            background: rgba(212, 175, 51, 0.2);
             backdrop-filter: blur(10px);
-            border: 1px solid rgba(255,255,255,0.2);
-            color: white;
+            border: 2px solid var(--gold);
+            color: var(--gold);
             padding: 12px 24px;
-            border-radius: 10px;
+            border-radius: 15px;
             text-decoration: none;
             transition: 0.3s;
-            font-size: 0.9rem;
+            font-size: 0.85rem;
             letter-spacing: 1px;
             text-transform: uppercase;
             font-weight: 600;
-            box-shadow: 0 5px 15px rgba(0,0,0,0.2);
             z-index: 100;
+            font-family: 'Montserrat', sans-serif;
         }
 
-        .back-btn-lily:hover {
-            background: var(--romance-pink);
-            border-color: var(--romance-pink);
+        .back-btn:hover {
+            background: rgba(212, 175, 51, 0.4);
+            border-color: var(--gold);
+            color: var(--gold);
             transform: translateY(-3px);
-            color: white;
             text-decoration: none;
+            box-shadow: 0 0 20px rgba(212, 175, 51, 0.6);
         }
 
         .glow-effect {
@@ -221,7 +222,7 @@
     </style>
 </head>
 <body>
-    <a href="flores.html" class="back-btn-lily">← Volver</a>
+    <a href="flores.html" class="back-btn">← Volver</a>
 
     <div class="lilies-container">
         <div class="glow-effect"></div>
